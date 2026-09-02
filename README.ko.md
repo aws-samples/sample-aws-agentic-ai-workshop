@@ -4,16 +4,16 @@
 
 [Strands Agents SDK](https://strandsagents.com/docs/)로 AI 에이전트를 처음부터 만들고, [Amazon Bedrock AgentCore](https://aws.amazon.com/ko/bedrock/agentcore/)로 배포·운영하는 과정을 다루는 핸즈온 워크샵입니다.
 
+<!-- ![Agentic AI on AWS Workshop](docs/images/agentic-ai-101.png) -->
+<p align="center">
+  <img src="docs/images/agentic-ai-learning-path.png" alt="Agentic AI on AWS 학습 경로: 1장 Strands Agents 시작하기, 2장 멀티 에이전트 시스템 만들기, 3장 챗봇 애플리케이션에 올리기, 4장 Strands로 관측하기, 5장 에이전트에 메모리 추가하기, 6장 프로덕션에 배포하기, 7장 프로덕션에서 관측하기" width="620">
+</p>
+
 - **학습 방법:** 각 챕터는 `labs/` 폴더와 `completed/` 폴더로 구성됩니다. `labs/`의 빈 파일에 직접 코드를 작성하고, `completed/`의 완성된 코드와 비교하면서 학습합니다.
 
 - **레벨:** 100~200 (입문~중급). 에이전트나 LLM 사전 경험이 없어도 진행할 수 있습니다.
 
 - **소요 시간:** 필수 챕터 기준 약 2시간, 8개 챕터 전체는 약 3시간 소요됩니다. 
-
-<!-- ![Agentic AI on AWS Workshop](docs/images/agentic-ai-101.png) -->
-<p align="center">
-  <img src="docs/images/agentic-ai-learning-path.png" alt="Agentic AI on AWS 학습 경로: 1장 Strands Agents 시작하기, 2장 멀티 에이전트 시스템 만들기, 3장 챗봇 애플리케이션에 올리기, 4장 Strands로 관측하기, 5장 에이전트에 메모리 추가하기, 6장 프로덕션에 배포하기, 7장 프로덕션에서 관측하기" width="620">
-</p>
 
 ---
 
@@ -44,112 +44,6 @@
 
 > [!IMPORTANT]
 > 01, 02, 05, 06, 07 챕터가 핵심 경로입니다. 03, 04, 08 챕터는 독립적으로 구성되어 있어 건너뛸 수 있습니다. 챕터 간 의존성은 하나뿐입니다. 07 챕터는 06 챕터에서 배포한 에이전트의 텔레메트리를 확인하는 실습입니다.
-
----
-
-## 🧪 챕터별 상세
-
-### 00. 환경 설정
-**파일**: `create-uv-env.sh`, `pyproject.toml`, `uv.lock`, `install_korean_font.sh`
-
-두 가지 경로 중 하나만 선택하면 됩니다. 본인 머신에서 실습하거나(약 10분), CloudFormation으로 AWS에 VS Code Server를 배포합니다(약 30분, 강사 진행 워크샵에서 사용).
-
-- 이후 모든 챕터가 공유하는 [uv](https://docs.astral.sh/uv/) 기반 Python 3.12 프로젝트
-- Amazon Bedrock을 호출할 수 있는 AWS 자격 증명과 `us-west-2` 모델 액세스
-- 레포지토리 루트에서 `uv run`만으로 실행되도록 하는 심볼릭 링크 (선택)
-
-### 01. 단일 에이전트 만들기
-**파일**: `basic.py`, `models.py`, `custom_tool1.py`, `custom_tool2.py`, `knowledge_base.py`, `mcp_tool.py`, `self_extending.py`, `self_modifying.py`, `tools/`
-
-Strands SDK의 세 가지 핵심 구성요소(Prompt, Model, Tools)와 그 위에 붙이는 기능들을 다룹니다.
-
-- `strands_tools`의 기본 제공 도구로 에이전트 만들기
-- `BedrockModel` 설정과 Extended Thinking(추론) 활성화
-- 커스텀 도구를 만드는 두 가지 방법: `@tool` 데코레이터와 `TOOL_SPEC` 도구 모듈
-- Amazon Bedrock Knowledge Base 생성과 `retrieve` 도구로 조회하기 (RAG)
-- MCP 서버(AWS Documentation MCP, Playwright MCP)를 에이전트 도구로 연결
-- 자가개선 패턴 두 가지: 스스로 도구를 만드는 에이전트, 스스로 시스템 프롬프트를 고치는 에이전트
-
-> **참고**: 2번 섹션에서 OpenSearch Serverless 컬렉션 기반 Knowledge Base를 생성하며, 이 컬렉션은 계속 과금됩니다. 4번 섹션은 선택입니다.
-
-### 02. 멀티 에이전트 패턴
-**파일**: `agents_as_tools.py`, `swarms.py`, `graph_parallel.py`, `graph_condition.py`
-
-단일 에이전트로는 처리하기 어려운 작업을 여러 에이전트가 협업해서 푸는 세 가지 방법입니다.
-
-- 전문 에이전트를 `@tool`로 감싸 오케스트레이터가 라우팅하는 [Agents-as-Tools](https://strandsagents.com/docs/user-guide/concepts/multi-agent/agents-as-tools/)
-- 에이전트가 서로에게 자율적으로 작업을 넘기는 [`Swarm`](https://strandsagents.com/docs/user-guide/concepts/multi-agent/swarm/)
-- 실행 순서와 의존성, 병렬 분기를 명시적으로 정의하는 [`GraphBuilder`](https://strandsagents.com/docs/user-guide/concepts/multi-agent/graph/)
-- 조건부 엣지로 그래프를 서로 다른 에이전트로 분기하기
-
-### 03. 챗봇 애플리케이션에 적용하기
-**파일**: `streamlit_app.py`
-
-터미널에서 돌던 에이전트를 웹 애플리케이션으로 옮깁니다.
-
-- Streamlit 챗봇 UI와 세션 상태 기반 대화 히스토리 관리
-- `stream_async`와 비동기 처리로 실시간 스트리밍 응답 구현
-- 도구 호출 과정을 실시간으로 시각화
-
-### 04. Strands SDK로 가시성 확보하기
-**파일**: `metrics_basic.py`, `logs_basic.py`, `traces_console.py`, `traces_otlp.py`, `docker/`
-
-직접 운영하는 에이전트를 위한 자체 관측 파이프라인을 구성합니다.
-
-- `EventLoopMetrics` 구조: 토큰, 사이클, 도구별 통계 읽기
-- `strands` 로거 계층 구조와 모듈별 로그 레벨 설정
-- OpenTelemetry로 에이전트를 계측하고 스팬을 콘솔에 출력
-- Docker로 ADOT Collector와 Jaeger를 띄우고 Jaeger UI에서 트레이스 확인
-
-> **참고**: AgentCore Runtime에서 에이전트를 운영할 계획이라면, 07 챕터에서 별도 파이프라인 없이 동일한 텔레메트리를 확인할 수 있습니다.
-
-### 05. AgentCore Memory로 기억하는 에이전트 만들기
-**파일**: `stm_persistence.py`, `ltm_semantic.py`, `ltm_preference.py`, `streamlit_with_memory.py`
-
-턴 사이, 그리고 세션 사이에 기억을 유지하는 에이전트를 만듭니다.
-
-- 핵심 개념: Session, Actor, Namespace
-- 세션 내 대화를 유지하는 단기 메모리(STM)
-- 사실과 사용자 선호도를 축적하는 장기 메모리(LTM) 전략
-- Strands 에이전트와 03 챕터의 Streamlit 앱에 메모리 연결하기
-
-> **참고**: 이 챕터는 삭제할 때까지 과금되는 AgentCore Memory 리소스 2개를 생성합니다.
-
-### 06. AgentCore Runtime으로 배포하기
-**파일**: `my_agent.py`, `deploy_agent.py`, `invoke_agent.py`, `Dockerfile`, `requirements.txt`
-
-로컬 에이전트를 코드 재작성 없이 프로덕션으로 옮깁니다.
-
-- 로컬 실행 대비 Runtime이 제공하는 것
-- CloudWatch Transaction Search 활성화 (AWS 계정당 1회)
-- 코드 4줄을 추가해 로컬 에이전트를 배포 가능한 형태로 바꾸기
-- AgentCore 스타터 툴킷으로 배포하기 (`configure()`, `launch()`)
-- boto3와 세션 ID로 배포된 런타임 호출하기
-- 02 챕터의 멀티 에이전트 시스템 배포 (선택)
-
-> **참고**: 실행 중인 컨테이너 런타임(Docker, Finch, Podman)이 필요하며, 과금되는 리소스(Runtime, ECR 리포지토리)를 생성합니다.
-
-### 07. AgentCore Observability로 관측하기
-**파일**: 없음. 콘솔에서 진행하는 챕터입니다.
-
-배포된 에이전트가 자동으로 남기는 텔레메트리를 확인합니다.
-
-- Runtime이 자동으로 내보내는 텔레메트리와 그 저장 위치
-- CloudWatch GenAI Observability 대시보드의 Agents, Sessions, Traces 뷰 읽는 방법
-- `Bedrock-AgentCore` 네임스페이스에 게시되는 Runtime 메트릭
-- 에이전트의 stdout/stderr와 OTEL 구조화 로그가 CloudWatch Logs에 저장되는 위치
-
-> **참고**: 06 챕터를 먼저 완료해야 합니다. 배포된 에이전트가 없으면 대시보드가 비어 있습니다.
-
-### 08. Kiro IDE로 개발하기
-**파일**: `.kiro/steering/strands-dev.md`, `.kiro/settings/mcp.json`, `completed/hanoi_tower.py`
-
-에이전트 작성을 AI IDE에 맡기면 무엇이 달라지는지 확인합니다.
-
-- Kiro Power가 특정 기술 스택의 MCP 서버와 문서를 어떻게 묶어 제공하는지
-- Steering 파일이 Kiro의 코드 생성을 제약하는 방식과 파일 위치
-- Kiro가 Strands SDK 문서를 조회할 수 있도록 MCP 서버 등록하기
-- 자연어 프롬프트 하나로 동작하는 Strands 에이전트를 만들고 검토·실행하기
 
 ---
 

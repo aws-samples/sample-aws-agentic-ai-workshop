@@ -4,16 +4,16 @@
 
 Build an AI agent from scratch with the [Strands Agents SDK](https://strandsagents.com/docs/), then deploy and operate it with [Amazon Bedrock AgentCore](https://aws.amazon.com/bedrock/agentcore/).
 
+<!-- ![Agentic AI on AWS Workshop](docs/images/agentic-ai-101.png) -->
+<p align="center">
+  <img src="docs/images/agentic-ai-learning-path.png" alt="Agentic AI on AWS, a complete learning path: chapter 1 getting started with Strands Agents, 2 building multi-agent systems, 3 serving agents in a chatbot application, 4 observability with Strands, 5 adding memory to your agent, 6 deploying agents to production, 7 observing agents in production" width="620">
+</p>
+
 - **How you learn:** each chapter has a `labs/` folder with empty files that you fill in yourself, and a `completed/` folder holding the reference implementation. You write the code, then compare against the reference.
 
 - **Level:** 100 to 200 (beginner to intermediate). No prior agent or LLM experience required.
 
 - **Duration:** about 2 hours for the required chapters, about 3 hours for all eight lab chapters.
-
-<!-- ![Agentic AI on AWS Workshop](docs/images/agentic-ai-101.png) -->
-<p align="center">
-  <img src="docs/images/agentic-ai-learning-path.png" alt="Agentic AI on AWS, a complete learning path: chapter 1 getting started with Strands Agents, 2 building multi-agent systems, 3 serving agents in a chatbot application, 4 observability with Strands, 5 adding memory to your agent, 6 deploying agents to production, 7 observing agents in production" width="620">
-</p>
 
 ---
 
@@ -44,112 +44,6 @@ Build an AI agent from scratch with the [Strands Agents SDK](https://strandsagen
 
 > [!IMPORTANT]
 > Chapters 01, 02, 05, 06, and 07 form the core path. Chapters 03, 04, and 08 are self-contained and can be skipped. Chapter 07 is the one dependency worth noting: it reads telemetry from the agent you deploy in chapter 06.
-
----
-
-## 🧪 Chapter details
-
-### 00. Setup
-**Files**: `create-uv-env.sh`, `pyproject.toml`, `uv.lock`, `install_korean_font.sh`
-
-Two paths, and you only need one: run the labs on your own machine (~10 min), or deploy an AWS-hosted VS Code Server with CloudFormation (~30 min, as used in the instructor-led workshop).
-
-- A Python 3.12 project managed by [uv](https://docs.astral.sh/uv/), shared by every later chapter
-- AWS credentials that can call Amazon Bedrock, and model access in `us-west-2`
-- Optional symlinks at the repository root so a bare `uv run` works from anywhere in the repo
-
-### 01. Building a Basic Single Agent
-**Files**: `basic.py`, `models.py`, `custom_tool1.py`, `custom_tool2.py`, `knowledge_base.py`, `mcp_tool.py`, `self_extending.py`, `self_modifying.py`, `tools/`
-
-The three core pieces of the SDK (prompt, model, tools) and then everything you bolt onto them:
-
-- Creating an agent with built-in tools from `strands_tools`
-- Configuring `BedrockModel` and enabling Extended Thinking (reasoning)
-- Writing custom tools two ways: the `@tool` decorator and a `TOOL_SPEC` tool module
-- Creating an Amazon Bedrock Knowledge Base and querying it with the `retrieve` tool (RAG)
-- Connecting MCP servers (AWS Documentation MCP, Playwright MCP) as agent tools
-- Two self-improving patterns: an agent that writes its own tools, and one that rewrites its own system prompt
-
-> **Note**: Section 2 creates a Knowledge Base backed by an OpenSearch Serverless collection, which bills continuously. Section 4 is optional.
-
-### 02. Multi-Agent Patterns
-**Files**: `agents_as_tools.py`, `swarms.py`, `graph_parallel.py`, `graph_condition.py`
-
-Three ways to make agents collaborate on tasks a single agent handles poorly:
-
-- Wrapping specialized agents as tools with `@tool` and routing through an orchestrator ([Agents-as-Tools](https://strandsagents.com/docs/user-guide/concepts/multi-agent/agents-as-tools/))
-- Letting agents autonomously hand off work to each other with [`Swarm`](https://strandsagents.com/docs/user-guide/concepts/multi-agent/swarm/)
-- Defining explicit execution order, dependencies, and parallel branches with [`GraphBuilder`](https://strandsagents.com/docs/user-guide/concepts/multi-agent/graph/)
-- Branching a graph to different agents with conditional edges
-
-### 03. Applying Agents to a Chatbot Application
-**Files**: `streamlit_app.py`
-
-Move the agent out of the terminal and into a web app:
-
-- A chatbot UI with Streamlit, and conversation history in session state
-- Real-time responses with `stream_async` and asynchronous streaming
-- Visualizing the tool-calling process as it happens
-
-### 04. Agent Observability with Strands
-**Files**: `metrics_basic.py`, `logs_basic.py`, `traces_console.py`, `traces_otlp.py`, `docker/`
-
-Self-managed observability, for agents you run yourself:
-
-- The `EventLoopMetrics` structure: tokens, cycles, and per-tool statistics
-- The `strands` logger hierarchy and per-module log levels
-- Instrumenting an agent with OpenTelemetry and printing spans to the console
-- Running an ADOT Collector plus Jaeger in Docker and reading traces in the Jaeger UI
-
-> **Note**: If you plan to run on AgentCore Runtime, chapter 07 gets you the same telemetry without building a pipeline.
-
-### 05. Agent Memory with AgentCore Memory
-**Files**: `stm_persistence.py`, `ltm_semantic.py`, `ltm_preference.py`, `streamlit_with_memory.py`
-
-Give the agent something to remember between turns and between sessions:
-
-- Core concepts: Session, Actor, and Namespace
-- Short-term memory (STM) for conversation persistence within a session
-- Long-term memory (LTM) strategies for facts and user preferences
-- Wiring memory into a Strands agent and into the Streamlit app from chapter 03
-
-> **Note**: This chapter creates two AgentCore Memory resources that bill until deleted.
-
-### 06. Agent Deployment with AgentCore Runtime
-**Files**: `my_agent.py`, `deploy_agent.py`, `invoke_agent.py`, `Dockerfile`, `requirements.txt`
-
-Take the local agent to production without rewriting it:
-
-- What Runtime gives you over running an agent on your machine
-- Enabling CloudWatch Transaction Search (once per AWS account)
-- Turning a local agent into a deployable one by adding four lines
-- Deploying with the AgentCore starter toolkit (`configure()` and `launch()`)
-- Invoking a deployed runtime with boto3 and session IDs
-- Optionally deploying the multi-agent system from chapter 02
-
-> **Note**: Requires a running container runtime (Docker, Finch, or Podman) and creates billable resources: a Runtime and an ECR repository.
-
-### 07. Agent Observability with AgentCore Observability
-**Files**: none, this chapter is console work
-
-Read the telemetry the deployed agent produces on its own:
-
-- What Runtime emits automatically, and where it lands
-- The CloudWatch GenAI Observability dashboard: Agents, Sessions, and Traces views
-- Runtime metrics published under the `Bedrock-AgentCore` namespace
-- Where stdout/stderr and OTEL structured logs are stored in CloudWatch Logs
-
-> **Note**: Complete chapter 06 first. Without a deployed agent the dashboards are empty.
-
-### 08. Developing with Kiro IDE
-**Files**: `.kiro/steering/strands-dev.md`, `.kiro/settings/mcp.json`, `completed/hanoi_tower.py`
-
-Hand the agent-writing to an AI IDE and see what changes:
-
-- How a Kiro Power packages MCP servers and documentation for a stack
-- How Steering files constrain what Kiro generates, and where they live
-- Registering an MCP server so Kiro can look up Strands SDK documentation
-- Producing a working Strands agent from one natural-language prompt, then reviewing and running it
 
 ---
 

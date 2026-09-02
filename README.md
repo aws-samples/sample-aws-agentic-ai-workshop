@@ -32,15 +32,15 @@ Build an AI agent from scratch with the [Strands Agents SDK](https://strandsagen
 
 | # | Chapter | What you build | ⏱️ Time | 📊 Level | Track |
 |---|---------|----------------|---------|----------|-------|
-| 00 | [Setup](00-setup/README.md) | Python environment, AWS credentials, Bedrock model access | 10 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Required |
-| 01 | [Single agent](01-single-agent/README.md) | Agent with prompt, model, and tools. Bedrock Knowledge Base, MCP tools, self-improving agent | 30 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Required |
-| 02 | [Multi-agent patterns](02-multi-agents/README.md) | Agents-as-Tools, Swarm, and Graph | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
-| 03 | [Chatbot application](03-chatbot-app/README.md) | Streamlit chat UI with streaming and tool-call display | 10 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Optional |
-| 04 | [Observability with Strands](04-observability/README.md) | Metrics, logs, and OTLP traces to a local Jaeger | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Optional |
-| 05 | [Agent memory](05-agent-memory/README.md) | Short-term and long-term memory with AgentCore Memory | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
-| 06 | [AgentCore Runtime](06-agentcore-runtime/README.md) | Serverless deployment of the agent | 20 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
-| 07 | [AgentCore Observability](07-agentcore-observability/README.md) | CloudWatch GenAI Observability dashboard | 10 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
-| 08 | [Developing with Kiro IDE](08-kiro-dev/README.md) | Steering, MCP config, and spec-driven development | 10 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Optional |
+| 00 | [Setup](dev/00-setup/README.md) | Python environment, AWS credentials, Bedrock model access | 10 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Required |
+| 01 | [Single agent](dev/01-single-agent/README.md) | Agent with prompt, model, and tools. Bedrock Knowledge Base, MCP tools, self-improving agent | 30 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Required |
+| 02 | [Multi-agent patterns](dev/02-multi-agents/README.md) | Agents-as-Tools, Swarm, and Graph | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
+| 03 | [Chatbot application](dev/03-chatbot-app/README.md) | Streamlit chat UI with streaming and tool-call display | 10 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Optional |
+| 04 | [Observability with Strands](dev/04-observability/README.md) | Metrics, logs, and OTLP traces to a local Jaeger | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Optional |
+| 05 | [Agent memory](dev/05-agent-memory/README.md) | Short-term and long-term memory with AgentCore Memory | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
+| 06 | [AgentCore Runtime](dev/06-agentcore-runtime/README.md) | Serverless deployment of the agent | 20 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
+| 07 | [AgentCore Observability](dev/07-agentcore-observability/README.md) | CloudWatch GenAI Observability dashboard | 10 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
+| 08 | [Developing with Kiro IDE](dev/08-kiro-dev/README.md) | Steering, MCP config, and spec-driven development | 10 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Optional |
 
 > [!IMPORTANT]
 > Chapters 01, 02, 05, 06, and 07 form the core path. Chapters 03, 04, and 08 are self-contained and can be skipped. Chapter 07 is the one dependency worth noting: it reads telemetry from the agent you deploy in chapter 06.
@@ -73,7 +73,7 @@ cd ..
 uv run --project 00-setup python 01-single-agent/completed/basic.py
 ```
 
-If that prints an agent response, your environment is ready. Now open [00-setup/README.md](00-setup/README.md) for the full setup notes, then start [chapter 01](01-single-agent/README.md).
+If that prints an agent response, your environment is ready. Now open [00-setup/README.md](dev/00-setup/README.md) for the full setup notes, then start [chapter 01](dev/01-single-agent/README.md).
 
 ---
 

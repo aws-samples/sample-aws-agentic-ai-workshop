@@ -32,15 +32,15 @@
 
 | # | 챕터 | 내용 | ⏱️ 소요 시간 | 📊 난이도 | 구분 |
 |---|------|------|--------------|-----------|------|
-| 00 | [환경 설정](00-setup/README.ko.md) | Python 환경, AWS 자격 증명, Bedrock 모델 액세스 | 10분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
-| 01 | [단일 에이전트](01-single-agent/README.ko.md) | Prompt·Model·Tools 기본 구성, Bedrock Knowledge Base, MCP 도구, 자가개선 에이전트 | 30분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
-| 02 | [멀티 에이전트 패턴](02-multi-agents/README.ko.md) | Agents-as-Tools, Swarm, Graph | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
-| 03 | [챗봇 애플리케이션](03-chatbot-app/README.ko.md) | Streamlit 채팅 UI, 스트리밍 응답, 도구 호출 시각화 | 10분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 선택 |
-| 04 | [Strands Observability](04-observability/README.ko.md) | 메트릭, 로그, OTLP 트레이스와 로컬 Jaeger | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 선택 |
-| 05 | [에이전트 메모리](05-agent-memory/README.ko.md) | AgentCore Memory 단기·장기 메모리 | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
-| 06 | [AgentCore Runtime](06-agentcore-runtime/README.ko.md) | 에이전트 서버리스 배포 | 20분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
-| 07 | [AgentCore Observability](07-agentcore-observability/README.ko.md) | CloudWatch GenAI Observability 대시보드 | 10분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
-| 08 | [Kiro IDE로 개발하기](08-kiro-dev/README.ko.md) | Steering, MCP 설정, 스펙 기반 개발 | 10분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 선택 |
+| 00 | [환경 설정](dev/00-setup/README.ko.md) | Python 환경, AWS 자격 증명, Bedrock 모델 액세스 | 10분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
+| 01 | [단일 에이전트](dev/01-single-agent/README.ko.md) | Prompt·Model·Tools 기본 구성, Bedrock Knowledge Base, MCP 도구, 자가개선 에이전트 | 30분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
+| 02 | [멀티 에이전트 패턴](dev/02-multi-agents/README.ko.md) | Agents-as-Tools, Swarm, Graph | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
+| 03 | [챗봇 애플리케이션](dev/03-chatbot-app/README.ko.md) | Streamlit 채팅 UI, 스트리밍 응답, 도구 호출 시각화 | 10분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 선택 |
+| 04 | [Strands Observability](dev/04-observability/README.ko.md) | 메트릭, 로그, OTLP 트레이스와 로컬 Jaeger | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 선택 |
+| 05 | [에이전트 메모리](dev/05-agent-memory/README.ko.md) | AgentCore Memory 단기·장기 메모리 | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
+| 06 | [AgentCore Runtime](dev/06-agentcore-runtime/README.ko.md) | 에이전트 서버리스 배포 | 20분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
+| 07 | [AgentCore Observability](dev/07-agentcore-observability/README.ko.md) | CloudWatch GenAI Observability 대시보드 | 10분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
+| 08 | [Kiro IDE로 개발하기](dev/08-kiro-dev/README.ko.md) | Steering, MCP 설정, 스펙 기반 개발 | 10분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 선택 |
 
 > [!IMPORTANT]
 > 01, 02, 05, 06, 07 챕터가 핵심 경로입니다. 03, 04, 08 챕터는 독립적으로 구성되어 있어 건너뛸 수 있습니다. 챕터 간 의존성은 하나뿐입니다. 07 챕터는 06 챕터에서 배포한 에이전트의 텔레메트리를 확인하는 실습입니다.
@@ -73,7 +73,7 @@ cd ..
 uv run --project 00-setup python 01-single-agent/completed/basic.py
 ```
 
-에이전트 응답이 출력되면 환경 준비가 끝났습니다. 자세한 설정 안내는 [00-setup/README.ko.md](00-setup/README.ko.md)를 참고하고, [01 챕터](01-single-agent/README.ko.md)부터 실습을 시작하세요.
+에이전트 응답이 출력되면 환경 준비가 끝났습니다. 자세한 설정 안내는 [00-setup/README.ko.md](dev/00-setup/README.ko.md)를 참고하고, [01 챕터](dev/01-single-agent/README.ko.md)부터 실습을 시작하세요.
 
 ---
 

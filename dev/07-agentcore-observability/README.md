@@ -58,15 +58,15 @@ Transaction Search is a one-time setting per AWS account. It may take up to 10 m
 
 **1-1.** Open the [CloudWatch](https://console.aws.amazon.com/cloudwatch/) service in the AWS Console.
 
-![CloudWatch](../docs/images/c7-o11y_1.png)
+![CloudWatch](../../docs/images/c7-o11y_1.png)
 
 **1-2.** Click **Settings** in the left menu, then open the **Application signals** tab and click **Edit** in the **Transaction Search** panel.
 
-![CloudWatch Settings](../docs/images/c7-o11y_2.png)
+![CloudWatch Settings](../../docs/images/c7-o11y_2.png)
 
 **1-3.** Confirm that **Enable Transaction Search** is toggled on and the sample rate is **100%**, then click **Save**.
 
-![Enable Transaction Search](../docs/images/c7-o11y_3.png)
+![Enable Transaction Search](../../docs/images/c7-o11y_3.png)
 
 > [!WARNING]
 > If the sample rate is left at the default (1%), most traces will not be collected and you will not see data in the dashboard. For this workshop it must be **100%**.
@@ -115,7 +115,7 @@ The CloudWatch GenAI Observability dashboard provides immediate insight into age
   - Duration of each step
   - Tool call parameters and results
 
-![GenAI Observability Dashboard](../docs/images/c7-o11y_8.png)
+![GenAI Observability Dashboard](../../docs/images/c7-o11y_8.png)
 
 ---
 
@@ -140,7 +140,7 @@ AgentCore automatically publishes metrics under the **AWS/Bedrock-AgentCore** na
 | **SystemErrors** | Server-side errors (500) |
 | **Throttles** | Requests rejected due to rate limits (429) |
 
-![CloudWatch Metrics](../docs/images/c7-o11y_4.png)
+![CloudWatch Metrics](../../docs/images/c7-o11y_4.png)
 
 ---
 
@@ -152,7 +152,7 @@ AgentCore Runtime automatically sends agent logs to CloudWatch Logs.
 
 **5-2.** Enter `/aws/bedrock-agentcore/runtimes/strands_workshop_agent` in the search bar.
 
-![Log Group Filtering](../docs/images/c7-o11y_5.png)
+![Log Group Filtering](../../docs/images/c7-o11y_5.png)
 
 **5-3.** Click the log group to see two types of log streams:
 
@@ -161,9 +161,9 @@ AgentCore Runtime automatically sends agent logs to CloudWatch Logs.
 
 **5-4.** Click a log stream containing `runtime-logs` to view detailed agent execution logs.
 
-![Runtime Log Filtering](../docs/images/c7-o11y_6.png)
+![Runtime Log Filtering](../../docs/images/c7-o11y_6.png)
 
-![Runtime Log Results](../docs/images/c7-o11y_7.png)
+![Runtime Log Results](../../docs/images/c7-o11y_7.png)
 
 ---
 

@@ -53,7 +53,7 @@ The lab pattern is the same as the other chapters: you write the code into the e
 
 ## What is AgentCore Runtime?
 
-![AgentCore logo](../docs/images/agentcore-runtime-logo.png)
+![AgentCore logo](../../docs/images/agentcore-runtime-logo.png)
 
 AgentCore Runtime is a serverless hosting environment for AI agents. You can deploy locally developed agent code to the cloud with **minimal changes**.
 
@@ -74,18 +74,18 @@ To view traces, metrics, and session information for agents deployed to AgentCor
 
 **0-1.** Open the [CloudWatch](https://console.aws.amazon.com/cloudwatch/) service in the AWS Console.
 
-![CloudWatch](../docs/images/c6-o11y_1.png)
+![CloudWatch](../../docs/images/c6-o11y_1.png)
 
 **0-2.** Click **Settings** in the left menu, then click the **Edit** button in the **Application Signals** tab.
 
-![CloudWatch Settings](../docs/images/c6-o11y_2.png)
+![CloudWatch Settings](../../docs/images/c6-o11y_2.png)
 
 **0-3.** Toggle **Enable Transaction Search** to enable it. **Make sure to set the Sample rate to 100%**, then click **Save**.
 
 > [!WARNING]
 > If the Sample rate is left at the default (1%), most traces will not be collected and you won't be able to see data in the dashboard. For the workshop environment, you must set it to **100%**.
 
-![Enable Transaction Search](../docs/images/c6-o11y_3.png)
+![Enable Transaction Search](../../docs/images/c6-o11y_3.png)
 
 ---
 
@@ -291,7 +291,7 @@ cd -
 
 When deployment completes, you'll see logs like below.
 
-![AgentCore Deploy Output](../docs/images/c6-agentcore-1.png)
+![AgentCore Deploy Output](../../docs/images/c6-agentcore-1.png)
 
 > [!NOTE]
 > **About `.bedrock_agentcore.yaml`**
@@ -305,7 +305,7 @@ When deployment completes, you'll see logs like below.
 
 First, access the [Amazon Bedrock AgentCore Console](https://us-west-2.console.aws.amazon.com/bedrock-agentcore/home?region=us-west-2#/runtimes) and check if `strands_workshop_agent` was created in the **Runtime** menu.
 
-![AgentCore Deploy Output2](../docs/images/c6-agentcore-2.png)
+![AgentCore Deploy Output2](../../docs/images/c6-agentcore-2.png)
 
 Click on `strands_workshop_agent`, then click the copy button under **Runtime ARN** to **copy the agent's ARN**. This will be used to invoke the agent in the next step.
 
@@ -596,7 +596,7 @@ cd -
 
 When deployment completes, you'll see logs like below.
 
-![AgentCore Deploy Output](../docs/images/c6-agentcore-1.png)
+![AgentCore Deploy Output](../../docs/images/c6-agentcore-1.png)
 
 > [!NOTE]
 > You can verify that two runtimes, `strands_workshop_agent` and `strands_workshop_agent_advanced`, were created in the AgentCore Runtimes in AWS Console.
@@ -670,19 +670,19 @@ except Exception as e:
 uv run 06-agentcore-runtime/labs/invoke_agent.py
 ```
 
-![AgentCore Deploy Output7](../docs/images/c6-agentcore-7.png)
+![AgentCore Deploy Output7](../../docs/images/c6-agentcore-7.png)
 
 **5-8.** Access the [Amazon Bedrock AgentCore Console](https://us-west-2.console.aws.amazon.com/bedrock-agentcore/home?region=us-west-2#/runtimes) and click on the `strands_workshop_agent_advanced` runtime to see the screen below. Click **Dashboard** in the Observability section to go to the dashboard for checking agent invocation logs.
 
-![AgentCore Observability entry](../docs/images/c6-agentcore-8.png)
+![AgentCore Observability entry](../../docs/images/c6-agentcore-8.png)
 
 **5-9.** In the dashboard, **click the 'Session' tab** to find specific sessions. Click on a session ID to navigate.
 
-![Session tab](../docs/images/c6-agentcore-8-1.png)
+![Session tab](../../docs/images/c6-agentcore-8-1.png)
 
 Traces are displayed by ID. Click on the most recently activated Trace ID to open a panel on the right showing the agent's workflow logs.
 
-![Trace detail](../docs/images/c6-agentcore-9.png)
+![Trace detail](../../docs/images/c6-agentcore-9.png)
 
 Expanding the toggle shows the Trip Planning Agent's output as in the screenshot, and you can check agent work output in AWS Console that you previously only saw in the terminal.
 
@@ -696,11 +696,11 @@ Expanding the toggle shows the Trip Planning Agent's output as in the screenshot
 
 **5-10.** (Optional) Return to the terminal, open 3 or more new terminals besides the one running the agent, and execute invoke_agent.py simultaneously.
 
-![Concurrent invocations](../docs/images/c6-agentcore-11.png)
+![Concurrent invocations](../../docs/images/c6-agentcore-11.png)
 
 Return to the [Amazon Bedrock AgentCore Console](https://us-west-2.console.aws.amazon.com/bedrock-agentcore/home?region=us-west-2#/runtimes) and check the `strands_workshop_agent_advanced` runtime to **verify that the total sessions increased to 3** due to the previous invocations.
 
-![Session count](../docs/images/c6-agentcore-12.png)
+![Session count](../../docs/images/c6-agentcore-12.png)
 
 > [!NOTE]
 > **You experienced AgentCore Runtime's serverless scalability.**

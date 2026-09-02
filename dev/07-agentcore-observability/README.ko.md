@@ -58,15 +58,15 @@ Transaction Search는 AWS 계정당 한 번만 수행하는 설정입니다. 활
 
 **1-1.** AWS 콘솔에서 [CloudWatch](https://console.aws.amazon.com/cloudwatch/) 서비스를 엽니다.
 
-![CloudWatch](../docs/images/c7-o11y_1.png)
+![CloudWatch](../../docs/images/c7-o11y_1.png)
 
 **1-2.** 좌측 메뉴에서 **Settings**를 클릭한 뒤 **Application signals** 탭을 열고, **Transaction Search** 패널의 **Edit**을 클릭합니다.
 
-![CloudWatch Settings](../docs/images/c7-o11y_2.png)
+![CloudWatch Settings](../../docs/images/c7-o11y_2.png)
 
 **1-3.** **Enable Transaction Search**가 켜져 있고 Sample rate가 **100%** 인지 확인한 후 **Save**를 클릭합니다.
 
-![Enable Transaction Search](../docs/images/c7-o11y_3.png)
+![Enable Transaction Search](../../docs/images/c7-o11y_3.png)
 
 > [!WARNING]
 > Sample rate를 기본값(1%)으로 두면 대부분의 트레이스가 수집되지 않아 대시보드에서 데이터를 확인할 수 없습니다. 이번 실습에서는 반드시 **100%** 로 설정해야 합니다.
@@ -115,7 +115,7 @@ CloudWatch GenAI Observability 대시보드는 추가 설정 없이 에이전트
   - 각 단계의 소요 시간
   - 도구 호출 파라미터 및 결과
 
-![GenAI Observability Dashboard](../docs/images/c7-o11y_8.png)
+![GenAI Observability Dashboard](../../docs/images/c7-o11y_8.png)
 
 ---
 
@@ -140,7 +140,7 @@ AgentCore는 **AWS/Bedrock-AgentCore** 네임스페이스 아래에 메트릭을
 | **SystemErrors** | 서버 측 에러 (500) |
 | **Throttles** | 제한 초과로 거부된 요청 (429) |
 
-![CloudWatch Metrics](../docs/images/c7-o11y_4.png)
+![CloudWatch Metrics](../../docs/images/c7-o11y_4.png)
 
 ---
 
@@ -152,7 +152,7 @@ AgentCore Runtime은 에이전트의 로그를 자동으로 CloudWatch Logs에 �
 
 **5-2.** 검색창에 `/aws/bedrock-agentcore/runtimes/strands_workshop_agent`를 입력합니다.
 
-![Log Group Filtering](../docs/images/c7-o11y_5.png)
+![Log Group Filtering](../../docs/images/c7-o11y_5.png)
 
 **5-3.** 로그 그룹을 클릭하면 두 가지 유형의 로그 스트림을 확인할 수 있습니다.
 
@@ -161,9 +161,9 @@ AgentCore Runtime은 에이전트의 로그를 자동으로 CloudWatch Logs에 �
 
 **5-4.** `runtime-logs`가 포함된 로그 스트림을 클릭하면 에이전트 실행의 상세 로그를 확인할 수 있습니다.
 
-![Runtime Log Filtering](../docs/images/c7-o11y_6.png)
+![Runtime Log Filtering](../../docs/images/c7-o11y_6.png)
 
-![Runtime Log Results](../docs/images/c7-o11y_7.png)
+![Runtime Log Results](../../docs/images/c7-o11y_7.png)
 
 ---
 

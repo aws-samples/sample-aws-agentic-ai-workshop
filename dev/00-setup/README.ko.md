@@ -4,7 +4,7 @@
 
 실습에는 AWS 계정이 필요합니다. 환경을 준비하는 방법은 두 가지이며, 둘 중 하나만 수행하면 됩니다. 경로 A는 본인 컴퓨터에서 실습을 실행하는 방법으로, GitHub에서 이 리포지토리를 보고 계신 경우 더 빠른 방법입니다. 경로 B는 CloudFormation으로 AWS에 VS Code Server를 배포하는 방법이며, 강사가 진행하는 워크샵에서 사용하는 환경입니다.
 
-![시작하기](../docs/images/1-getting-start.svg)
+![시작하기](../../docs/images/1-getting-start.svg)
 
 > [!NOTE]
 > **실습 진행 방식**
@@ -216,22 +216,22 @@ AWS 계정을 생성했거나 이미 있는 경우, AWS 계정에 접근할 수 
 1. [로그인 페이지](https://console.aws.amazon.com/)에서 AWS 계정 이메일 주소와 비밀번호를 사용하여 **AWS 계정의 루트 사용자**로 [IAM 콘솔](https://console.aws.amazon.com/iam/home#/home)에 로그인합니다.
 2. IAM 콘솔 화면 왼쪽 사이드바에서 **Users**(사용자)를 클릭한 다음, **Add user**(사용자 추가) 버튼을 클릭합니다.
 
-   ![IAM 사용자 생성](../docs/images/iam-user-01.png)
+   ![IAM 사용자 생성](../../docs/images/iam-user-01.png)
 
 3. **User name**(사용자 이름)은 `Administrator`로 입력합니다.
 4. **AWS Management Console access** 체크박스를 선택하고, **I want to create an IAM user**를 체크합니다.
 5. **Custom password**를 선택한 다음 비밀번호를 입력합니다.
 6. **Next**(다음)를 클릭합니다.
 
-   ![IAM 사용자 생성](../docs/images/iam-user-02.png)
+   ![IAM 사용자 생성](../../docs/images/iam-user-02.png)
 
 7. **Attach existing policies directly**(기존 정책 직접 연결)를 선택하고, **AdministratorAccess** 정책의 체크박스를 선택한 후 **Next**(다음)를 클릭합니다.
 
-   ![AdministratorAccess 연결](../docs/images/iam-user-03.png)
+   ![AdministratorAccess 연결](../../docs/images/iam-user-03.png)
 
 8. Administrator 사용자에 AdministratorAccess 관리형 정책이 추가된 것을 확인하고 **Create user**(사용자 만들기)를 클릭합니다.
 
-   ![검토 및 생성](../docs/images/iam-user-04.png)
+   ![검토 및 생성](../../docs/images/iam-user-04.png)
 
 9. 사용자가 추가되면 **Console sign-in URL**을 복사합니다. 해당 URL은 아래의 형식을 가집니다.
 
@@ -242,7 +242,7 @@ AWS 계정을 생성했거나 이미 있는 경우, AWS 계정에 접근할 수 
    > [!WARNING]
    > `<your_aws_account_id>`는 본인 AWS 계정의 고유 ID가 들어가는 자리입니다. 루트 사용자로 실습을 진행하는 것은 권고하지 않습니다. 반드시 Administrator 사용자로 로그인하여 실습을 진행하세요.
 
-   ![콘솔 로그인 URL](../docs/images/iam-user-05.png)
+   ![콘솔 로그인 URL](../../docs/images/iam-user-05.png)
 
 10. 이제 루트 사용자에서 로그아웃하고, 방금 복사한 URL로 접속해서 **새로 생성한 Administrator 사용자로 로그인**합니다.
 
@@ -291,7 +291,7 @@ AWS 계정을 생성했거나 이미 있는 경우, AWS 계정에 접근할 수 
 
 4. 터미널을 엽니다.
 
-   ![터미널 열기](../docs/images/b2-2-terminal.png)
+   ![터미널 열기](../../docs/images/b2-2-terminal.png)
 
 ### 3. Python 환경 생성
 
@@ -304,8 +304,8 @@ chmod +x ./create-uv-env.sh
 cd ..
 ```
 
-![create-uv-env.sh 실행](../docs/images/codeserver-uv-1.png)
-![create-uv-env.sh 실행 완료](../docs/images/codeserver-uv-2.png)
+![create-uv-env.sh 실행](../../docs/images/codeserver-uv-1.png)
+![create-uv-env.sh 실행 완료](../../docs/images/codeserver-uv-2.png)
 
 > [!NOTE]
 > **코드 이해하기**

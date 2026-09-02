@@ -11,7 +11,7 @@
 
 [Kiro](https://kiro.dev/)는 AWS에서 제공하는 AI 기반 통합 개발 환경(IDE)입니다. VS Code 기반으로 구축되어 익숙한 개발 경험을 제공하면서도, AI 에이전트가 개발 과정 전반을 지원합니다.
 
-![Kiro logo](../docs/images/kiro-logo.png)
+![Kiro logo](../../docs/images/kiro-logo.png)
 
 ### Kiro의 주요 특징
 

@@ -2,7 +2,7 @@
 
 In this chapter, we will learn how to create a basic agent by working with the core components of the Strands SDK: Prompt, Model, and Tools.
 
-![Strands SDK components](../docs/images/c1-strands-diagram.png)
+![Strands SDK components](../../docs/images/c1-strands-diagram.png)
 
 The agent we build first has 1) mathematical calculation, 2) time checking, and 3) Python code execution capabilities. From there we add a Bedrock Knowledge Base for document search, connect external MCP servers, and finally build an agent that writes its own tools and rewrites its own system prompt.
 
@@ -34,7 +34,7 @@ Each lab file exists twice:
 - `labs/<file>.py` is **empty**. You type the code into it, step by step.
 - `completed/<file>.py` holds the **reference answer**. Open it if you get stuck or want to compare.
 
-![labs and completed folders](../docs/images/c1-labs.png)
+![labs and completed folders](../../docs/images/c1-labs.png)
 
 All commands below assume you are at the **repo root** with the uv environment from [00-setup](../00-setup/README.md) in place.
 
@@ -110,7 +110,7 @@ uv run python 01-single-agent/labs/basic.py
 
 You can confirm that the agent automatically selects the `calculator` tool to calculate the square root of 80/4*5 and returns an answer containing the result **10**.
 
-![calculator result](../docs/images/c1-calculator.png)
+![calculator result](../../docs/images/c1-calculator.png)
 
 <details>
 <summary>Getting an error? (⚠️ How to fix a model access error)</summary>
@@ -230,7 +230,7 @@ if __name__ == "__main__":
 uv run python 01-single-agent/labs/models.py
 ```
 
-![BedrockModel result](../docs/images/c1-bedrockmodel.png)
+![BedrockModel result](../../docs/images/c1-bedrockmodel.png)
 
 **2-7.** ***(Optional)*** To output the agent's reasoning content and final response separately, add the following code at the bottom of models.py.
 
@@ -256,7 +256,7 @@ uv run python 01-single-agent/labs/models.py
 uv run python 01-single-agent/labs/models.py
 ```
 
-![reasoning and response separated](../docs/images/c1-reasoning.png)
+![reasoning and response separated](../../docs/images/c1-reasoning.png)
 
 ---
 
@@ -332,7 +332,7 @@ uv run python 01-single-agent/labs/custom_tool1.py
 
 You can confirm that the agent analyzes the question, calls the `weather_forecast` tool, and returns weather information for Seoul.
 
-![custom tool result](../docs/images/c1-customtool1.png)
+![custom tool result](../../docs/images/c1-customtool1.png)
 
 ---
 
@@ -390,11 +390,11 @@ uv run python 01-single-agent/labs/custom_tool2.py
 
 You can confirm the process where the agent generates Python code and executes it through `python_repl_tool`.
 
-![python repl tool result](../docs/images/c1-customtool-py.png)
+![python repl tool result](../../docs/images/c1-customtool-py.png)
 
 Try the other commented user_input as well. It will call the tool that executes bash commands, displaying results like below.
 
-![bash tool result](../docs/images/c1-customtool-bash.png)
+![bash tool result](../../docs/images/c1-customtool-bash.png)
 
 > [!NOTE]
 > **Congratulations!**
@@ -516,15 +516,15 @@ Upload documents to an S3 bucket for use with the Knowledge Base.
 
 **1-1.** Search for and click the **S3** service in the AWS Console.
 
-![S3](../docs/images/c1-2-s3_1.png)
+![S3](../../docs/images/c1-2-s3_1.png)
 
 **1-2.** Click the **Create bucket** button to create a new S3 bucket.
 
-![S3 Create Bucket](../docs/images/c1-2-s3_2.png)
+![S3 Create Bucket](../../docs/images/c1-2-s3_2.png)
 
 **1-3.** Enter `strands-kb-{unique-identifier}` for the Bucket name. Set `{unique-identifier}` to a unique value such as your Account ID. Leave the remaining options as default and click **Create bucket**.
 
-![S3 Bucket Name](../docs/images/c1-2-s3_3.png)
+![S3 Bucket Name](../../docs/images/c1-2-s3_3.png)
 
 **1-4.** Navigate to the created bucket and click the **Upload** button.
 
@@ -543,21 +543,21 @@ Upload documents to an S3 bucket for use with the Knowledge Base.
 
 **2-1.** Search for and click the **Amazon Bedrock** service in the AWS Console.
 
-![Bedrock Page](../docs/images/c1-2-kb_1.png)
+![Bedrock Page](../../docs/images/c1-2-kb_1.png)
 
 **2-2.** Select **Knowledge bases** from the left menu, then click the **Create > Knowledge base with vector store** button.
 
-![Bedrock Create KB](../docs/images/c1-2-kb_2.png)
+![Bedrock Create KB](../../docs/images/c1-2-kb_2.png)
 
 **2-3.** Enter `strands-workshop-kb` for the Knowledge Base Name, select **Amazon S3** as the Data Source, and click the **Next** button.
 
-![Bedrock S3 Selection](../docs/images/c1-2-kb_3.png)
+![Bedrock S3 Selection](../../docs/images/c1-2-kb_3.png)
 
 **2-4.** Click the **Browse S3** button to select the bucket you created earlier, then click the **Next** button.
 
 **2-5.** Select **Titan Text Embeddings V2** as the Embeddings model. For Vector Store Type, select **Amazon OpenSearch Serverless**, then click the **Next** button.
 
-![Bedrock Create KB](../docs/images/c1-2-kb_4.png)
+![Bedrock Create KB](../../docs/images/c1-2-kb_4.png)
 
 **2-6.** Click the **Create knowledge base** button to create the Knowledge Base. Wait for the creation to complete.
 
@@ -573,19 +573,19 @@ Let's test the Knowledge Base directly from the Bedrock console to verify it wor
 
 **3-1.** Select the created Knowledge Base in the Amazon Bedrock console.
 
-![Bedrock Check KB](../docs/images/c1-2-kb_6.png)
+![Bedrock Check KB](../../docs/images/c1-2-kb_6.png)
 
 **3-2.** Click the **Select model** button in the **Test knowledge base** section.
 
-![Bedrock Test KB](../docs/images/c1-2-kb_7.png)
+![Bedrock Test KB](../../docs/images/c1-2-kb_7.png)
 
 **3-3.** Select a Claude model and click the **Apply** button.
 
-![Bedrock Choose Model](../docs/images/c1-2-kb_8.png)
+![Bedrock Choose Model](../../docs/images/c1-2-kb_8.png)
 
 **3-4.** Enter a question and click the **Run** button to check the response.
 
-![Bedrock KB Run](../docs/images/c1-2-kb_9.png)
+![Bedrock KB Run](../../docs/images/c1-2-kb_9.png)
 
 ---
 
@@ -593,7 +593,7 @@ Let's test the Knowledge Base directly from the Bedrock console to verify it wor
 
 **4-1.** Copy the **Knowledge Base ID** from the detail page of the created Knowledge Base. This ID will be used when accessing the Knowledge Base from the Strands agent.
 
-![Bedrock Get KB ID](../docs/images/c1-2-kb_10.png)
+![Bedrock Get KB ID](../../docs/images/c1-2-kb_10.png)
 
 > [!IMPORTANT]
 > Note this ID down now. In the next step you must paste it into the `KNOWLEDGE_BASE_ID` variable in `01-single-agent/labs/knowledge_base.py`. The agent has no other way to find your Knowledge Base, and leaving the placeholder text in place makes the `retrieve` tool fail.
@@ -737,7 +737,7 @@ uv run python 01-single-agent/labs/mcp_tool.py
 
 You can confirm that the agent connects to the AWS documentation MCP server to search for the latest information in real-time and provide answers.
 
-![MCP tool result](../docs/images/c1-mcptool.png)
+![MCP tool result](../../docs/images/c1-mcptool.png)
 
 ---
 
@@ -752,7 +752,7 @@ Now let's add **Playwright MCP**. Playwright is a tool for automating web browse
 
 [mcp.so](https://mcp.so) is a hub that aggregates various MCP servers. You can search for MCP servers with desired functionality and get their configuration information.
 
-![mcp.so](../docs/images/mcp-so.png)
+![mcp.so](../../docs/images/mcp-so.png)
 
 **2-1-1.** Visit [mcp.so](https://mcp.so).
 
@@ -773,7 +773,7 @@ Now let's add **Playwright MCP**. Playwright is a tool for automating web browse
 }
 ```
 
-![mcp config](../docs/images/mcp-config.png)
+![mcp config](../../docs/images/mcp-config.png)
 
 #### 2-2. Integrating Playwright MCP
 
@@ -977,13 +977,13 @@ uv run python self_extending.py
 
 You can see that the agent 1) **writes a tool file** such as `qr_generator.py` into the `tools/` directory, 2) the SDK **loads it instantly**, and 3) within the same run it **calls** that tool to print the QR code in the terminal.
 
-![agent writes its own tool](../docs/images/c1-4-self-extending-1.png)
+![agent writes its own tool](../../docs/images/c1-4-self-extending-1.png)
 
-![agent calls the tool it just wrote](../docs/images/c1-4-self-extending-2.png)
+![agent calls the tool it just wrote](../../docs/images/c1-4-self-extending-2.png)
 
 **1-7.** Open the `tools/` folder in the lab directory and you will see that the **tool file the agent just wrote** is actually saved there. This file will be reloaded as-is on the next run.
 
-![generated tool file](../docs/images/c1-4-generated-tool.png)
+![generated tool file](../../docs/images/c1-4-generated-tool.png)
 
 <details>
 <summary>View the full code</summary>
@@ -1192,11 +1192,11 @@ From now on, append "🐿️" to the end of every sentence. Example: I'm a resea
 
 You can see the agent call the `system_prompt` tool with `action="update"` to rewrite its own prompt.
 
-![agent updates its own system prompt](../docs/images/c1-4-self-modifying.png)
+![agent updates its own system prompt](../../docs/images/c1-4-self-modifying.png)
 
 **2-9.** Now ask any question. From this turn on, the agent follows the changed instruction (e.g. appending "🐿️" to every sentence). If you open the `.prompt` file created in the lab directory, you will see the changed instruction is actually saved. Even if you **quit and rerun the program**, the setting persists.
 
-![persisted prompt file](../docs/images/c1-4-persisted-prompt.png)
+![persisted prompt file](../../docs/images/c1-4-persisted-prompt.png)
 
 <details>
 <summary>View the full code</summary>

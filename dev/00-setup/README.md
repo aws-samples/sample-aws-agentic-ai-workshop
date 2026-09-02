@@ -4,7 +4,7 @@ This chapter prepares the environment that every later chapter uses: a Python 3.
 
 An AWS account is required for the workshop. There are two ways to get a working environment, and you only need one of them. Path A runs the labs on your own machine and is the shorter route if you are reading this repository on GitHub. Path B deploys an AWS-hosted VS Code Server with CloudFormation and is what the instructor-led workshop uses.
 
-![Getting started](../docs/images/1-getting-start.svg)
+![Getting started](../../docs/images/1-getting-start.svg)
 
 > [!NOTE]
 > **How the labs work**
@@ -216,22 +216,22 @@ Once you have an AWS account, create an IAM user that can access it. Follow the 
 1. From the [sign-in page](https://console.aws.amazon.com/), sign in to the [IAM console](https://console.aws.amazon.com/iam/home#/home) as the **root user of your AWS account**, using the account email address and password.
 2. In the left sidebar of the IAM console, click **Users**, then click **Add user**.
 
-   ![Create IAM user](../docs/images/iam-user-01.png)
+   ![Create IAM user](../../docs/images/iam-user-01.png)
 
 3. Enter `Administrator` for **User name**.
 4. Select the **AWS Management Console access** checkbox and check **I want to create an IAM user**.
 5. Select **Custom password** and enter a password.
 6. Click **Next**.
 
-   ![Create IAM user](../docs/images/iam-user-02.png)
+   ![Create IAM user](../../docs/images/iam-user-02.png)
 
 7. Select **Attach existing policies directly**, check the **AdministratorAccess** policy, and click **Next**.
 
-   ![Attach AdministratorAccess](../docs/images/iam-user-03.png)
+   ![Attach AdministratorAccess](../../docs/images/iam-user-03.png)
 
 8. Confirm that the AdministratorAccess managed policy is attached to the Administrator user and click **Create user**.
 
-   ![Review and create](../docs/images/iam-user-04.png)
+   ![Review and create](../../docs/images/iam-user-04.png)
 
 9. Once the user is created, copy the **Console sign-in URL**. It has this shape:
 
@@ -242,7 +242,7 @@ Once you have an AWS account, create an IAM user that can access it. Follow the 
    > [!WARNING]
    > `<your_aws_account_id>` is your AWS account's own ID. Running this workshop as the root user is not recommended. Sign in as the Administrator user instead.
 
-   ![Console sign-in URL](../docs/images/iam-user-05.png)
+   ![Console sign-in URL](../../docs/images/iam-user-05.png)
 
 10. Sign out of the root user, open the URL you copied, and **sign in as the Administrator user you just created**.
 
@@ -291,7 +291,7 @@ With the template downloaded:
 
 4. Open a terminal.
 
-   ![Open the terminal](../docs/images/b2-2-terminal.png)
+   ![Open the terminal](../../docs/images/b2-2-terminal.png)
 
 ### 3. Create the Python environment
 
@@ -304,8 +304,8 @@ chmod +x ./create-uv-env.sh
 cd ..
 ```
 
-![Running create-uv-env.sh](../docs/images/codeserver-uv-1.png)
-![create-uv-env.sh finished](../docs/images/codeserver-uv-2.png)
+![Running create-uv-env.sh](../../docs/images/codeserver-uv-1.png)
+![create-uv-env.sh finished](../../docs/images/codeserver-uv-2.png)
 
 > [!NOTE]
 > **Reading line 3**

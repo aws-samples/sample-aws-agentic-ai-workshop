@@ -40,7 +40,7 @@
 
 실습 방식은 다른 챕터와 동일합니다. `labs/` 폴더의 빈 파일에 코드를 직접 작성하고, `completed/` 폴더의 완성된 코드는 정답으로 참고합니다. 막힐 때만 completed 파일을 열어보세요.
 
-![labs 폴더](../docs/images/c2-labs.png)
+![labs 폴더](../../docs/images/c2-labs.png)
 
 > [!NOTE]
 > **`artifacts-*` 폴더는 소스 코드가 아니라 실행 결과입니다**
@@ -65,7 +65,7 @@
 
 이번 실습에서는 Agents-as-Tools 패턴을 활용해서, 리서치, 제품 추천, 여행 계획 등 다양한 전문 영역의 요청을 자동으로 분류하고 적절한 전문 에이전트에게 위임하는 멀티 에이전트 시스템을 만들어보겠습니다.
 
-![agents as tools](../docs/images/c2-agents-as-tools.png)
+![agents as tools](../../docs/images/c2-agents-as-tools.png)
 
 **1-1.** `02-multi-agents/labs/agents_as_tools.py` 파일을 엽니다.
 
@@ -213,7 +213,7 @@ uv run --project 00-setup python 02-multi-agents/labs/agents_as_tools.py
 
 | `research_assistant`를 도구로 호출 | `trip_planning_assistant`를 도구로 호출 | `file_write` 도구 호출 |
 |----------|---------|----------|
-| ![result1](../docs/images/c2-aat-1.png) | ![result2](../docs/images/c2-aat-2.png) | ![result3](../docs/images/c2-aat-3.png) |
+| ![result1](../../docs/images/c2-aat-1.png) | ![result2](../../docs/images/c2-aat-2.png) | ![result3](../../docs/images/c2-aat-3.png) |
 
 *최종 결과물:*
 
@@ -408,7 +408,7 @@ uv run --project 00-setup python 02-multi-agents/labs/swarms.py
 
 | **최종 결과** | `creative_agent` 결과 | `critical_agent` 결과 | `summarizer_agent` 결과 |
 |----------|---------|----------|----------|
-| ![result4](../docs/images/c2-swarm-result4.png) | ![result1](../docs/images/c2-swarm-result1.png) | ![result2](../docs/images/c2-swarm-result2.png) | ![result3](../docs/images/c2-swarm-result3.png) |
+| ![result4](../../docs/images/c2-swarm-result4.png) | ![result1](../../docs/images/c2-swarm-result1.png) | ![result2](../../docs/images/c2-swarm-result2.png) | ![result3](../../docs/images/c2-swarm-result3.png) |
 
 이 실습은 최대 5개의 마크다운 파일(`research.md`, `creative.md`, `critical.md`, `summarizer.md`, `travel_plan.md`)을 생성합니다. 결과 예시는 `completed/artifacts-swarms/` 에서 확인할 수 있습니다.
 
@@ -725,7 +725,7 @@ uv run --project 00-setup python 02-multi-agents/labs/graph_condition.py \
 
 | business_report 노드를 호출 | 결과를 요약하여 business_report.md 에 파일로 저장 |
 |----------|------|
-| ![lab-result1](../docs/images/c2-condition-business-1.png) | ![lab-result2](../docs/images/c2-condition-business-2.png) |
+| ![lab-result1](../../docs/images/c2-condition-business-1.png) | ![lab-result2](../../docs/images/c2-condition-business-2.png) |
 
 **4-7.** 이번에는 터미널에서 아래 쿼리를 실행하고, technical_report 노드로 요청이 잘 라우팅되었는지 결과를 확인합니다:
 
@@ -738,7 +738,7 @@ uv run --project 00-setup python 02-multi-agents/labs/graph_condition.py \
 
 | technical_report 노드를 호출 | 결과를 요약하여 technical_report.md 에 파일로 저장 |
 |----------|------|
-| ![lab-result1](../docs/images/c2-condition-technical-1.png) | ![lab-result2](../docs/images/c2-condition-technical-2.png) |
+| ![lab-result1](../../docs/images/c2-condition-technical-1.png) | ![lab-result2](../../docs/images/c2-condition-technical-2.png) |
 
 **4-6**에서의 테스트는 classifier → business_report 경로로, **4-7**에서의 테스트는 classifier → technical_report 경로로 실행되는 것을 확인할 수 있습니다. 두 실행 모두 명령어를 실행한 위치에 보고서 파일을 생성하며, `completed/artifacts-graph/` 에 각각의 결과 예시가 저장되어 있습니다.
 

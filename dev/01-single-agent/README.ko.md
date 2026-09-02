@@ -2,7 +2,7 @@
 
 이번 실습에서는 Strands SDK의 핵심 구성 요소인 Prompt, Model, Tools를 다뤄보며, 기본 에이전트를 만드는 방법을 학습합니다.
 
-![Strands SDK 구성 요소](../docs/images/c1-strands-diagram.png)
+![Strands SDK 구성 요소](../../docs/images/c1-strands-diagram.png)
 
 먼저 만들 에이전트는 1) 수식 계산, 2) 시간 확인, 3) Python 코드 실행 기능을 가집니다. 이어서 Bedrock Knowledge Base를 붙여 문서 검색을 추가하고, 외부 MCP 서버를 연결한 다음, 마지막으로 도구를 스스로 만들고 시스템 프롬프트를 스스로 고치는 에이전트를 만들어봅니다.
 
@@ -34,7 +34,7 @@
 - `labs/<파일>.py`는 **비어 있습니다.** 가이드를 따라 직접 코드를 작성합니다.
 - `completed/<파일>.py`에는 **정답 코드**가 들어 있습니다. 막히거나 비교하고 싶을 때 열어보세요.
 
-![labs와 completed 폴더](../docs/images/c1-labs.png)
+![labs와 completed 폴더](../../docs/images/c1-labs.png)
 
 아래 모든 명령어는 [00-setup](../00-setup/README.ko.md)에서 만든 uv 환경이 준비된 상태에서 **레포지토리 루트**에서 실행하는 것을 기준으로 합니다.
 
@@ -110,7 +110,7 @@ uv run python 01-single-agent/labs/basic.py
 
 에이전트가 `calculator` 도구를 자동으로 선택하여 80/4*5의 제곱근을 계산하고, 결과인 **10**을 포함한 답변을 반환하는 것을 확인할 수 있습니다.
 
-![calculator 실행 결과](../docs/images/c1-calculator.png)
+![calculator 실행 결과](../../docs/images/c1-calculator.png)
 
 <details>
 <summary>오류가 발생하나요? (⚠️ 모델 접근 오류 해결 방법)</summary>
@@ -230,7 +230,7 @@ if __name__ == "__main__":
 uv run python 01-single-agent/labs/models.py
 ```
 
-![BedrockModel 실행 결과](../docs/images/c1-bedrockmodel.png)
+![BedrockModel 실행 결과](../../docs/images/c1-bedrockmodel.png)
 
 **2-7.** ***(Optional)*** 에이전트가 Reasoning 한 내용과 최종 답변 (Response)를 각각 출력해보기 위해, models.py 가장 아래에 아래 코드를 추가해봅니다.
 
@@ -256,7 +256,7 @@ uv run python 01-single-agent/labs/models.py
 uv run python 01-single-agent/labs/models.py
 ```
 
-![Reasoning과 Response 분리 출력](../docs/images/c1-reasoning.png)
+![Reasoning과 Response 분리 출력](../../docs/images/c1-reasoning.png)
 
 ---
 
@@ -332,7 +332,7 @@ uv run python 01-single-agent/labs/custom_tool1.py
 
 에이전트가 질문을 분석하여 `weather_forecast` 도구를 호출하고, 서울의 날씨 정보를 반환하는 것을 확인할 수 있습니다.
 
-![커스텀 도구 실행 결과](../docs/images/c1-customtool1.png)
+![커스텀 도구 실행 결과](../../docs/images/c1-customtool1.png)
 
 ---
 
@@ -390,11 +390,11 @@ uv run python 01-single-agent/labs/custom_tool2.py
 
 에이전트가 Python 코드를 생성하고 `python_repl_tool`을 통해 실행하는 과정을 확인할 수 있습니다.
 
-![python repl 도구 실행 결과](../docs/images/c1-customtool-py.png)
+![python repl 도구 실행 결과](../../docs/images/c1-customtool-py.png)
 
 주석 처리된 다른 user_input도 시도해보세요. bash 명령어를 실행하는 tool을 호출하여, 아래와 같은 결과가 표시됩니다.
 
-![bash 도구 실행 결과](../docs/images/c1-customtool-bash.png)
+![bash 도구 실행 결과](../../docs/images/c1-customtool-bash.png)
 
 > [!NOTE]
 > **축하드립니다!**
@@ -516,15 +516,15 @@ Knowledge Base에 사용할 문서를 S3 버킷에 업로드합니다.
 
 **1-1.** AWS 콘솔에서 **S3** 서비스를 검색하고 클릭합니다.
 
-![S3](../docs/images/c1-2-s3_1.png)
+![S3](../../docs/images/c1-2-s3_1.png)
 
 **1-2.** **Create bucket** 버튼을 클릭하여 새로운 S3 버킷을 생성합니다.
 
-![S3 Create Bucket](../docs/images/c1-2-s3_2.png)
+![S3 Create Bucket](../../docs/images/c1-2-s3_2.png)
 
 **1-3.** Bucket name에 `strands-kb-{unique-identifier}`를 입력합니다. `{unique-identifier}`는 본인의 Account ID 등 고유한 값으로 설정합니다. 나머지 옵션은 기본값으로 두고 **Create bucket**을 클릭합니다.
 
-![S3 Bucket Name](../docs/images/c1-2-s3_3.png)
+![S3 Bucket Name](../../docs/images/c1-2-s3_3.png)
 
 **1-4.** 생성된 버킷에 접속하여 **Upload** 버튼을 클릭합니다.
 
@@ -543,21 +543,21 @@ Knowledge Base에 사용할 문서를 S3 버킷에 업로드합니다.
 
 **2-1.** AWS 콘솔에서 **Amazon Bedrock** 서비스를 검색하고 클릭합니다.
 
-![Bedrock Page](../docs/images/c1-2-kb_1.png)
+![Bedrock Page](../../docs/images/c1-2-kb_1.png)
 
 **2-2.** 좌측 메뉴에서 **Knowledge bases**를 선택한 후 **Create > Knowledge base with vector store** 버튼을 클릭합니다.
 
-![Bedrock Create KB](../docs/images/c1-2-kb_2.png)
+![Bedrock Create KB](../../docs/images/c1-2-kb_2.png)
 
 **2-3.** Knowledge Base Name에 `strands-workshop-kb`를 입력하고, Data Source로 **Amazon S3**를 선택한 후 **Next** 버튼을 클릭합니다.
 
-![Bedrock S3 Selection](../docs/images/c1-2-kb_3.png)
+![Bedrock S3 Selection](../../docs/images/c1-2-kb_3.png)
 
 **2-4.** **Browse S3** 버튼을 클릭하여 앞서 생성한 버킷을 선택하고 **Next** 버튼을 클릭합니다.
 
 **2-5.** Embeddings model로 **Titan Text Embeddings V2**를 선택합니다. Vector Store Type은 **Amazon OpenSearch Serverless**를 선택한 다음 **Next** 버튼을 클릭합니다.
 
-![Bedrock Create KB](../docs/images/c1-2-kb_4.png)
+![Bedrock Create KB](../../docs/images/c1-2-kb_4.png)
 
 **2-6.** **Create knowledge base** 버튼을 클릭하여 Knowledge Base를 생성합니다. 생성이 완료될 때까지 잠시 기다립니다.
 
@@ -573,19 +573,19 @@ Knowledge Base가 정상적으로 동작하는지 Bedrock 콘솔에서 직접 �
 
 **3-1.** Amazon Bedrock 콘솔에서 생성한 Knowledge Base를 선택합니다.
 
-![Bedrock Check KB](../docs/images/c1-2-kb_6.png)
+![Bedrock Check KB](../../docs/images/c1-2-kb_6.png)
 
 **3-2.** **Test knowledge base** 섹션에서 **Select model** 버튼을 클릭합니다.
 
-![Bedrock Test KB](../docs/images/c1-2-kb_7.png)
+![Bedrock Test KB](../../docs/images/c1-2-kb_7.png)
 
 **3-3.** Claude 모델을 선택한 후 **Apply** 버튼을 클릭합니다.
 
-![Bedrock Choose Model](../docs/images/c1-2-kb_8.png)
+![Bedrock Choose Model](../../docs/images/c1-2-kb_8.png)
 
 **3-4.** 질문을 입력하고 **Run** 버튼을 클릭하여 응답을 확인합니다.
 
-![Bedrock KB Run](../docs/images/c1-2-kb_9.png)
+![Bedrock KB Run](../../docs/images/c1-2-kb_9.png)
 
 ---
 
@@ -593,7 +593,7 @@ Knowledge Base가 정상적으로 동작하는지 Bedrock 콘솔에서 직접 �
 
 **4-1.** 생성된 Knowledge Base의 상세 페이지에서 **Knowledge Base ID**를 복사합니다. 이 ID는 Strands 에이전트에서 Knowledge Base에 접근할 때 사용됩니다.
 
-![Bedrock Get KB ID](../docs/images/c1-2-kb_10.png)
+![Bedrock Get KB ID](../../docs/images/c1-2-kb_10.png)
 
 > [!IMPORTANT]
 > 이 ID를 지금 따로 적어두세요. 다음 단계에서 `01-single-agent/labs/knowledge_base.py`의 `KNOWLEDGE_BASE_ID` 변수에 직접 붙여넣어야 합니다. 에이전트가 Knowledge Base를 찾을 수 있는 다른 방법은 없으며, 자리표시자 문자열을 그대로 두면 `retrieve` 도구 호출이 실패합니다.
@@ -737,7 +737,7 @@ uv run python 01-single-agent/labs/mcp_tool.py
 
 에이전트가 AWS 문서 MCP 서버에 연결하여 실시간으로 최신 정보를 검색하고 답변하는 것을 확인할 수 있습니다.
 
-![MCP 도구 실행 결과](../docs/images/c1-mcptool.png)
+![MCP 도구 실행 결과](../../docs/images/c1-mcptool.png)
 
 ---
 
@@ -752,7 +752,7 @@ uv run python 01-single-agent/labs/mcp_tool.py
 
 [mcp.so](https://mcp.so)는 다양한 MCP 서버를 모아놓은 허브입니다. 여기서 원하는 기능의 MCP 서버를 검색하고 설정 정보를 가져올 수 있습니다.
 
-![mcp.so](../docs/images/mcp-so.png)
+![mcp.so](../../docs/images/mcp-so.png)
 
 **2-1-1.** [mcp.so](https://mcp.so)에 접속합니다.
 
@@ -773,7 +773,7 @@ uv run python 01-single-agent/labs/mcp_tool.py
 }
 ```
 
-![mcp 설정 정보](../docs/images/mcp-config.png)
+![mcp 설정 정보](../../docs/images/mcp-config.png)
 
 #### 2-2. Playwright MCP 연동하기
 
@@ -977,13 +977,13 @@ uv run python self_extending.py
 
 에이전트가 1) `tools/` 디렉토리에 `qr_generator.py` 같은 도구 파일을 **직접 작성**하고, 2) SDK가 이 파일을 **즉시 로드**한 뒤, 3) 같은 실행 안에서 그 도구를 **호출**하여 터미널에 QR 코드를 출력하는 것을 확인할 수 있습니다.
 
-![에이전트가 도구 파일을 직접 작성](../docs/images/c1-4-self-extending-1.png)
+![에이전트가 도구 파일을 직접 작성](../../docs/images/c1-4-self-extending-1.png)
 
-![방금 만든 도구를 바로 호출](../docs/images/c1-4-self-extending-2.png)
+![방금 만든 도구를 바로 호출](../../docs/images/c1-4-self-extending-2.png)
 
 **1-7.** 실습 디렉토리의 `tools/` 폴더를 열어보면, 에이전트가 방금 **직접 작성한 도구 파일**이 실제로 저장되어 있는 것을 확인할 수 있습니다. 이 파일은 다음 실행에서도 그대로 다시 로드됩니다.
 
-![에이전트가 생성한 도구 파일](../docs/images/c1-4-generated-tool.png)
+![에이전트가 생성한 도구 파일](../../docs/images/c1-4-generated-tool.png)
 
 <details>
 <summary>전체 코드 확인</summary>
@@ -1192,11 +1192,11 @@ uv run python self_modifying.py
 
 에이전트가 `system_prompt` 도구를 `action="update"`로 호출하여 자신의 프롬프트를 바꾸는 것을 확인할 수 있습니다.
 
-![에이전트가 자신의 시스템 프롬프트를 갱신](../docs/images/c1-4-self-modifying.png)
+![에이전트가 자신의 시스템 프롬프트를 갱신](../../docs/images/c1-4-self-modifying.png)
 
 **2-9.** 이어서 아무 질문이나 던져보세요. 이번 턴부터는 에이전트가 바뀐 지침대로 (예: "~다"로 끝나는 문장마다 "람쥐"를 붙여서) 답하는 것을 볼 수 있습니다. 실습 디렉토리에 생성된 `.prompt` 파일을 열어보면, 바뀐 지침이 실제로 저장되어 있습니다. **프로그램을 종료했다가 다시 실행해도** 이 설정이 유지됩니다.
 
-![영속화된 .prompt 파일](../docs/images/c1-4-persisted-prompt.png)
+![영속화된 .prompt 파일](../../docs/images/c1-4-persisted-prompt.png)
 
 <details>
 <summary>전체 코드 확인</summary>

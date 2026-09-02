@@ -11,7 +11,7 @@ In this chapter you will set up a Strands Agents development environment using *
 
 [Kiro](https://kiro.dev/) is an AI-powered integrated development environment (IDE) provided by AWS. Built on VS Code, it offers a familiar development experience while AI agents support the entire development process.
 
-![Kiro logo](../docs/images/kiro-logo.png)
+![Kiro logo](../../docs/images/kiro-logo.png)
 
 ### Key features of Kiro
 

@@ -248,7 +248,7 @@ from bedrock_agentcore.memory.integrations.strands.session_manager import AgentC
 MEMORY_ID = os.environ.get("AGENTCORE_MEMORY_ID", "your-memory-id-here")
 
 def create_agent_with_memory(session_id: str, actor_id: str) -> Agent:
-    """메모리가 연결된 에이전트 생성"""
+    """Create an agent with memory attached"""
     memory_config = AgentCoreMemoryConfig(
         memory_id=MEMORY_ID,
         session_id=session_id,
@@ -260,7 +260,7 @@ def create_agent_with_memory(session_id: str, actor_id: str) -> Agent:
     )
     
     return Agent(
-        system_prompt="당신은 친절한 어시스턴트입니다. 이전 대화를 기억하고 맥락에 맞게 응답하세요.",
+        system_prompt="You are a friendly assistant. Remember previous conversations and respond in context.",
         session_manager=session_manager
     )
 
@@ -437,16 +437,16 @@ from bedrock_agentcore.memory.integrations.strands.session_manager import AgentC
 
 MEMORY_ID = os.environ.get("AGENTCORE_MEMORY_LTM_ID", "your-ltm-memory-id")
 
-# LTM 검색 설정
+# LTM retrieval configuration
 retrieval_config = {
     "/facts/{actorId}": RetrievalConfig(
-        top_k=5,           # 상위 5개 결과
-        relevance_score=0.5  # 관련성 점수 임계값
+        top_k=5,           # Top 5 results
+        relevance_score=0.5  # Relevance score threshold
     )
 }
 
 def create_agent(session_id: str, actor_id: str) -> Agent:
-    """메모리가 연결된 에이전트 생성"""
+    """Create an agent with memory connected"""
 
     print(f"Session ID: {session_id} | Actor ID: {actor_id}")
     memory_config = AgentCoreMemoryConfig(
@@ -461,8 +461,8 @@ def create_agent(session_id: str, actor_id: str) -> Agent:
     )
 
     return Agent(
-        system_prompt="""당신은 사용자에 대해 학습하는 어시스턴트입니다.
-        대화에서 중요한 사실을 기억하고, 이전에 학습한 정보를 활용하여 응답하세요.""",
+        system_prompt="""You are an assistant that learns about users.
+        Remember important facts from conversations and use previously learned information in your responses.""",
         session_manager=session_manager
     )
 ```
@@ -477,18 +477,18 @@ def create_agent(session_id: str, actor_id: str) -> Agent:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=["learn", "retrieve"], required=True,
-                        help="learn: 사실 학습, retrieve: 학습된 사실 검색")
+                        help="learn: Learn facts, retrieve: Retrieve learned facts")
     parser.add_argument("--actor", default="user_charlie")
     parser.add_argument("--message", required=True)
     args = parser.parse_args()
     
-    # 매 실행마다 새로운 세션 ID 생성 (LTM이 세션 간 지속되는지 검증)
+    # Generate a new session ID for each run (to verify LTM persists across sessions)
     session_id = f"session_{uuid.uuid4().hex[:8]}"
     agent = create_agent(session_id, args.actor)
     agent(args.message)
     
     if args.mode == "learn":
-        print("\n💡 LTM 생성은 비동기입니다. 1-2분 후 retrieve 모드로 테스트하세요.")
+        print("\n💡 LTM creation is asynchronous. Test with retrieve mode after 1-2 minutes.")
 ```
 
 **3-4.** 터미널에서 학습 모드로 실행합니다:
@@ -540,7 +540,7 @@ retrieval_config = {
 }
 
 def create_agent(session_id: str, actor_id: str) -> Agent:
-    """메모리가 연결된 에이전트 생성"""
+    """Create an agent with memory connected"""
 
     print(f"Session ID: {session_id} | Actor ID: {actor_id}")
     memory_config = AgentCoreMemoryConfig(
@@ -555,8 +555,8 @@ def create_agent(session_id: str, actor_id: str) -> Agent:
     )
     
     return Agent(
-        system_prompt="""당신은 개인화된 추천을 제공하는 어시스턴트입니다.
-        사용자의 선호도를 학습하고, 맞춤형 제안을 해주세요.""",
+        system_prompt="""You are an assistant that provides personalized recommendations.
+        Learn user preferences and provide customized suggestions.""",
         session_manager=session_manager
     )
 ```
@@ -567,18 +567,18 @@ def create_agent(session_id: str, actor_id: str) -> Agent:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=["learn", "recommend"], required=True,
-                        help="learn: 선호도 학습, recommend: 선호도 기반 추천")
+                        help="learn: Learn preferences, recommend: Preference-based recommendations")
     parser.add_argument("--actor", default="user_diana")
     parser.add_argument("--message", required=True)
     args = parser.parse_args()
     
-    # 매 실행마다 새로운 세션 ID 생성 (LTM이 세션 간 지속되는지 검증)
+    # Generate a new session ID for each run (to verify LTM persists across sessions)
     session_id = f"session_{uuid.uuid4().hex[:8]}"
     agent = create_agent(session_id, args.actor)
     agent(args.message)
     
     if args.mode == "learn":
-        print("\n💡 LTM 생성은 비동기입니다. 1-2분 후 recommend 모드로 테스트하세요.")
+        print("\n💡 LTM creation is asynchronous. Test with recommend mode after 1-2 minutes.")
 ```
 
 **4-4.** 터미널에서 선호도를 학습시킵니다:
@@ -673,23 +673,23 @@ from strands_tools import calculator, current_time, python_repl
 from bedrock_agentcore.memory.integrations.strands.config import AgentCoreMemoryConfig
 from bedrock_agentcore.memory.integrations.strands.session_manager import AgentCoreMemorySessionManager
 
-# 페이지 설정
+# Page configuration
 st.set_page_config(
-    page_title="메모리 챗봇",
+    page_title="Memory Chatbot",
     page_icon="🧠",
     layout="centered"
 )
 
-st.title("🧠 메모리가 있는 챗봇")
+st.title("🧠 Chatbot with Memory")
 ```
 
 **2-3.** 메모리 설정을 구성합니다.
 
 ```python
-# 환경 변수에서 메모리 ID 가져오기
+# Get memory ID from environment variable
 MEMORY_ID = os.environ.get("AGENTCORE_MEMORY_ID", "your-memory-id-here")
 
-# 세션 ID 초기값 설정 (URL 파라미터 또는 새로 생성)
+# Initialize session ID (URL parameter or generate new one)
 if "session_id" not in st.session_state:
     query_params = st.query_params
     st.session_state.session_id = query_params.get(
@@ -697,7 +697,7 @@ if "session_id" not in st.session_state:
         f"chat_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     )
 
-# 사용자 ID (실제 앱에서는 로그인 시스템과 연동)
+# User ID (in real apps, integrate with login system)
 if "actor_id" not in st.session_state:
     st.session_state.actor_id = "default_user"
 ```
@@ -706,7 +706,7 @@ if "actor_id" not in st.session_state:
 
 ```python
 def create_agent_with_memory():
-    """메모리가 연결된 에이전트 생성"""
+    """Create agent with memory connection"""
     memory_config = AgentCoreMemoryConfig(
         memory_id=MEMORY_ID,
         session_id=st.session_state.session_id,
@@ -718,14 +718,14 @@ def create_agent_with_memory():
     )
     
     return Agent(
-        system_prompt="""당신은 친절한 어시스턴트입니다. 
-        사용자와의 대화를 기억하고, 이전 대화 맥락을 활용하여 응답하세요.
-        사용자의 이름, 선호도, 이전에 논의한 주제를 기억해주세요.""",
+        system_prompt="""You are a friendly assistant. 
+        Remember conversations with users and use previous context in responses.
+        Remember user names, preferences, and previously discussed topics.""",
         tools=[calculator, current_time, python_repl],
         session_manager=session_manager
     )
 
-# 에이전트 초기화
+# Initialize agent
 if "agent" not in st.session_state:
     st.session_state.agent = create_agent_with_memory()
 ```
@@ -733,67 +733,67 @@ if "agent" not in st.session_state:
 **2-5.** 사이드바에 세션 정보를 표시합니다. 세션 ID를 직접 입력하여 기존 세션에 연결할 수 있습니다.
 
 ```python
-# 사이드바
+# Sidebar
 with st.sidebar:
-    st.header("📋 세션 정보")
+    st.header("📋 Session Info")
     
-    # 세션 ID 직접 입력
+    # Direct session ID input
     new_input = st.text_input(
-        "세션 ID",
+        "Session ID",
         value=st.session_state.session_id,
-        placeholder="세션 ID를 입력하세요",
-        help="기존 세션 ID를 입력하면 해당 대화를 이어갈 수 있습니다."
+        placeholder="Enter a session ID",
+        help="Enter an existing session ID to continue that conversation."
     )
     
-    # 입력값이 변경되면 세션 재연결
+    # Reconnect session if input changed
     if new_input and new_input != st.session_state.session_id:
         st.session_state.session_id = new_input
         st.session_state.agent = create_agent_with_memory()
         st.session_state.messages = []
         st.rerun()
     
-    st.text(f"사용자 ID: {st.session_state.actor_id}")
+    st.text(f"User ID: {st.session_state.actor_id}")
     
     st.divider()
     
-    # 입력된 세션 ID로 대화 시작
-    if st.button("💬 대화 시작!"):
+    # Start chat with current session ID
+    if st.button("💬 Start Chat!"):
         st.session_state.agent = create_agent_with_memory()
         st.session_state.messages = []
         st.rerun()
     
     st.divider()
     
-    st.header("ℹ️ 사용 가능한 도구")
+    st.header("ℹ️ Available Tools")
     st.markdown("""
-    - 🧮 Calculator: 수학 계산
-    - ⏰ Current Time: 현재 시간
-    - 🐍 Python REPL: 코드 실행
+    - 🧮 Calculator: Math calculations
+    - ⏰ Current Time: Current time
+    - 🐍 Python REPL: Code execution
     """)
 ```
 
 **2-6.** 채팅 히스토리 표시 및 입력 처리 코드를 추가합니다.
 
 ```python
-# 채팅 히스토리 초기화
+# Chat history initialization
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# 채팅 히스토리 표시
+# Display chat history
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# 사용자 입력
-if prompt := st.chat_input("메시지를 입력하세요..."):
-    # 사용자 메시지 추가 및 표시
+# User input
+if prompt := st.chat_input("Enter your message..."):
+    # Add and display user message
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Assistant 응답 생성
+    # Generate assistant response
     with st.chat_message("assistant"):
-        with st.spinner("생각 중..."):
+        with st.spinner("Thinking..."):
             try:
                 response = st.session_state.agent(prompt)
                 response_text = str(response)
@@ -804,7 +804,7 @@ if prompt := st.chat_input("메시지를 입력하세요..."):
                     "content": response_text
                 })
             except Exception as e:
-                error_msg = f"오류가 발생했습니다: {str(e)}"
+                error_msg = f"An error occurred: {str(e)}"
                 st.error(error_msg)
 ```
 

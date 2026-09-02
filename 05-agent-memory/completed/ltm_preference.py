@@ -18,7 +18,7 @@ retrieval_config = {
 }
 
 def create_agent(session_id: str, actor_id: str) -> Agent:
-    """메모리가 연결된 에이전트 생성"""
+    """Create an agent with memory connected"""
 
     print(f"Session ID: {session_id} | Actor ID: {actor_id}")
     memory_config = AgentCoreMemoryConfig(
@@ -33,23 +33,23 @@ def create_agent(session_id: str, actor_id: str) -> Agent:
     )
     
     return Agent(
-        system_prompt="""당신은 개인화된 추천을 제공하는 어시스턴트입니다.
-        사용자의 선호도를 학습하고, 맞춤형 제안을 해주세요.""",
+        system_prompt="""You are an assistant that provides personalized recommendations.
+        Learn user preferences and provide customized suggestions.""",
         session_manager=session_manager
     )
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=["learn", "recommend"], required=True,
-                        help="learn: 선호도 학습, recommend: 선호도 기반 추천")
+                        help="learn: Learn preferences, recommend: Preference-based recommendations")
     parser.add_argument("--actor", default="user_diana")
     parser.add_argument("--message", required=True)
     args = parser.parse_args()
     
-    # 매 실행마다 새로운 세션 ID 생성 (LTM이 세션 간 지속되는지 검증)
+    # Generate a new session ID for each run (to verify LTM persists across sessions)
     session_id = f"session_{uuid.uuid4().hex[:8]}"
     agent = create_agent(session_id, args.actor)
     agent(args.message)
     
     if args.mode == "learn":
-        print("\n💡 LTM 생성은 비동기입니다. 1-2분 후 recommend 모드로 테스트하세요.")
+        print("\n💡 LTM creation is asynchronous. Test with recommend mode after 1-2 minutes.")

@@ -1,27 +1,25 @@
-"""
-Traces OTLP 전송 - OpenTelemetry Collector로 트레이스 전송
-"""
+"""Traces OTLP Export - Send traces to OpenTelemetry Collector"""
 import os
 from strands import Agent
 from strands.telemetry import StrandsTelemetry
 from strands_tools import calculator
 
-# OTLP 엔드포인트 설정 (localhost에 OTEL Collector가 실행 중이라고 가정)
+# OTLP endpoint configuration (assuming OTEL Collector is running on localhost)
 os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"] = "http://localhost:4318"
 
-# 텔레메트리 설정
+# Telemetry setup
 strands_telemetry = StrandsTelemetry()
-strands_telemetry.setup_otlp_exporter()      # OTLP 엔드포인트로 전송
-strands_telemetry.setup_console_exporter()   # 콘솔에도 출력 (디버깅용)
+strands_telemetry.setup_otlp_exporter()      # Send to OTLP endpoint
+strands_telemetry.setup_console_exporter()   # Also output to console (for debugging)
 strands_telemetry.setup_meter(
     enable_otlp_exporter=True,
     enable_console_exporter=True
 )
 
-# 에이전트 생성 (커스텀 속성 포함)
+# Create agent (with custom attributes)
 agent = Agent(
     model="us.anthropic.claude-sonnet-4-20250514-v1:0",
-    system_prompt="당신은 도움이 되는 AI 어시스턴트입니다.",
+    system_prompt="You are a helpful AI assistant.",
     tools=[calculator],
     trace_attributes={
         "session.id": "workshop-demo-001",
@@ -30,10 +28,10 @@ agent = Agent(
     }
 )
 
-# 첫 번째 질문
-print("=== 첫 번째 질문 ===")
-response = agent("화성에 대해 알려줘. 대기는 어떤가요?")
+# First question
+print("=== First Question ===")
+response = agent("Tell me about Mars. What is its atmosphere like?")
 
-# 후속 질문 (도구 사용)
-print("=== 후속 질문 ===")
-response = agent("지구에서 화성까지 시속 10만 km로 가면 얼마나 걸려?")
+# Follow-up question (using tools)
+print("\n=== Follow-up Question ===")
+response = agent("How long would it take to travel from Earth to Mars at 100,000 km/h?")

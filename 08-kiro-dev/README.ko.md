@@ -279,7 +279,9 @@ Steering은 Kiro AI가 코드를 생성할 때 따라야 할 규칙과 컨텍스
 
 **작업 디렉토리**
 
-> `코드 산출물은 08-kiro-dev/labs/ 하위에 생성합니다.`
+> `Create code artifacts under 08-kiro-dev/labs/.`
+>
+> (코드 산출물은 `08-kiro-dev/labs/` 하위에 생성합니다.)
 
 > [!NOTE]
 > 이 규칙 덕분에 Kiro가 생성한 에이전트 코드가 임의의 위치가 아니라 `08-kiro-dev/labs/`에 저장됩니다. 다른 폴더를 워크스페이스로 열었다면 워크스페이스 루트 기준 상대 경로로 맞춰 수정하세요.
@@ -327,12 +329,12 @@ strands_telemetry.setup_otlp_exporter()
 
 @tool
 def my_tool(param: str) -> str:
-    """도구 설명"""
+    """Tool description"""
     return result
 
 agent = Agent(
     model="us.anthropic.claude-sonnet-4-20250514-v1:0",
-    system_prompt="당신은 도움이 되는 AI 어시스턴트입니다.",
+    system_prompt="You are a helpful AI assistant.",
     name="<adequate name>",
     tools=[my_tool]
 )
@@ -469,7 +471,7 @@ Kiro 자체는 AWS 리소스를 만들지 않지만, 구독과 모델 호출에�
 
 - [Kiro 공식 사이트](https://kiro.dev/)
 - [Kiro Documentation](https://kiro.dev/docs/)
-- [Strands Agents SDK](https://strandsagents.com/latest/)
+- [Strands Agents SDK](https://strandsagents.com/docs/)
 - [Amazon DCV](https://aws.amazon.com/hpc/dcv/)
 
 ---

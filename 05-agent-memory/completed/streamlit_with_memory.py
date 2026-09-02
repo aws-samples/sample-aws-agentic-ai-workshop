@@ -8,19 +8,19 @@ from strands_tools import calculator, current_time, python_repl
 from bedrock_agentcore.memory.integrations.strands.config import AgentCoreMemoryConfig
 from bedrock_agentcore.memory.integrations.strands.session_manager import AgentCoreMemorySessionManager
 
-# 페이지 설정
+# Page configuration
 st.set_page_config(
-    page_title="메모리 챗봇",
+    page_title="Memory Chatbot",
     page_icon="🧠",
     layout="centered"
 )
 
-st.title("🧠 메모리가 있는 챗봇")
+st.title("🧠 Chatbot with Memory")
 
-# 환경 변수에서 메모리 ID 가져오기
+# Get memory ID from environment variable
 MEMORY_ID = os.environ.get("AGENTCORE_MEMORY_ID", "your-memory-id-here")
 
-# 세션 ID 초기값 설정 (URL 파라미터 또는 새로 생성)
+# Initialize session ID (URL parameter or generate new one)
 if "session_id" not in st.session_state:
     query_params = st.query_params
     st.session_state.session_id = query_params.get(
@@ -28,12 +28,12 @@ if "session_id" not in st.session_state:
         f"chat_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     )
 
-# 사용자 ID (실제 앱에서는 로그인 시스템과 연동)
+# User ID (in real apps, integrate with login system)
 if "actor_id" not in st.session_state:
     st.session_state.actor_id = "default_user"
 
 def create_agent_with_memory():
-    """메모리가 연결된 에이전트 생성"""
+    """Create agent with memory connection"""
     memory_config = AgentCoreMemoryConfig(
         memory_id=MEMORY_ID,
         session_id=st.session_state.session_id,
@@ -45,74 +45,74 @@ def create_agent_with_memory():
     )
     
     return Agent(
-        system_prompt="""당신은 친절한 어시스턴트입니다. 
-        사용자와의 대화를 기억하고, 이전 대화 맥락을 활용하여 응답하세요.
-        사용자의 이름, 선호도, 이전에 논의한 주제를 기억해주세요.""",
+        system_prompt="""You are a friendly assistant. 
+        Remember conversations with users and use previous context in responses.
+        Remember user names, preferences, and previously discussed topics.""",
         tools=[calculator, current_time, python_repl],
         session_manager=session_manager
     )
 
-# 에이전트 초기화
+# Initialize agent
 if "agent" not in st.session_state:
     st.session_state.agent = create_agent_with_memory()
 
-# 사이드바
+# Sidebar
 with st.sidebar:
-    st.header("📋 세션 정보")
+    st.header("📋 Session Info")
     
-    # 세션 ID 직접 입력
+    # Direct session ID input
     new_input = st.text_input(
-        "세션 ID",
+        "Session ID",
         value=st.session_state.session_id,
-        placeholder="세션 ID를 입력하세요",
-        help="기존 세션 ID를 입력하면 해당 대화를 이어갈 수 있습니다."
+        placeholder="Enter a session ID",
+        help="Enter an existing session ID to continue that conversation."
     )
     
-    # 입력값이 변경되면 세션 재연결
+    # Reconnect session if input changed
     if new_input and new_input != st.session_state.session_id:
         st.session_state.session_id = new_input
         st.session_state.agent = create_agent_with_memory()
         st.session_state.messages = []
         st.rerun()
     
-    st.text(f"사용자 ID: {st.session_state.actor_id}")
+    st.text(f"User ID: {st.session_state.actor_id}")
     
     st.divider()
     
-    # 입력된 세션 ID로 대화 시작
-    if st.button("💬 대화 시작!"):
+    # Start chat with current session ID
+    if st.button("💬 Start Chat!"):
         st.session_state.agent = create_agent_with_memory()
         st.session_state.messages = []
         st.rerun()
     
     st.divider()
     
-    st.header("ℹ️ 사용 가능한 도구")
+    st.header("ℹ️ Available Tools")
     st.markdown("""
-    - 🧮 Calculator: 수학 계산
-    - ⏰ Current Time: 현재 시간
-    - 🐍 Python REPL: 코드 실행
+    - 🧮 Calculator: Math calculations
+    - ⏰ Current Time: Current time
+    - 🐍 Python REPL: Code execution
     """)
 
-# 채팅 히스토리 초기화
+# Chat history initialization
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# 채팅 히스토리 표시
+# Display chat history
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# 사용자 입력
-if prompt := st.chat_input("메시지를 입력하세요..."):
-    # 사용자 메시지 추가 및 표시
+# User input
+if prompt := st.chat_input("Enter your message..."):
+    # Add and display user message
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Assistant 응답 생성
+    # Generate assistant response
     with st.chat_message("assistant"):
-        with st.spinner("생각 중..."):
+        with st.spinner("Thinking..."):
             try:
                 response = st.session_state.agent(prompt)
                 response_text = str(response)
@@ -123,5 +123,5 @@ if prompt := st.chat_input("메시지를 입력하세요..."):
                     "content": response_text
                 })
             except Exception as e:
-                error_msg = f"오류가 발생했습니다: {str(e)}"
+                error_msg = f"An error occurred: {str(e)}"
                 st.error(error_msg)

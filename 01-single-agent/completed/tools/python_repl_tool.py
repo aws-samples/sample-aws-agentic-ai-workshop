@@ -41,14 +41,14 @@ class PythonREPL:
 
     def run(self, command):
         try:
-            # 입력된 명령어 실행
+            # Execute the given command
             result = subprocess.run(
                 [sys.executable, "-c", command],
                 capture_output=True,
                 text=True,
-                timeout=600  # 타임아웃 설정
+                timeout=600  # timeout setting
             )
-            # 결과 반환
+            # Return the result
             if result.returncode == 0:
                 return result.stdout
             else:

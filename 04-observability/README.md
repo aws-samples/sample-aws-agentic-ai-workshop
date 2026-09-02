@@ -87,7 +87,7 @@ Strands SDK provides 3 telemetry primitives to easily enhance agent observabilit
 
 **References**
 
-- [Strands Agents - Observability](https://strandsagents.com/latest/user-guide/observability-evaluation/observability/)
+- [Strands Agents - Observability](https://strandsagents.com/docs/user-guide/observability-evaluation/observability/)
 - [OpenTelemetry Documentation](https://opentelemetry.io/docs/)
 
 ---
@@ -156,7 +156,7 @@ EventLoopMetrics(
 )
 ```
 
-For more details, refer to the [Python SDK](https://github.com/strands-agents/sdk-python/blob/main/src/strands/telemetry/metrics.py).
+For more details, refer to the [Python SDK](https://github.com/strands-agents/harness-sdk/blob/main/strands-py/src/strands/telemetry/metrics.py).
 
 ### Lab: Collecting Metrics
 
@@ -547,7 +547,7 @@ from strands_tools import calculator
 **3.** Set up telemetry with console export.
 
 ```python
-# Create StrandsTelemetry instance
+# Create a StrandsTelemetry instance
 strands_telemetry = StrandsTelemetry()
 
 # Output traces to console

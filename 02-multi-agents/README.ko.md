@@ -55,7 +55,7 @@
 
 ## 1. Agents-as-Tools 패턴
 
-[Agents-as-Tools 패턴](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/multi-agent/agents-as-tools/)은 전문화된 에이전트를 도구로 래핑하여 다른 에이전트가 필요에 따라 호출할 수 있게 하는 방식입니다.
+[Agents-as-Tools 패턴](https://strandsagents.com/docs/user-guide/concepts/multi-agent/agents-as-tools/)은 전문화된 에이전트를 도구로 래핑하여 다른 에이전트가 필요에 따라 호출할 수 있게 하는 방식입니다.
 
 ### 실습 시나리오
 
@@ -89,19 +89,19 @@ os.environ['BYPASS_TOOL_CONSENT'] = 'true'
 @tool
 def research_assistant(query: str) -> str:
     """
-    연구 관련 쿼리를 처리하고 응답합니다.
+    Processes and responds to research-related queries.
 
     Args:
-        query: 사실적 정보가 필요한 연구 질문
+        query: Research question requiring factual information
 
     Returns:
-        인용이 포함된 상세한 연구 답변
+        Detailed research answer with citations
     """
     try:
         research_agent = Agent(
-            system_prompt="""당신은 전문 리서치 어시스턴트입니다.
-            연구 질문에 대해 사실적이고 출처가 명확한 정보만 제공하는 데 집중하세요.
-            가능한 한 항상 출처를 인용하세요.""",
+            system_prompt="""You are a professional research assistant.
+            Focus on providing only factual information with clear sources for research questions.
+            Always cite sources whenever possible.""",
         )
         response = research_agent(query)
         return str(response)
@@ -120,19 +120,19 @@ def research_assistant(query: str) -> str:
 @tool
 def product_recommendation_assistant(query: str) -> str:
     """
-    적절한 제품을 제안하여 제품 추천 쿼리를 처리합니다.
+    Handles product recommendation queries by suggesting appropriate products.
 
     Args:
-        query: 사용자 선호도가 포함된 제품 문의
+        query: Product inquiry including user preferences
 
     Returns:
-        추론이 포함된 개인화된 제품 추천
+        Personalized product recommendations with reasoning
     """
     try:
         product_agent = Agent(
             model="us.anthropic.claude-sonnet-4-6",
-            system_prompt="""당신은 전문 제품 추천 어시스턴트입니다.
-            사용자의 선호도를 바탕으로 개인화된 제품 제안을 제공하세요. 항상 출처를 인용하세요.""",
+            system_prompt="""You are a professional product recommendation assistant.
+            Provide personalized product suggestions based on user preferences. Always cite sources.""",
         )
         response = product_agent(query)
         return str(response)
@@ -149,19 +149,19 @@ def product_recommendation_assistant(query: str) -> str:
 @tool
 def trip_planning_assistant(query: str) -> str:
     """
-    여행 일정을 작성하고 여행 조언을 제공합니다.
+    Creates travel itineraries and provides travel advice.
 
     Args:
-        query: 목적지와 선호도가 포함된 여행 계획 요청
+        query: Travel planning request including destination and preferences
 
     Returns:
-        상세한 여행 일정 또는 여행 조언
+        Detailed travel itinerary or travel advice
     """
     try:
         travel_agent = Agent(
             model="us.anthropic.claude-sonnet-4-6",
-            system_prompt="""당신은 전문 여행 계획 어시스턴트입니다.
-            사용자의 선호도를 바탕으로 상세한 여행 일정을 작성하세요.""",
+            system_prompt="""You are a professional travel planning assistant.
+            Create detailed travel itineraries based on user preferences.""",
         )
         response = travel_agent(query)
         return str(response)
@@ -176,13 +176,13 @@ def trip_planning_assistant(query: str) -> str:
 if __name__ == "__main__":
 
     MAIN_SYSTEM_PROMPT = """
-    당신은 쿼리를 특화된 에이전트로 라우팅하는 보조(Assistant)입니다:
-    - 연구 질문 및 사실적 정보를 위해 → research_assistant 도구를 사용하세요
-    - 제품 추천 및 쇼핑 조언을 위해 → product_recommendation_assistant 도구를 사용하세요
-    - 여행 계획 및 일정을 위해 → trip_planning_assistant 도구를 사용하세요
-    - 특화된 지식이 필요하지 않은 간단한 질문을 위해 → 직접 답변하세요
+    You are an assistant that routes queries to specialized agents:
+    - For research questions and factual information → use the research_assistant tool
+    - For product recommendations and shopping advice → use the product_recommendation_assistant tool
+    - For travel planning and itineraries → use the trip_planning_assistant tool
+    - For simple questions that don't require specialized knowledge → answer directly
 
-    항상 사용자의 쿼리에 따라 가장 적절한 도구를 선택하세요.
+    Always select the most appropriate tool based on the user's query.
     """
 
     orchestrator = Agent(
@@ -196,7 +196,7 @@ if __name__ == "__main__":
     )
 
     os.environ["DEV"] = "true"
-    customer_query = "스페인 국가에 대해서 리서치 좀 해줄 수 있니? 그리고 부모님과 그곳으로 7일 여행 가려고 하는데 계획 세우는 걸 좀 도와줘. 너가 세운 계획은 plan.md 파일로 저장해줘."
+    customer_query = "Can you research Spain for me? And I'm planning to travel there with my parents for 7 days, can you help me plan it? Please save the plan you create to a plan.md file."
 
     response = orchestrator(customer_query)
 ```
@@ -243,7 +243,7 @@ Agents-as-Tools 패턴의 핵심은 **에이전트를 도구로 래핑**하는 �
 
 이처럼 Strands SDK는 에이전트를 도구로 래핑하여 **계층적 멀티 에이전트 시스템**을 손쉽게 구현할 수 있게 합니다.
 
-더 자세한 내용은 [공식 문서](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/multi-agent/agents-as-tools/)를 참고하세요.
+더 자세한 내용은 [공식 문서](https://strandsagents.com/docs/user-guide/concepts/multi-agent/agents-as-tools/)를 참고하세요.
 
 </details>
 
@@ -251,7 +251,7 @@ Agents-as-Tools 패턴의 핵심은 **에이전트를 도구로 래핑**하는 �
 
 ## 2. Swarm 패턴
 
-[Swarm 패턴](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/multi-agent/swarm/)은 여러 전문 에이전트가 자율적으로 협업하며 작업을 handoff(전달)하는 방식입니다. 에이전트들이 서로 필요에 따라 작업을 넘겨주며 최종 결과를 만들어냅니다.
+[Swarm 패턴](https://strandsagents.com/docs/user-guide/concepts/multi-agent/swarm/)은 여러 전문 에이전트가 자율적으로 협업하며 작업을 handoff(전달)하는 방식입니다. 에이전트들이 서로 필요에 따라 작업을 넘겨주며 최종 결과를 만들어냅니다.
 
 ### 실습 시나리오
 
@@ -283,7 +283,7 @@ from strands.multiagent import Swarm
 from strands.models import BedrockModel
 from strands_tools import file_write
 
-os.environ['BYPASS_TOOL_CONSENT'] = 'true' # file_write 확인 프롬프트 비활성화
+os.environ['BYPASS_TOOL_CONSENT'] = 'true' # Disable file_write confirmation prompt
 
 logging.getLogger("strands.multiagent").setLevel(logging.DEBUG)
 logging.basicConfig(
@@ -311,12 +311,12 @@ model = BedrockModel(
 research_agent = Agent(
     name="research_agent",
     model=model,
-    system_prompt="""당신은 정보 수집 및 분석을 전문으로 하는 리서치 에이전트입니다.
-    Swarm에서 당신의 역할은 주제에 대한 사실적 정보와 리서치 인사이트를 제공하는 것입니다.
-    정확한 데이터를 제공하고 문제의 핵심 측면을 파악하는 데 집중하세요.
+    system_prompt="""You are a research agent specializing in information collection and analysis.
+    Your role in the Swarm is to provide factual information and research insights on topics.
+    Focus on providing accurate data and identifying key aspects of problems.
 
-    중요: 리서치를 완료한 후에는 반드시 file_write 도구를 사용하여 'research.md' 파일에 결과를 저장한 다음 다른 에이전트에게 작업을 넘겨야 합니다.
-    창의적인 입력이나 비판적 분석이 필요한 경우, handoff_to_agent를 사용하여 적절한 전문가에게 작업을 전달하세요.""",
+    Important: After completing research, you must save results to a 'research.md' file using the file_write tool, then hand off work to other agents.
+    When creative input or critical analysis is needed, use handoff_to_agent to transfer work to appropriate experts.""",
     tools=[file_write]
 )
 
@@ -332,35 +332,35 @@ Swarm에서는 각 에이전트가 `handoff_to_agent` 기능을 사용하여 다
 creative_agent = Agent(
     name="creative_agent",
     model=model,
-    system_prompt="""당신은 혁신적인 솔루션 생성을 전문으로 하는 크리에이티브 에이전트입니다.
-    Swarm에서 당신의 역할은 기존의 틀을 벗어나 생각하고 창의적인 접근 방식을 제안하는 것입니다.
-    다른 에이전트의 정보를 바탕으로 하되, 당신만의 독특한 창의적 관점을 더해야 합니다.
+    system_prompt="""You are a creative agent specializing in generating innovative solutions.
+    Your role in the Swarm is to think outside the box and suggest creative approaches.
+    Based on information from other agents, you should add your own unique creative perspective.
 
-    중요: 창의적인 제안을 완료한 후에는 반드시 file_write 도구를 사용하여 'creative.md' 파일에 저장한 다음 다른 에이전트에게 작업을 넘겨야 합니다.
-    리서치 데이터나 비판적 평가가 필요한 경우, 적절한 에이전트에게 작업을 전달하세요.""",
+    Important: After completing creative suggestions, you must save them to a 'creative.md' file using the file_write tool, then hand off work to other agents.
+    When research data or critical evaluation is needed, transfer work to appropriate agents.""",
     tools=[file_write]
 )
 
 critical_agent = Agent(
     name="critical_agent",
     model=model,
-    system_prompt="""당신은 제안 분석 및 문제점 발견을 전문으로 하는 비평 에이전트입니다.
-    Swarm에서 당신의 역할은 다른 에이전트가 제안한 솔루션을 평가하고 잠재적 문제를 식별하는 것입니다.
-    제안된 솔루션을 면밀히 검토하고 약점이나 개선 기회를 찾아야 합니다.
+    system_prompt="""You are a critical agent specializing in proposal analysis and problem identification.
+    Your role in the Swarm is to evaluate solutions proposed by other agents and identify potential issues.
+    You should carefully review proposed solutions and find weaknesses or improvement opportunities.
 
-    중요: 분석을 완료한 후에는 반드시 file_write 도구를 사용하여 'critical.md' 파일에 저장한 다음 다른 에이전트에게 작업을 넘겨야 합니다.
-    추가 리서치나 창의적인 대안이 필요한 경우, 적절한 에이전트에게 작업을 전달하세요.""",
+    Important: After completing analysis, you must save results to a 'critical.md' file using the file_write tool, then hand off work to other agents.
+    When additional research or creative alternatives are needed, transfer work to appropriate agents.""",
     tools=[file_write]
 )
 
 summarizer_agent = Agent(
     name="summarizer_agent",
     model=model,
-    system_prompt="""당신은 여러 출처의 정보를 종합하는 것을 전문으로 하는 요약 에이전트입니다.
-    Swarm에서 당신의 역할은 다른 에이전트의 입력을 받아 포괄적이고 잘 구조화된 요약을 작성하는 것입니다.
-    리서치, 창의적, 비평적 관점의 인사이트를 통합하여 일관된 최종 결과를 만들어야 합니다.
+    system_prompt="""You are a summarizer agent specializing in synthesizing information from multiple sources.
+    Your role in the Swarm is to receive input from other agents and create comprehensive, well-structured summaries.
+    You should integrate insights from research, creative, and critical perspectives to create coherent final results.
 
-    중요: 요약을 작성한 후에는 반드시 file_write 도구를 사용하여 'summarizer.md' 파일에 저장해야 합니다.""",
+    Important: After writing summaries, you must save them to a 'summarizer.md' file using the file_write tool.""",
     tools=[file_write]
 )
 
@@ -373,13 +373,13 @@ swarm = Swarm(
     [research_agent, creative_agent, critical_agent, summarizer_agent],
     max_handoffs=20,
     max_iterations=20,
-    execution_timeout=900.0,  # 15분
-    node_timeout=300.0,       # 에이전트당 5분
+    execution_timeout=900.0,  # 15 minutes
+    node_timeout=300.0,       # 5 minutes per agent
     repetitive_handoff_detection_window=8,
     repetitive_handoff_min_unique_agents=3
 )
 
-result = swarm("해외 MZ세대와 함께 대한민국 서울을 여행하는 프로그램을 구상중입니다. 3일 여행의 스케줄을 짜주세요. 최종 결과는 travel_plan.md 파일에 한국어로 저장하세요.")
+result = swarm("I am planning a program for traveling Seoul, South Korea with the overseas MZ generation. Please create a 3-day travel schedule. Save the final result in a travel_plan.md file.")
 
 ```
 
@@ -447,7 +447,7 @@ summarizer_agent
   - travel_plan.md 파일 저장
 ```
 
-더 자세한 내용은 [공식 문서](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/multi-agent/swarm/)를 참고하세요.
+더 자세한 내용은 [공식 문서](https://strandsagents.com/docs/user-guide/concepts/multi-agent/swarm/)를 참고하세요.
 
 </details>
 
@@ -455,7 +455,7 @@ summarizer_agent
 
 ## 3. Graph 패턴: 기본 및 병렬 실행
 
-[Graph 패턴](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/multi-agent/graph/)은 에이전트들 간의 실행 순서와 의존성을 명시적으로 정의하여 구조화된 워크플로우를 만드는 방식입니다.
+[Graph 패턴](https://strandsagents.com/docs/user-guide/concepts/multi-agent/graph/)은 에이전트들 간의 실행 순서와 의존성을 명시적으로 정의하여 구조화된 워크플로우를 만드는 방식입니다.
 
 ### 실습 시나리오
 
@@ -485,10 +485,10 @@ summarizer_agent
 from strands import Agent
 from strands.multiagent import GraphBuilder
 
-financial_advisor = Agent(name="financial_advisor", system_prompt="당신은 비용 편익 분석, 예산 영향, ROI 계산에 집중하는 재무 고문입니다. 다른 전문가들과 협력하여 포괄적인 재무 관점을 구축하세요.")
-technical_architect = Agent(name="technical_architect", system_prompt="당신은 실현 가능성, 구현 과제, 기술적 위험을 평가하는 기술 설계자입니다. 다른 전문가들과 협력하여 기술적 타당성을 확보하세요.")
-market_researcher = Agent(name="market_researcher", system_prompt="당신은 시장 상황, 사용자 요구, 경쟁 환경을 분석하는 시장 조사원입니다. 다른 전문가들과 협력하여 시장 기회를 검증하세요.")
-risk_analyst = Agent(name="risk_analyst", system_prompt="당신은 잠재적 위험, 완화 전략, 규정 준수 문제를 식별하는 위험 분석가입니다. 다른 전문가들과 협력하여 포괄적인 위험 평가를 보장하세요.")
+financial_advisor = Agent(name="financial_advisor", system_prompt="You are a financial advisor focusing on cost-benefit analysis, budget impact, and ROI calculations. Collaborate with other experts to build comprehensive financial perspectives.")
+technical_architect = Agent(name="technical_architect", system_prompt="You are a technical architect evaluating feasibility, implementation challenges, and technical risks. Collaborate with other experts to ensure technical viability.")
+market_researcher = Agent(name="market_researcher", system_prompt="You are a market researcher analyzing market conditions, user needs, and competitive environment. Collaborate with other experts to validate market opportunities.")
+risk_analyst = Agent(name="risk_analyst", system_prompt="You are a risk analyst identifying potential risks, mitigation strategies, and compliance issues. Collaborate with other experts to ensure comprehensive risk assessment.")
 
 ```
 
@@ -502,7 +502,7 @@ builder.add_node(technical_architect, "tech_expert")
 builder.add_node(market_researcher, "market_expert")
 builder.add_node(risk_analyst, "risk_analyst")
 
-# 병렬 실행 정의
+# Define parallel execution
 builder.add_edge("finance_expert", "tech_expert")
 builder.add_edge("finance_expert", "market_expert")
 builder.add_edge("tech_expert", "risk_analyst")
@@ -521,7 +521,7 @@ graph = builder.build()
 **3-4.** 그래프를 실행하고 각 노드의 결과를 확인합니다.
 
 ```python
-result = graph("우리 회사는 새로운 AI 기반 고객 서비스 플랫폼 출시를 고려하고 있습니다. 초기 투자액은 200만 달러이며 3년 ROI는 150%로 예상됩니다. 이에 대해 재무적 평가를 해주세요.")
+result = graph("Our company is considering launching a new AI-based customer service platform. The initial investment is $2 million with an expected 3-year ROI of 150%. Please provide a financial evaluation.")
 
 print(f"Response: {result}")
 
@@ -575,7 +575,7 @@ Graph vs Swarm 비교:
 | 적합한 사용 사례 | 정형화된 프로세스 | 창의적 협업 |
 | 병렬 처리 | 명시적 정의 가능 | 자동 결정 |
 
-더 자세한 내용은 [공식 문서](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/multi-agent/graph/)를 참고하세요.
+더 자세한 내용은 [공식 문서](https://strandsagents.com/docs/user-guide/concepts/multi-agent/graph/)를 참고하세요.
 
 </details>
 
@@ -612,22 +612,22 @@ from strands import Agent
 from strands.multiagent import GraphBuilder
 from strands_tools import file_write
 
-os.environ['BYPASS_TOOL_CONSENT'] = 'true' # file_write 확인 프롬프트 비활성화
+os.environ['BYPASS_TOOL_CONSENT'] = 'true' # Disable file_write confirmation prompt
 
 classifier = Agent(
     name="classifier", 
-    system_prompt="당신은 보고서 요청을 분류하는 에이전트입니다. Technical 또는 Business 분류만 반환하세요."
+    system_prompt="You are an agent that classifies report requests. Return only Technical or Business classification."
     )
 
 technical_report = Agent(
     name="technical_expert", 
-    system_prompt="당신은 기술적 관점에서 보고서를 작성하는 기술 전문가입니다. 보고서는 technical_report.md 로 저장합니다.",
+    system_prompt="You are a technical expert who writes reports from a technical perspective. Save reports as technical_report.md.",
     tools=[file_write]
     )
     
 business_report = Agent(
     name="business_expert", 
-    system_prompt="당신은  비즈니스 관점에서 보고서를 작성하는 비즈니스 전문가입니다. 보고서는 business_report.md 로 저장합니다.",
+    system_prompt="You are a business expert who writes reports from a business perspective. Save reports as business_report.md.",
     tools=[file_write]
     )
 
@@ -663,7 +663,7 @@ builder.add_node(classifier, "classifier")
 builder.add_node(technical_report, "technical_report")
 builder.add_node(business_report, "business_report")
 
-# 조건부 엣지 추가
+# Add conditional edges
 builder.add_edge("classifier", "technical_report", condition=is_technical)
 builder.add_edge("classifier", "business_report", condition=is_business)
 
@@ -685,7 +685,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--query",
         type=str,
-        default="재택근무가 비즈니스에 미치는 영향에 대한 보고서를 작성해주세요. 고려해야 할 사항과 주요 위험 요소를 요약하세요"
+        default="Please write a report on the impact of remote work on business. Summarize considerations and key risk factors."
     )
 
     args = parser.parse_args()

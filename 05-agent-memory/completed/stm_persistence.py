@@ -1,6 +1,4 @@
-"""
-STM 세션 간 대화 유지 테스트
-"""
+"""STM cross-session conversation persistence test"""
 import os
 import argparse
 from strands import Agent
@@ -11,7 +9,7 @@ MEMORY_ID = os.environ.get("AGENTCORE_MEMORY_ID", "your-memory-id-here")
 
 
 def create_agent_with_memory(session_id: str, actor_id: str) -> Agent:
-    """메모리가 연결된 에이전트 생성"""
+    """Create an agent with memory attached"""
     memory_config = AgentCoreMemoryConfig(
         memory_id=MEMORY_ID,
         session_id=session_id,
@@ -24,7 +22,7 @@ def create_agent_with_memory(session_id: str, actor_id: str) -> Agent:
     )
     
     return Agent(
-        system_prompt="당신은 친절한 어시스턴트입니다. 이전 대화를 기억하고 맥락에 맞게 응답하세요.",
+        system_prompt="You are a friendly assistant. Remember previous conversations and respond in context.",
         session_manager=session_manager
     )
 

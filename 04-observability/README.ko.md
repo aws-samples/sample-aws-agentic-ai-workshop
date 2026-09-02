@@ -84,7 +84,7 @@ Strands SDK는 에이전트 가시성을 쉽게 향상할 수 있도록 3가지 
 
 **참고 자료**
 
-- [Strands Agents - Observability](https://strandsagents.com/latest/user-guide/observability-evaluation/observability/)
+- [Strands Agents - Observability](https://strandsagents.com/docs/user-guide/observability-evaluation/observability/)
 - [OpenTelemetry Documentation](https://opentelemetry.io/docs/)
 
 ---
@@ -111,7 +111,7 @@ Strands SDK는 에이전트 가시성을 쉽게 향상할 수 있도록 3가지 
 
 ```python
 agent = Agent(tools=[calculator])
-result = agent("125 * 37은 얼마야?")
+result = agent("What is 125 * 37?")
 
 print(result.metrics) # 메트릭 접근
 ```
@@ -150,7 +150,7 @@ EventLoopMetrics(
 )
 ```
 
-자세한 내용은 [Python SDK](https://github.com/strands-agents/sdk-python/blob/main/src/strands/telemetry/metrics.py)를 참고합니다.
+자세한 내용은 [Python SDK](https://github.com/strands-agents/harness-sdk/blob/main/strands-py/src/strands/telemetry/metrics.py)를 참고합니다.
 
 ### 실습: 메트릭 수집하기
 
@@ -173,7 +173,7 @@ result = agent([
     {
         "role": "user",
         "content": [
-            {"text": "125 * 37은 얼마야? 그리고 지금 몇 시야?"},
+            {"text": "What is 125 * 37? Also, what time is it now?"},
             {"cachePoint": {"type": "default"}}
         ]
     }
@@ -195,40 +195,40 @@ result = agent([
 ```python
 metrics = result.metrics
 
-print("=== 기본 메트릭 ===")
-print(f"사이클 수: {metrics.cycle_count}")
-print(f"사이클별 소요시간: {metrics.cycle_durations}")
-print(f"총 소요시간: {sum(metrics.cycle_durations):.2f}초")
+print("=== Basic Metrics ===")
+print(f"Cycle count: {metrics.cycle_count}")
+print(f"Cycle durations: {metrics.cycle_durations}")
+print(f"Total duration: {sum(metrics.cycle_durations):.2f} seconds")
 ```
 
 **5.** 토큰 사용량을 표시합니다.
 
 ```python
-print("\n=== 토큰 사용량 ===")
+print("\n=== Token Usage ===")
 usage = metrics.accumulated_usage
-print(f"입력 토큰: {usage.get('inputTokens', 0)}")
-print(f"출력 토큰: {usage.get('outputTokens', 0)}")
-print(f"총 토큰: {usage.get('totalTokens', 0)}")
+print(f"Input tokens: {usage.get('inputTokens', 0)}")
+print(f"Output tokens: {usage.get('outputTokens', 0)}")
+print(f"Total tokens: {usage.get('totalTokens', 0)}")
 
-# 캐시 메트릭
+# Cache metrics
 if 'cacheReadInputTokens' in usage:
-    print(f"캐시 읽기 토큰: {usage['cacheReadInputTokens']}")
+    print(f"Cache read tokens: {usage['cacheReadInputTokens']}")
 if 'cacheWriteInputTokens' in usage:
-    print(f"캐시 쓰기 토큰: {usage['cacheWriteInputTokens']}")
+    print(f"Cache write tokens: {usage['cacheWriteInputTokens']}")
 ```
 
 **6.** 도구 메트릭을 출력합니다.
 
 ```python
-print("\n=== 도구 메트릭 ===")
+print("\n=== Tool Metrics ===")
 for tool_name, tool_metric in metrics.tool_metrics.items():
-    print(f"\n도구: {tool_name}")
-    print(f"  호출 횟수: {tool_metric.call_count}")
-    print(f"  성공 횟수: {tool_metric.success_count}")
-    print(f"  실패 횟수: {tool_metric.error_count}")
-    print(f"  총 실행시간: {tool_metric.total_time:.3f}초")
+    print(f"\nTool: {tool_name}")
+    print(f"  Call count: {tool_metric.call_count}")
+    print(f"  Success count: {tool_metric.success_count}")
+    print(f"  Error count: {tool_metric.error_count}")
+    print(f"  Total time: {tool_metric.total_time:.3f} seconds")
     if tool_metric.call_count > 0:
-        print(f"  평균 실행시간: {tool_metric.total_time / tool_metric.call_count:.3f}초")
+        print(f"  Avg time: {tool_metric.total_time / tool_metric.call_count:.3f} seconds")
 ```
 
 **7.** 코드를 실행합니다.
@@ -285,15 +285,15 @@ Tool #2: current_time
 `EventLoopMetrics`는 모든 메트릭을 구조화된 딕셔너리로 반환하는 편리한 `get_summary()` 메서드를 제공합니다. 아래 코드를 파일 끝에 추가하고 다시 실행해보세요.
 
 ```python
-# 전체 메트릭 요약 가져오기
+# Get complete metrics summary
 summary = result.metrics.get_summary()
 
-print("\n=== 메트릭 요약 ===")
-print(f"총 사이클: {summary['total_cycles']}")
-print(f"총 소요시간: {summary['total_duration']:.2f}초")
-print(f"평균 사이클 시간: {summary['average_cycle_time']:.2f}초")
-print(f"누적 사용량: {summary['accumulated_usage']}")
-print(f"누적 메트릭: {summary['accumulated_metrics']}")
+print("\n=== Metrics Summary ===")
+print(f"Total cycles: {summary['total_cycles']}")
+print(f"Total duration: {summary['total_duration']:.2f} seconds")
+print(f"Average cycle time: {summary['average_cycle_time']:.2f} seconds")
+print(f"Accumulated usage: {summary['accumulated_usage']}")
+print(f"Accumulated metrics: {summary['accumulated_metrics']}")
 ```
 
 <details>
@@ -388,22 +388,22 @@ import logging
 from strands import Agent
 from strands_tools import calculator
 
-# 1. 루트 로거 설정 - 전체 SDK 로그 활성화
+# 1. Root logger setup - enable all SDK logs
 logging.getLogger("strands").setLevel(logging.DEBUG)
 
-# 2. 특정 모듈만 로그 레벨 조정 (선택적)
-# logging.getLogger("strands.tools.registry").setLevel(logging.WARNING)  # 도구 등록 로그 숨기기
-# logging.getLogger("strands.models").setLevel(logging.INFO)             # 모델 로그만 INFO 이상
+# 2. Adjust log level for specific modules (optional)
+# logging.getLogger("strands.tools.registry").setLevel(logging.WARNING)  # Hide tool registration logs
+# logging.getLogger("strands.models").setLevel(logging.INFO)             # Only INFO and above for model logs
 
-# 3. 로그 출력 포맷 설정
+# 3. Configure log output format
 logging.basicConfig(
     format="%(levelname)s | %(name)s | %(message)s",
     handlers=[logging.StreamHandler()]
 )
 
-# 에이전트 실행
+# Run the agent
 agent = Agent(tools=[calculator])
-result = agent("125 * 37은 얼마야?")
+result = agent("What is 125 * 37?")
 ```
 
 **2.** 코드를 실행합니다.
@@ -546,10 +546,10 @@ from strands_tools import calculator
 **3.** 콘솔 내보내기로 텔레메트리를 설정합니다.
 
 ```python
-# StrandsTelemetry 인스턴스 생성
+# Create a StrandsTelemetry instance
 strands_telemetry = StrandsTelemetry()
 
-# 콘솔에 트레이스 출력
+# Output traces to console
 strands_telemetry.setup_console_exporter()
 ```
 
@@ -558,11 +558,11 @@ strands_telemetry.setup_console_exporter()
 ```python
 agent = Agent(
     model="us.anthropic.claude-sonnet-4-20250514-v1:0",
-    system_prompt="당신은 도움이 되는 AI 어시스턴트입니다.",
+    system_prompt="You are a helpful AI assistant.",
     tools=[calculator]
 )
 
-response = agent("125 * 37은 얼마야?")
+response = agent("What is 125 * 37?")
 print(response)
 ```
 
@@ -669,28 +669,28 @@ export OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318"
 **1.** `04-observability/labs/traces_otlp.py` 파일에 다음 코드를 작성합니다.
 
 ```python
-"""Traces OTLP 전송 - OpenTelemetry Collector로 트레이스 전송"""
+"""Traces OTLP Export - Send traces to OpenTelemetry Collector"""
 import os
 from strands import Agent
 from strands.telemetry import StrandsTelemetry
 from strands_tools import calculator
 
-# OTLP 엔드포인트 설정 (localhost에 OTEL Collector가 실행 중이라고 가정)
+# OTLP endpoint configuration (assuming OTEL Collector is running on localhost)
 os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"] = "http://localhost:4318"
 
-# 텔레메트리 설정
+# Telemetry setup
 strands_telemetry = StrandsTelemetry()
-strands_telemetry.setup_otlp_exporter()      # OTLP 엔드포인트로 전송
-strands_telemetry.setup_console_exporter()   # 콘솔에도 출력 (디버깅용)
+strands_telemetry.setup_otlp_exporter()      # Send to OTLP endpoint
+strands_telemetry.setup_console_exporter()   # Also output to console (for debugging)
 strands_telemetry.setup_meter(
     enable_otlp_exporter=True,
     enable_console_exporter=True
 )
 
-# 에이전트 생성 (커스텀 속성 포함)
+# Create agent (with custom attributes)
 agent = Agent(
     model="us.anthropic.claude-sonnet-4-20250514-v1:0",
-    system_prompt="당신은 도움이 되는 AI 어시스턴트입니다.",
+    system_prompt="You are a helpful AI assistant.",
     tools=[calculator],
     trace_attributes={
         "session.id": "workshop-demo-001",
@@ -699,13 +699,13 @@ agent = Agent(
     }
 )
 
-# 첫 번째 질문
-print("=== 첫 번째 질문 ===")
-response = agent("화성에 대해 알려줘. 대기는 어떤가요?")
+# First question
+print("=== First Question ===")
+response = agent("Tell me about Mars. What is its atmosphere like?")
 
-# 후속 질문 (도구 사용)
-print("\n=== 후속 질문 ===")
-response = agent("지구에서 화성까지 시속 10만 km로 가면 얼마나 걸려?")
+# Follow-up question (using tools)
+print("\n=== Follow-up Question ===")
+response = agent("How long would it take to travel from Earth to Mars at 100,000 km/h?")
 ```
 
 **2.** 코드를 실행합니다.
@@ -824,7 +824,7 @@ unset OTEL_EXPORTER_OTLP_ENDPOINT
 
 이 챕터는 실습 코드가 호출하는 Bedrock 모델 사용량 외에 별도의 과금 대상 AWS 리소스를 생성하지 않습니다.
 
-## 문제 해결
+## 트러블슈팅
 
 **4318 포트에서 `Connection refused` 또는 `Failed to export spans` 오류가 발생합니다**
 

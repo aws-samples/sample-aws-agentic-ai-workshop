@@ -4,78 +4,78 @@ from strands_tools import calculator, current_time, use_aws, python_repl
 import json
 import asyncio
 
-# 페이지 설정
+# Page configuration
 st.set_page_config(
-    page_title="Strands Agent 챗봇",
+    page_title="Strands Agent Chatbot",
     page_icon="🤖",
     layout="centered"
 )
 
-# 제목
-st.title("🤖 Strands Agent 챗봇")
+# Title
+st.title("🤖 Strands Agent Chatbot")
 
-# Agent 초기화 (세션 상태에 저장)
+# Agent initialization (stored in session state)
 if "agent" not in st.session_state:
     st.session_state.agent = Agent(tools=[calculator, current_time, use_aws, python_repl])
 
-# 채팅 히스토리 초기화
+# Chat history initialization
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# 채팅 히스토리 표시
+# Display chat history
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         if message["role"] == "user":
             st.markdown(message["content"])
         else:
-            # 생각 과정 표시
+            # Display thinking process
             if message.get("thinking_steps"):
-                with st.expander("🧠 생각 과정 보기", expanded=False):
+                with st.expander("🧠 View Thinking Process", expanded=False):
                     for step in message["thinking_steps"]:
                         st.markdown(step)
-            # 최종 응답 표시
+            # Display final response
             st.markdown(message["content"])
 
-# 사용자 입력
-if prompt := st.chat_input("메시지를 입력하세요..."):
-    # 사용자 메시지 추가 및 표시
+# User input
+if prompt := st.chat_input("Enter your message..."):
+    # Add and display user message
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Assistant 응답 생성
+    # Generate Assistant response
     with st.chat_message("assistant"):
-        # 메인 컨테이너 생성
+        # Create main container
         main_container = st.container()
 
         try:
-            # 비동기 함수 정의
+            # Define async function
             async def run_agent():
                 final_response = ""
                 current_text = ""
                 tool_info = {}
                 current_text_box = None
 
-                # Agent 스트림 실행
+                # Execute Agent stream
                 agent_stream = st.session_state.agent.stream_async(prompt)
 
                 async for event in agent_stream:
-                    # 텍스트 스트리밍
+                    # Text streaming
                     if "data" in event:
                         text = event["data"]
                         current_text += text
 
-                        # 현재 텍스트 박스가 없으면 새로 생성
+                        # Create new text box if none exists
                         if current_text_box is None:
                             with main_container:
                                 current_text_box = st.empty()
 
-                        # 텍스트 박스에 현재 텍스트 표시
+                        # Display current text in text box
                         current_text_box.info(current_text)
 
-                    # 도구 호출 정보
+                    # Tool call information
                     elif "current_tool_use" in event:
-                        # 현재 텍스트가 있으면 박스 마무리
+                        # Finish current text box if exists
                         if current_text:
                             current_text_box = None
                             current_text = ""
@@ -85,7 +85,7 @@ if prompt := st.chat_input("메시지를 입력하세요..."):
                         tool_input = current_tool_use.get("input", {})
                         tool_use_id = current_tool_use.get("toolUseId", "")
 
-                        # 도구 정보 저장
+                        # Store tool information
                         if tool_use_id not in tool_info:
                             tool_info[tool_use_id] = {
                                 "name": tool_name,
@@ -93,14 +93,14 @@ if prompt := st.chat_input("메시지를 입력하세요..."):
                                 "result": None
                             }
 
-                            # 실시간으로 도구 호출 표시
+                            # Display tool call in real-time
                             with main_container:
                                 if tool_input:
-                                    st.warning(f"🔧 **도구 호출:** `{tool_name}`\n\n**입력:**\n```json\n{json.dumps(tool_input, indent=2, ensure_ascii=False)}\n```")
+                                    st.warning(f"🔧 **Tool Call:** `{tool_name}`\n\n**Input:**\n```json\n{json.dumps(tool_input, indent=2, ensure_ascii=False)}\n```")
                                 else:
-                                    st.warning(f"🔧 **도구 호출:** `{tool_name}`")
+                                    st.warning(f"🔧 **Tool Call:** `{tool_name}`")
 
-                    # 도구 결과
+                    # Tool results
                     elif "message" in event:
                         message = event["message"]
                         if "content" in message:
@@ -111,16 +111,16 @@ if prompt := st.chat_input("메시지를 입력하세요..."):
                                 tool_content = tool_result["content"]
                                 result_text = tool_content[0].get("text", "") if tool_content else ""
 
-                                # 도구 결과 저장 및 표시
+                                # Store and display tool results
                                 if tool_use_id in tool_info:
                                     tool_info[tool_use_id]["result"] = result_text
 
                                     with main_container:
-                                        st.success(f"✅ **도구 결과:** {result_text[:200]}...")
+                                        st.success(f"✅ **Tool Result:** {result_text[:200]}...")
 
-                    # 최종 결과
+                    # Final result
                     elif "result" in event:
-                        # 현재 텍스트가 있으면 박스 마무리
+                        # Finish current text box if exists
                         if current_text:
                             current_text_box = None
 
@@ -133,23 +133,23 @@ if prompt := st.chat_input("메시지를 입력하세요..."):
 
                 return final_response, tool_info
 
-            # 비동기 함수 실행
+            # Execute async function
             final_response, tool_info = asyncio.run(run_agent())
 
-            # 최종 응답 표시 (일반 텍스트로)
+            # Display final response (as plain text)
             with main_container:
                 st.markdown("---")
                 st.markdown(final_response)
 
-            # 메시지 저장 (reasoning 정보 포함)
+            # Save message (including reasoning information)
             reasoning_text = ""
             if tool_info:
-                reasoning_text = "### 🔧 사용된 도구\n\n"
+                reasoning_text = "### 🔧 Tools Used\n\n"
                 for tool_id, info in tool_info.items():
-                    reasoning_text += f"**도구명:** `{info['name']}`\n\n"
-                    reasoning_text += f"**입력:** `{json.dumps(info['input'], ensure_ascii=False)}`\n\n"
+                    reasoning_text += f"**Tool Name:** `{info['name']}`\n\n"
+                    reasoning_text += f"**Input:** `{json.dumps(info['input'], ensure_ascii=False)}`\n\n"
                     if info['result']:
-                        reasoning_text += f"**결과:** {info['result'][:200]}...\n\n"
+                        reasoning_text += f"**Result:** {info['result'][:200]}...\n\n"
                     reasoning_text += "---\n\n"
 
             st.session_state.messages.append({
@@ -160,26 +160,26 @@ if prompt := st.chat_input("메시지를 입력하세요..."):
 
         except Exception as e:
             import traceback
-            error_message = f"오류가 발생했습니다: {str(e)}\n\n```\n{traceback.format_exc()}\n```"
+            error_message = f"An error occurred: {str(e)}\n\n```\n{traceback.format_exc()}\n```"
             st.error(error_message)
-            st.session_state.messages.append({"role": "assistant", "content": f"오류: {str(e)}"})
+            st.session_state.messages.append({"role": "assistant", "content": f"Error: {str(e)}"})
 
-# 사이드바에 추가 정보
+# Additional information in sidebar
 with st.sidebar:
-    st.header("ℹ️ 정보")
+    st.header("ℹ️ Information")
     st.markdown("""
-    **사용 가능한 도구:**
-    - 🧮 Calculator: 수학 계산
-    - ⏰ Current Time: 현재 시간
-    - ☁️ AWS: AWS 작업
-    - 🐍 Python REPL: 파이썬 코드 실행
+    **Available Tools:**
+    - 🧮 Calculator: Mathematical calculations
+    - ⏰ Current Time: Current time
+    - ☁️ AWS: AWS operations
+    - 🐍 Python REPL: Python code execution
 
-    **예시 질문:**
-    - "80을 4로 나눈 값은?"
-    - "현재 시간 알려줘"
-    - "10의 제곱근을 계산해줘"
+    **Example Questions:**
+    - "What is 80 divided by 4?"
+    - "Tell me the current time"
+    - "Calculate the square root of 10"
     """)
 
-    if st.button("대화 초기화"):
+    if st.button("Reset Conversation"):
         st.session_state.messages = []
         st.rerun()

@@ -55,7 +55,7 @@ The lab pattern is the same as in the other chapters: you write the code into th
 
 ## 1. Agents-as-Tools Pattern
 
-The [Agents-as-Tools pattern](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/multi-agent/agents-as-tools/) is a method of wrapping specialized agents as tools so that other agents can call them as needed.
+The [Agents-as-Tools pattern](https://strandsagents.com/docs/user-guide/concepts/multi-agent/agents-as-tools/) is a method of wrapping specialized agents as tools so that other agents can call them as needed.
 
 ### Scenario
 
@@ -243,7 +243,7 @@ Hierarchical structure:
 
 This way, the Strands SDK makes it easy to implement **hierarchical multi-agent systems** by wrapping agents as tools.
 
-For more details, refer to the [official documentation](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/multi-agent/agents-as-tools/).
+For more details, refer to the [official documentation](https://strandsagents.com/docs/user-guide/concepts/multi-agent/agents-as-tools/).
 
 </details>
 
@@ -251,7 +251,7 @@ For more details, refer to the [official documentation](https://strandsagents.co
 
 ## 2. Swarm Pattern
 
-The [Swarm pattern](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/multi-agent/swarm/) is a method where multiple specialized agents autonomously collaborate and hand off tasks to each other. Agents pass work to each other as needed to create the final result.
+The [Swarm pattern](https://strandsagents.com/docs/user-guide/concepts/multi-agent/swarm/) is a method where multiple specialized agents autonomously collaborate and hand off tasks to each other. Agents pass work to each other as needed to create the final result.
 
 ### Scenario
 
@@ -379,7 +379,7 @@ swarm = Swarm(
     repetitive_handoff_min_unique_agents=3
 )
 
-result = swarm("I am planning a program for traveling Seoul, South Korea with overseas MZ generation. Please create a 3-day travel schedule. Save the final result in Korean in a travel_plan.md file.")
+result = swarm("I am planning a program for traveling Seoul, South Korea with the overseas MZ generation. Please create a 3-day travel schedule. Save the final result in a travel_plan.md file.")
 
 ```
 
@@ -447,7 +447,7 @@ summarizer_agent
   - Save travel_plan.md file
 ```
 
-For more details, refer to the [official documentation](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/multi-agent/swarm/).
+For more details, refer to the [official documentation](https://strandsagents.com/docs/user-guide/concepts/multi-agent/swarm/).
 
 </details>
 
@@ -455,7 +455,7 @@ For more details, refer to the [official documentation](https://strandsagents.co
 
 ## 3. Graph Pattern: Basic and Parallel Execution
 
-The [Graph pattern](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/multi-agent/graph/) is a method of creating structured workflows by explicitly defining execution order and dependencies between agents.
+The [Graph pattern](https://strandsagents.com/docs/user-guide/concepts/multi-agent/graph/) is a method of creating structured workflows by explicitly defining execution order and dependencies between agents.
 
 ### Scenario
 
@@ -575,7 +575,7 @@ Graph vs Swarm comparison:
 | Suitable use cases | Structured processes | Creative collaboration |
 | Parallel processing | Can be explicitly defined | Automatically decided |
 
-For more details, refer to the [official documentation](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/multi-agent/graph/).
+For more details, refer to the [official documentation](https://strandsagents.com/docs/user-guide/concepts/multi-agent/graph/).
 
 </details>
 

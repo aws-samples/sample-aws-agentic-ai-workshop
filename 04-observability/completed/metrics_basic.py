@@ -8,7 +8,7 @@ result = agent([
     {
         "role": "user",
         "content": [
-            {"text": "125 * 37은 얼마야? 그리고 지금 몇 시야?"},
+            {"text": "What is 125 * 37? Also, what time is it now?"},
             {"cachePoint": {"type": "default"}}
         ]
     }
@@ -16,39 +16,39 @@ result = agent([
 
 metrics = result.metrics
 
-print("=== 기본 메트릭 ===")
-print(f"사이클 수: {metrics.cycle_count}")
-print(f"사이클별 소요시간: {metrics.cycle_durations}")
-print(f"총 소요시간: {sum(metrics.cycle_durations):.2f}")
+print("=== Basic Metrics ===")
+print(f"Cycle count: {metrics.cycle_count}")
+print(f"Cycle durations: {metrics.cycle_durations}")
+print(f"Total duration: {sum(metrics.cycle_durations):.2f} seconds")
 
-print("\n=== 토큰 사용량 ===")
+print("\n=== Token Usage ===")
 usage = metrics.accumulated_usage
-print(f"입력 토큰: {usage.get('inputTokens', 0)}")
-print(f"출력 토큰: {usage.get('outputTokens', 0)}")
-print(f"총 토큰: {usage.get('totalTokens', 0)}")
+print(f"Input tokens: {usage.get('inputTokens', 0)}")
+print(f"Output tokens: {usage.get('outputTokens', 0)}")
+print(f"Total tokens: {usage.get('totalTokens', 0)}")
 
-# 캐시 메트릭
+# Cache metrics
 if 'cacheReadInputTokens' in usage:
-    print(f"캐시 읽기 토큰: {usage['cacheReadInputTokens']}")
+    print(f"Cache read tokens: {usage['cacheReadInputTokens']}")
 if 'cacheWriteInputTokens' in usage:
-    print(f"캐시 쓰기 토큰: {usage['cacheWriteInputTokens']}")
+    print(f"Cache write tokens: {usage['cacheWriteInputTokens']}")
 
-print("\n=== 도구 메트릭 ===")
+print("\n=== Tool Metrics ===")
 for tool_name, tool_metric in metrics.tool_metrics.items():
-    print(f"\n도구: {tool_name}")
-    print(f"  호출 횟수: {tool_metric.call_count}")
-    print(f"  성공 횟수: {tool_metric.success_count}")
-    print(f"  실패 횟수: {tool_metric.error_count}")
-    print(f"  총 실행시간: {tool_metric.total_time:.3f}초")
+    print(f"\nTool: {tool_name}")
+    print(f"  Call count: {tool_metric.call_count}")
+    print(f"  Success count: {tool_metric.success_count}")
+    print(f"  Error count: {tool_metric.error_count}")
+    print(f"  Total time: {tool_metric.total_time:.3f} seconds")
     if tool_metric.call_count > 0:
-        print(f"  평균 실행시간: {tool_metric.total_time / tool_metric.call_count:.3f}초")
+        print(f"  Avg time: {tool_metric.total_time / tool_metric.call_count:.3f} seconds")
 
-# 전체 메트릭 요약 가져오기
+# Get complete metrics summary
 summary = result.metrics.get_summary()
 
-print("\n=== 메트릭 요약 ===")
-print(f"총 사이클: {summary['total_cycles']}")
-print(f"총 소요시간: {summary['total_duration']:.2f}초")
-print(f"평균 사이클 시간: {summary['average_cycle_time']:.2f}초")
-print(f"누적 사용량: {summary['accumulated_usage']}")
-print(f"누적 메트릭: {summary['accumulated_metrics']}")
+print("\n=== Metrics Summary ===")
+print(f"Total cycles: {summary['total_cycles']}")
+print(f"Total duration: {summary['total_duration']:.2f} seconds")
+print(f"Average cycle time: {summary['average_cycle_time']:.2f} seconds")
+print(f"Accumulated usage: {summary['accumulated_usage']}")
+print(f"Accumulated metrics: {summary['accumulated_metrics']}")

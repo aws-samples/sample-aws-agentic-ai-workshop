@@ -97,7 +97,7 @@ from strands import Agent
 from strands_tools import calculator, current_time
 
 agent = Agent(
-    system_prompt="당신은 도움이 되는 AI 어시스턴트입니다.",
+    system_prompt="You are a helpful AI assistant.",
     tools=[calculator, current_time]
 )
 
@@ -127,14 +127,14 @@ from strands_tools import calculator, current_time
 app = BedrockAgentCoreApp()  # ← 2️⃣ 추가
 
 agent = Agent(
-    system_prompt="당신은 도움이 되는 AI 어시스턴트입니다.",
+    system_prompt="You are a helpful AI assistant.",
     tools=[calculator, current_time]
 )
 
 @app.entrypoint  # ← 3️⃣ 추가
 def invoke(payload):
-    """에이전트 호출 엔트리포인트"""
-    user_message = payload.get("prompt", "안녕하세요!")
+    """Agent invocation entrypoint"""
+    user_message = payload.get("prompt", "Hello!")
     result = agent(user_message)
     return {"result": result.message}
 
@@ -151,7 +151,7 @@ from strands import Agent
 from strands_tools import calculator, current_time
 
 agent = Agent(
-    system_prompt="당신은 도움이 되는 AI 어시스턴트입니다.",
+    system_prompt="You are a helpful AI assistant.",
     tools=[calculator, current_time]
 )
 
@@ -169,13 +169,13 @@ from strands_tools import calculator, current_time
 app = BedrockAgentCoreApp()  # 2️⃣ App 인스턴스 생성
 
 agent = Agent(
-    system_prompt="당신은 도움이 되는 AI 어시스턴트입니다.",
+    system_prompt="You are a helpful AI assistant.",
     tools=[calculator, current_time]
 )
 
 @app.entrypoint  # 3️⃣ 데코레이터 추가
 def invoke(payload):
-    user_message = payload.get("prompt", "안녕하세요!")
+    user_message = payload.get("prompt", "Hello!")
     result = agent(user_message)
     return {"result": result.message}
 
@@ -270,7 +270,7 @@ response = agentcore_runtime.configure(
 - `launch()`는 코드 패키징, AWS 리소스 생성, AgentCore Runtime 배포, CloudWatch 로깅 구성을 자동으로 수행합니다.
 
 ```python
-print("🚀 배포 시작...")
+print("🚀 Starting deployment...")
 launch_result = agentcore_runtime.launch()
 print(launch_result)
 
@@ -327,8 +327,8 @@ import boto3
 **4-3.** 배포 출력에서 확인한 Agent ARN을 입력합니다.
 
 ```python
-agent_arn = "<<복사해둔 Runtime ARN을 입력하세요>>"
-prompt = "80 / 4 * 5 의 제곱근은?"
+agent_arn = "<<Enter the copied Runtime ARN>>"
+prompt = "What is the square root of 80 / 4 * 5?"
 
 ```
 
@@ -431,19 +431,19 @@ app = BedrockAgentCoreApp()
 @tool
 def research_assistant(query: str) -> str:
     """
-    연구 관련 쿼리를 처리하고 응답합니다.
+    Processes and responds to research-related queries.
 
     Args:
-        query: 사실적 정보가 필요한 연구 질문
+        query: Research question requiring factual information
 
     Returns:
-        인용이 포함된 상세한 연구 답변
+        Detailed research answer with citations
     """
     try:
         research_agent = Agent(
-            system_prompt="""당신은 전문 리서치 어시스턴트입니다.
-            연구 질문에 대해 사실적이고 출처가 명확한 정보만 제공하는 데 집중하세요.
-            가능한 한 항상 출처를 인용하세요.""",
+            system_prompt="""You are a professional research assistant.
+            Focus on providing only factual information with clear sources for research questions.
+            Always cite sources whenever possible.""",
         )
         response = research_agent(query)
         return str(response)
@@ -454,17 +454,17 @@ def research_assistant(query: str) -> str:
 @tool
 def product_recommendation_assistant(query: str) -> str:
     """
-    적절한 제품을 제안하여 제품 추천 쿼리를 처리합니다.
+    Handles product recommendation queries by suggesting appropriate products.
 
     Args:
-        query: 사용자 선호도가 포함된 제품 문의
+        query: Product inquiry including user preferences
 
     Returns:
-        추론이 포함된 개인화된 제품 추천
+        Personalized product recommendations with reasoning
     """
     try:
         product_agent = Agent(
-            system_prompt="""당신은 전문 제품 추천 어시스턴트입니다.
+            system_prompt="""You are a professional product recommendation assistant.
             사용자의 선호도를 바탕으로 개인화된 제품 제안을 제공하세요.
             항상 추천 이유를 명확히 설명하세요.""",
         )
@@ -477,17 +477,17 @@ def product_recommendation_assistant(query: str) -> str:
 @tool
 def trip_planning_assistant(query: str) -> str:
     """
-    여행 일정을 작성하고 여행 조언을 제공합니다.
+    Creates travel itineraries and provides travel advice.
 
     Args:
-        query: 목적지와 선호도가 포함된 여행 계획 요청
+        query: Travel planning request including destination and preferences
 
     Returns:
-        상세한 여행 일정 또는 여행 조언
+        Detailed travel itinerary or travel advice
     """
     try:
         travel_agent = Agent(
-            system_prompt="""당신은 전문 여행 계획 어시스턴트입니다.
+            system_prompt="""You are a professional travel planning assistant.
             사용자의 선호도를 바탕으로 상세한 여행 일정을 작성하세요.
             예산, 교통, 숙박, 관광지 등을 포함한 실용적인 계획을 제공하세요.""",
         )
@@ -518,7 +518,7 @@ MAIN_SYSTEM_PROMPT = """
 @app.entrypoint
 def invoke(payload):
     """멀티 에이전트 오케스트레이터 엔트리포인트"""
-    user_message = payload.get("prompt", "안녕하세요!")
+    user_message = payload.get("prompt", "Hello!")
     
     orchestrator = Agent(
         system_prompt=MAIN_SYSTEM_PROMPT,
@@ -560,7 +560,7 @@ response = agentcore_runtime.configure(
     region=region,
 )
 
-print("🚀 배포 시작...")
+print("🚀 Starting deployment...")
 launch_result = agentcore_runtime.launch()
 print(launch_result)
 ```
@@ -617,20 +617,20 @@ import uuid
 import boto3
 from urllib.parse import quote
 
-agent_arn = "<<복사해둔 Runtime ARN을 입력하세요>>"
+agent_arn = "<<Enter the copied Runtime ARN>>"
 region = "us-west-2"
-prompt = "일본 도쿄에 대해서 리서치 좀 해줄 수 있니? 그리고 거기로 3일 여행 계획도 세워줘. 여행에 필요한 제품도 추천해줘."
+prompt = "Can you research Tokyo, Japan? Also plan a 3-day trip there and recommend products needed for the trip."
 
-# 세션 ID 생성
+# Generate session ID
 session_id = str(uuid.uuid4())
 
-# Agent 이름 추출 (ARN에서)
+# Extract Agent name (from ARN)
 agent_name = agent_arn.split("/")[-1]
 
-# CloudWatch Logs 그룹 이름 구성
+# Construct CloudWatch Logs group name
 log_group_name = f"/aws/bedrock-agentcore/runtimes/{agent_name}-DEFAULT"
 
-# CloudWatch Logs 그룹 URL 생성
+# Generate CloudWatch Logs group URL
 log_group_url = (
     f"https://console.aws.amazon.com/cloudwatch/home?region={region}"
     f"#logsV2:log-groups/log-group/{quote(log_group_name, safe='')}"
@@ -639,10 +639,10 @@ log_group_url = (
 client = boto3.client('bedrock-agentcore')
 payload = json.dumps({"prompt": prompt}).encode()
 
-print(f"\n\n프롬프트: {prompt}\n")
-print(f"세션 ID: {session_id}\n")
-print("⏳ 에이전트 호출 중...\n")
-print(f"📊 CloudWatch Logs (세션 ID로 필터링하세요): {log_group_url}\n\n")
+print(f"\n\nPrompt: {prompt}\n")
+print(f"Session ID: {session_id}\n")
+print("⏳ Invoking agent...\n")
+print(f"📊 CloudWatch Logs (filter by session ID): {log_group_url}\n\n")
 
 try:
     response = client.invoke_agent_runtime(
@@ -651,15 +651,15 @@ try:
         payload=payload,
     )
 
-    # 응답 스트림 소비 (출력하지 않음)
+    # Consume response stream (without printing)
     for _ in response.get("response", []):
         pass
 
-    print("✅ 에이전트 호출 완료\n")
-    print(f"📊 로그 확인 (세션 ID: {session_id}): {log_group_url}\n")
+    print("✅ Agent invocation complete\n")
+    print(f"📊 Check logs (Session ID: {session_id}): {log_group_url}\n")
 except Exception as e:
-    print(f"⚠️  에러: {str(e)}\n")
-    print(f"📊 로그 확인 (세션 ID: {session_id}): {log_group_url}\n")
+    print(f"⚠️  Error: {str(e)}\n")
+    print(f"📊 Check logs (Session ID: {session_id}): {log_group_url}\n")
 ```
 
 **5-7.** 터미널에서 아래 명령어를 실행하여 Runtime에 올라간 에이전트를 호출해봅니다.

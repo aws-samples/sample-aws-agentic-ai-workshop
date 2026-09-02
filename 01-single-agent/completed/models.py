@@ -16,7 +16,7 @@ agent = Agent(
     )
 
 if __name__ == "__main__":
-    user_input = "Amazon Bedrock이 뭐야?"
+    user_input = "What is Amazon Bedrock?"
 
     response = agent(user_input)
     

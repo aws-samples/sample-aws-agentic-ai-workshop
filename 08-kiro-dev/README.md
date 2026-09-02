@@ -279,8 +279,7 @@ This repository already ships the Steering file for the lab at [`.kiro/steering/
 
 **Working directory**
 
-> `코드 산출물은 08-kiro-dev/labs/ 하위에 생성합니다.`
-> (Create code artifacts under `08-kiro-dev/labs/`.)
+> Create code artifacts under `08-kiro-dev/labs/`.
 
 > [!NOTE]
 > This rule is what makes Kiro write the generated agent into `08-kiro-dev/labs/` rather than wherever it likes. If you open Kiro on a different folder, adjust the path so it stays relative to your workspace root.
@@ -328,12 +327,12 @@ strands_telemetry.setup_otlp_exporter()
 
 @tool
 def my_tool(param: str) -> str:
-    """도구 설명"""
+    """Tool description"""
     return result
 
 agent = Agent(
     model="us.anthropic.claude-sonnet-4-20250514-v1:0",
-    system_prompt="당신은 도움이 되는 AI 어시스턴트입니다.",
+    system_prompt="You are a helpful AI assistant.",
     name="<adequate name>",
     tools=[my_tool]
 )
@@ -399,7 +398,7 @@ With the Power installed, the Steering rules in place, and the MCP server connec
 Create an Agent using Strands SDK that solves the Tower of Hanoi puzzle.
 ```
 
-Kiro reads `.kiro/steering/strands-dev.md`, looks up the SDK through the `strands-docs` MCP server, and writes the agent into `08-kiro-dev/labs/hanoi_tower.py` (assuming you corrected the working-directory rule as noted above). If Kiro generates code that follows the Steering rules, your environment is configured correctly.
+Kiro reads `.kiro/steering/strands-dev.md`, looks up the SDK through the `strands-docs` MCP server, and writes the agent into `08-kiro-dev/labs/hanoi_tower.py`. If Kiro generates code that follows the Steering rules, your environment is configured correctly.
 
 Review what it produced, then run it:
 
@@ -470,7 +469,7 @@ Kiro itself creates no AWS resources, but the subscription and the model calls a
 
 - [Kiro Official Site](https://kiro.dev/)
 - [Kiro Documentation](https://kiro.dev/docs/)
-- [Strands Agents SDK](https://strandsagents.com/latest/)
+- [Strands Agents SDK](https://strandsagents.com/docs/)
 - [Amazon DCV](https://aws.amazon.com/hpc/dcv/)
 
 ---

@@ -3,22 +3,22 @@ from strands import Agent
 from strands.multiagent import GraphBuilder
 from strands_tools import file_write
 
-os.environ['BYPASS_TOOL_CONSENT'] = 'true' # file_write 확인 프롬프트 비활성화
+os.environ['BYPASS_TOOL_CONSENT'] = 'true' # Disable file_write confirmation prompt
 
 classifier = Agent(
     name="classifier", 
-    system_prompt="당신은 보고서 요청을 분류하는 에이전트입니다. Technical 또는 Business 분류만 반환하세요."
+    system_prompt="You are an agent that classifies report requests. Return only Technical or Business classification."
     )
 
 technical_report = Agent(
     name="technical_expert", 
-    system_prompt="당신은 기술적 관점에서 보고서를 작성하는 기술 전문가입니다. 보고서는 technical_report.md 로 저장합니다.",
+    system_prompt="You are a technical expert who writes reports from a technical perspective. Save reports as technical_report.md.",
     tools=[file_write]
     )
     
 business_report = Agent(
     name="business_expert", 
-    system_prompt="당신은  비즈니스 관점에서 보고서를 작성하는 비즈니스 전문가입니다. 보고서는 business_report.md 로 저장합니다.",
+    system_prompt="You are a business expert who writes reports from a business perspective. Save reports as business_report.md.",
     tools=[file_write]
     )
 
@@ -42,7 +42,7 @@ builder.add_node(classifier, "classifier")
 builder.add_node(technical_report, "technical_report")
 builder.add_node(business_report, "business_report")
 
-# 조건부 엣지 추가
+# Add conditional edges
 builder.add_edge("classifier", "technical_report", condition=is_technical)
 builder.add_edge("classifier", "business_report", condition=is_business)
 
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--query",
         type=str,
-        default="재택근무가 비즈니스에 미치는 영향에 대한 보고서를 작성해주세요. 고려해야 할 사항과 주요 위험 요소를 요약하세요"
+        default="Please write a report on the impact of remote work on business. Summarize considerations and key risk factors."
     )
 
     args = parser.parse_args()

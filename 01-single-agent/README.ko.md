@@ -96,7 +96,7 @@ agent = Agent(tools=[calculator, current_time, python_repl])
 **1-4.** 에이전트에게 질문하고 응답을 받습니다.
 
 ```py
-response = agent("80 / 4 * 5 의 제곱근은?") # prompt
+response = agent("What is the square root of 80 / 4 * 5?") # prompt
 
 ```
 
@@ -119,10 +119,13 @@ uv run python 01-single-agent/labs/basic.py
 
 ```py
 from strands import Agent
-from strands_tools import calculator, current_time, python_repl # 참고: https://github.com/strands-agents/tools
+from strands_tools import calculator, current_time, python_repl # Reference: https://github.com/strands-agents/tools
 
-agent = Agent(tools=[calculator, current_time, python_repl]) # tools
-response = agent("80 / 4 * 5 의 제곱근은?") # prompt
+agent = Agent(
+    tools=[calculator, current_time, python_repl],
+    system_prompt="Answer as if you are explaining to an elementary school student"
+    )
+response = agent("What is the square root of 80 / 4 * 5?") # prompt
 ```
 
 </details>
@@ -173,7 +176,7 @@ agent = Agent(
 
 ```py
 if __name__ == "__main__":
-    user_input = "Amazon Bedrock이 뭐야?"
+    user_input = "What is Amazon Bedrock?"
 
     response = agent(user_input)
 
@@ -241,16 +244,16 @@ import random
 ```py
 @tool
 def weather_forecast(city: str, days: int = 3) -> str:
-    """도시의 날씨를 가져옵니다. 
+    """Gets the weather for a city.
         Args:
-            city: 도시의 이름
-            days: 예측하려는 기간 (일 단위)
+            city: Name of the city
+            days: Forecast period (in days)
     """
     weather_options = ["Sunny", "Cloudy", "Rainy", "Snowy", "Windy", "Foggy"]
     selected_weather = random.choice(weather_options)
 
-    print(f"{city}의 날씨를 확인해보겠습니다 (검색 기간: {days}일)...\n")
-    print(f"예상 날씨: {selected_weather}\n")
+    print(f"Checking weather for {city} (forecast period: {days} days)...\n")
+    print(f"Expected weather: {selected_weather}\n")
     print("="*10)
     return selected_weather
 
@@ -271,7 +274,7 @@ agent = Agent(
 
 ```py
 if __name__ == "__main__":
-    user_input = "내일 서울 날씨 어때?"
+    user_input = "How's the weather in Seoul tomorrow?"
 
     response = agent(user_input)
 
@@ -328,10 +331,10 @@ agent = Agent(
 ```py
 
 if __name__ == "__main__":
-    user_input = "Hello world를 출력하는 파이썬 코드를 작성하고 실행시켜줄래?"
+    user_input = "Can you write and execute Python code that prints Hello world?"
 
-    ## 또는, 아래 주석을 해제하여 프롬프트를 바꿔서 실행해보세요
-    # user_input = "01-single-agent/completed 폴더에 무슨 파일 있는지 확인해줘"
+    ## Or, uncomment below to change the prompt and execute
+    # user_input = "Check what files are in the 01-single-agent/completed folder"
 
     response = agent(user_input)
 
@@ -576,12 +579,12 @@ from strands_tools import retrieve
 `<여기에 Knowledge Base ID를 입력하세요>` 부분을 4-1 단계에서 복사한 ID로 바꿔주세요.
 
 ```py
-KNOWLEDGE_BASE_ID = "<여기에 Knowledge Base ID를 입력하세요>"
+KNOWLEDGE_BASE_ID = "<Enter your Knowledge Base ID here>"
 
 agent = Agent(
-    system_prompt=f"""당신은 문서 기반 질의응답 어시스턴트입니다.
-    사용자의 질문에 답변할 때 반드시 retrieve 도구를 사용하여 Knowledge Base(ID: {KNOWLEDGE_BASE_ID})에서 관련 정보를 검색한 후 답변하세요.
-    검색된 문서의 내용을 기반으로 정확하게 답변하고, 문서에 없는 내용은 모른다고 답변하세요.""",
+    system_prompt=f"""You are a document-based Q&A assistant.
+    When answering user questions, you must use the retrieve tool to search for relevant information from the Knowledge Base (ID: {KNOWLEDGE_BASE_ID}) before answering.
+    Answer accurately based on the retrieved document content, and say you don't know if the information is not in the documents.""",
     tools=[retrieve]
 )
 
@@ -591,7 +594,7 @@ agent = Agent(
 
 ```py
 if __name__ == "__main__":
-    response = agent("업로드한 문서의 주요 내용을 요약해주세요.")
+    response = agent("Please summarize the main content of the uploaded document.")
     print(response)
 
 ```
@@ -735,7 +738,7 @@ uv run python 01-single-agent/labs/mcp_tool.py
 **2-2-1.** `01-single-agent/labs/mcp_tool.py` 파일로 돌아가서, Playwright MCP 클라이언트를 추가합니다.
 
 ```py
-# 기존 AWS Documentation MCP 아래에 추가
+# Add below the existing AWS Documentation MCP
 playwright_mcp_client = MCPClient(lambda: stdio_client(
     StdioServerParameters(command="npx",
                           args=["@playwright/mcp@latest"]
@@ -748,7 +751,7 @@ playwright_mcp_client = MCPClient(lambda: stdio_client(
 
 ```py
 if __name__ == "__main__":
-    user_input = "https://aws.amazon.com 페이지를 방문해서 스크린샷을 찍어줘"
+    user_input = "Visit https://aws.amazon.com and take a screenshot"
 
     agent = Agent(tools=[stdio_mcp_client, playwright_mcp_client])
     response = agent(user_input)
@@ -776,7 +779,7 @@ playwright_mcp_client = MCPClient(lambda: stdio_client(
 ))
 
 if __name__ == "__main__":
-    user_input = "https://aws.amazon.com 페이지를 방문해서 스크린샷을 찍어줘"
+    user_input = "Visit https://aws.amazon.com and take a screenshot"
 
     agent = Agent(tools=[stdio_mcp_client, playwright_mcp_client])
     response = agent(user_input)
@@ -850,7 +853,7 @@ uv run python 01-single-agent/labs/mcp_tool.py
 
 ```py
 import os
-os.environ["BYPASS_TOOL_CONSENT"] = "true"  # 도구 실행 시 y/n 확인 프롬프트 비활성화
+os.environ["BYPASS_TOOL_CONSENT"] = "true"  # disable the y/n confirmation prompt on tool execution
 
 from strands import Agent
 from strands.models import BedrockModel
@@ -863,13 +866,13 @@ from strands_tools import shell, file_write
 - 시스템 프롬프트에 `@tool` 데코레이터 사용법 **템플릿**을 넣어주는 것이 핵심입니다. 이렇게 하면 에이전트가 SDK가 인식할 수 있는 올바른 형식으로 도구 파일을 작성합니다.
 
 ````py
-SYSTEM_PROMPT = """당신은 스스로 확장하는 리서치 에이전트입니다.
+SYSTEM_PROMPT = """You are a self-extending research agent.
 
-당신은 ./tools/ 디렉토리에 Python 파일을 작성하여 새로운 도구를 만들 수 있습니다.
-각 파일은 strands 패키지의 `@tool` 데코레이터가 붙은 함수를 하나 이상 정의해야 합니다.
-파일을 저장하면 도구가 즉시 사용 가능해집니다.
+You can CREATE new tools by writing Python files to ./tools/. Each file should
+define one or more functions decorated with `@tool` from the strands package.
+Tools become available instantly after the file is saved.
 
-새 도구 템플릿:
+Template for a new tool:
 
 ```python
 from strands import tool
@@ -887,8 +890,8 @@ def my_tool(argument: str) -> str:
     return f"result for {argument}"
 ```
 
-사용자가 당신이 가지고 있지 않은 기능을 요청하면, 도구를 만들고(CREATE), 그 도구를 사용(USE)하세요.
-답변은 간결하게 하세요.
+When a user asks for a capability you don't have, CREATE the tool, then USE it.
+Be concise in your replies.
 """
 
 ````
@@ -905,7 +908,7 @@ bedrock_model = BedrockModel(
 agent = Agent(
     model=bedrock_model,
     tools=[shell, file_write],
-    load_tools_from_directory=True,   # ./tools/*.py 를 실시간으로 로드/재로드
+    load_tools_from_directory=True,   # load/reload ./tools/*.py at runtime
     system_prompt=SYSTEM_PROMPT,
 )
 
@@ -917,7 +920,7 @@ agent = Agent(
 
 ```py
 if __name__ == "__main__":
-    user_input = "URL을 QR 코드로 출력하는 도구를 만들고, https://strandsagents.com 에 대한 코드를 만들어줘."
+    user_input = "Create a tool that prints a URL I give you as a QR code, then generate the code for https://strandsagents.com."
 
     response = agent(user_input)
 
@@ -947,19 +950,19 @@ uv run python self_extending.py
 
 ````py
 import os
-os.environ["BYPASS_TOOL_CONSENT"] = "true"  # 도구 실행 시 y/n 확인 프롬프트 비활성화
+os.environ["BYPASS_TOOL_CONSENT"] = "true"  # disable the y/n confirmation prompt on tool execution
 
 from strands import Agent
 from strands.models import BedrockModel
 from strands_tools import shell, file_write
 
-SYSTEM_PROMPT = """당신은 스스로 확장하는 리서치 에이전트입니다.
+SYSTEM_PROMPT = """You are a self-extending research agent.
 
-당신은 ./tools/ 디렉토리에 Python 파일을 작성하여 새로운 도구를 만들 수 있습니다.
-각 파일은 strands 패키지의 `@tool` 데코레이터가 붙은 함수를 하나 이상 정의해야 합니다.
-파일을 저장하면 도구가 즉시 사용 가능해집니다.
+You can CREATE new tools by writing Python files to ./tools/. Each file should
+define one or more functions decorated with `@tool` from the strands package.
+Tools become available instantly after the file is saved.
 
-새 도구 템플릿:
+Template for a new tool:
 
 ```python
 from strands import tool
@@ -977,8 +980,8 @@ def my_tool(argument: str) -> str:
     return f"result for {argument}"
 ```
 
-사용자가 당신이 가지고 있지 않은 기능을 요청하면, 도구를 만들고(CREATE), 그 도구를 사용(USE)하세요.
-답변은 간결하게 하세요.
+When a user asks for a capability you don't have, CREATE the tool, then USE it.
+Be concise in your replies.
 """
 
 bedrock_model = BedrockModel(
@@ -988,12 +991,12 @@ bedrock_model = BedrockModel(
 agent = Agent(
     model=bedrock_model,
     tools=[shell, file_write],
-    load_tools_from_directory=True,   # ./tools/*.py 를 실시간으로 로드/재로드
+    load_tools_from_directory=True,   # load/reload ./tools/*.py at runtime
     system_prompt=SYSTEM_PROMPT,
 )
 
 if __name__ == "__main__":
-    user_input = "URL을 QR 코드로 출력하는 도구를 만들고, https://strandsagents.com 에 대한 코드를 만들어줘."
+    user_input = "Create a tool that prints a URL I give you as a QR code, then generate the code for https://strandsagents.com."
     response = agent(user_input)
 ````
 
@@ -1026,40 +1029,40 @@ PROMPT_FILE = Path(".prompt")
 
 @tool
 def system_prompt(action: str, prompt: str | None = None) -> dict:
-    """에이전트 자신의 시스템 프롬프트를 런타임에 관리합니다.
+    """Manage the agent's own system prompt at runtime.
 
     Args:
-        action: "view", "update", "add_context", "reset" 중 하나.
-        prompt: 새 프롬프트 텍스트 (update / add_context 시 필요).
+        action: One of "view", "update", "add_context", "reset".
+        prompt: The new prompt text (required for update / add_context).
 
     Returns:
-        status와 content를 담은 dict.
+        Dict with status and content.
     """
     if action == "view":
         current = PROMPT_FILE.read_text() if PROMPT_FILE.exists() else ""
-        return {"status": "success", "content": [{"text": current or "(비어 있음)"}]}
+        return {"status": "success", "content": [{"text": current or "(empty)"}]}
 
     if action == "update":
         if not prompt:
-            return {"status": "error", "content": [{"text": "prompt가 필요합니다"}]}
-        PROMPT_FILE.write_text(prompt)   # 디스크에 영속화 -> 재시작해도 유지
+            return {"status": "error", "content": [{"text": "prompt required"}]}
+        PROMPT_FILE.write_text(prompt)   # persist to disk -> survives restarts
         return {"status": "success",
-                "content": [{"text": f"프롬프트를 갱신하고 저장했습니다 ({len(prompt)}자)."}]}
+                "content": [{"text": f"Prompt updated & persisted ({len(prompt)} chars)."}]}
 
     if action == "add_context":
         if not prompt:
-            return {"status": "error", "content": [{"text": "prompt가 필요합니다"}]}
+            return {"status": "error", "content": [{"text": "prompt required"}]}
         existing = PROMPT_FILE.read_text() if PROMPT_FILE.exists() else ""
         merged = f"{existing}\n\n{prompt}" if existing else prompt
         PROMPT_FILE.write_text(merged)
-        return {"status": "success", "content": [{"text": "컨텍스트를 추가했습니다."}]}
+        return {"status": "success", "content": [{"text": "Context appended."}]}
 
     if action == "reset":
         if PROMPT_FILE.exists():
             PROMPT_FILE.unlink()
-        return {"status": "success", "content": [{"text": "프롬프트를 기본값으로 초기화했습니다."}]}
+        return {"status": "success", "content": [{"text": "Prompt reset to default."}]}
 
-    return {"status": "error", "content": [{"text": f"알 수 없는 action: {action}"}]}
+    return {"status": "error", "content": [{"text": f"Unknown action: {action}"}]}
 
 ```
 
@@ -1069,7 +1072,7 @@ def system_prompt(action: str, prompt: str | None = None) -> dict:
 
 ```py
 import os
-os.environ["BYPASS_TOOL_CONSENT"] = "true"  # 도구 실행 시 y/n 확인 프롬프트 비활성화
+os.environ["BYPASS_TOOL_CONSENT"] = "true"  # disable the y/n confirmation prompt on tool execution
 
 from pathlib import Path
 from strands import Agent
@@ -1087,18 +1090,18 @@ PROMPT_FILE = Path(".prompt")
 
 ```py
 def build_system_prompt() -> str:
-    """매 턴, 여러 소스에서 시스템 프롬프트를 다시 조립합니다."""
+    """Reassemble the system prompt from multiple sources every turn."""
     base = (
-        "당신은 스스로 개선하는 리서치 에이전트입니다.\n"
-        "당신은 system_prompt 도구를 사용해 자신의 시스템 프롬프트를 수정할 수 있습니다.\n"
-        "가능한 action: view, update, add_context, reset.\n"
-        "사용자가 당신의 행동을 '앞으로' 또는 '영구적으로' 바꿔달라고 하면, "
-        "system_prompt(action='update', prompt=...)를 호출하세요."
+        "You are a self-improving research agent.\n"
+        "You can MODIFY YOUR OWN SYSTEM PROMPT using the system_prompt tool.\n"
+        "Actions: view, update, add_context, reset.\n"
+        "When a user asks you to change your behavior 'from now on' or "
+        "'permanently', call system_prompt(action='update', prompt=...)."
     )
     persisted = PROMPT_FILE.read_text() if PROMPT_FILE.exists() else ""
     parts = [base]
     if persisted:
-        parts.append(f"\n## 저장된 지침 (.prompt):\n{persisted}")
+        parts.append(f"\n## Persisted instructions (.prompt):\n{persisted}")
     return "\n".join(parts)
 
 ```
@@ -1111,13 +1114,13 @@ def build_system_prompt() -> str:
 bedrock_model = BedrockModel(model_id="us.anthropic.claude-sonnet-4-6")
 
 if __name__ == "__main__":
-    print("🦆 자가수정 에이전트입니다. 'exit'을 입력하면 종료합니다.\n")
+    print("🦆 Self-modifying agent. Type 'exit' to quit.\n")
     while True:
         q = input("🦆 ").strip()
         if q.lower() in ("exit", "quit", "q", ""):
             break
 
-        # 매 턴 에이전트를 새로 만들어 프롬프트 수정이 곧바로 적용되게 함
+        # Rebuild the agent each turn so prompt updates apply right away
         agent = Agent(
             model=bedrock_model,
             tools=[system_prompt],
@@ -1161,7 +1164,7 @@ uv run python self_modifying.py
 
 ```py
 import os
-os.environ["BYPASS_TOOL_CONSENT"] = "true"  # 도구 실행 시 y/n 확인 프롬프트 비활성화
+os.environ["BYPASS_TOOL_CONSENT"] = "true"  # disable the y/n confirmation prompt on tool execution
 
 from pathlib import Path
 from strands import Agent
@@ -1173,23 +1176,23 @@ PROMPT_FILE = Path(".prompt")
 
 def build_system_prompt() -> str:
     base = (
-        "당신은 스스로 개선하는 리서치 에이전트입니다.\n"
-        "당신은 system_prompt 도구를 사용해 자신의 시스템 프롬프트를 수정할 수 있습니다.\n"
-        "가능한 action: view, update, add_context, reset.\n"
-        "사용자가 당신의 행동을 '앞으로' 또는 '영구적으로' 바꿔달라고 하면, "
-        "system_prompt(action='update', prompt=...)를 호출하세요."
+        "You are a self-improving research agent.\n"
+        "You can MODIFY YOUR OWN SYSTEM PROMPT using the system_prompt tool.\n"
+        "Actions: view, update, add_context, reset.\n"
+        "When a user asks you to change your behavior 'from now on' or "
+        "'permanently', call system_prompt(action='update', prompt=...)."
     )
     persisted = PROMPT_FILE.read_text() if PROMPT_FILE.exists() else ""
     parts = [base]
     if persisted:
-        parts.append(f"\n## 저장된 지침 (.prompt):\n{persisted}")
+        parts.append(f"\n## Persisted instructions (.prompt):\n{persisted}")
     return "\n".join(parts)
 
 
 bedrock_model = BedrockModel(model_id="us.anthropic.claude-sonnet-4-6")
 
 if __name__ == "__main__":
-    print("🦆 자가수정 에이전트입니다. 'exit'을 입력하면 종료합니다.\n")
+    print("🦆 Self-modifying agent. Type 'exit' to quit.\n")
     while True:
         q = input("🦆 ").strip()
         if q.lower() in ("exit", "quit", "q", ""):

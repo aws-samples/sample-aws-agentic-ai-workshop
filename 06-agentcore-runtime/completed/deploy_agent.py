@@ -15,6 +15,6 @@ response = agentcore_runtime.configure(
     region="us-west-2",
 )
 
-print("🚀 배포 시작...")
+print("🚀 Starting deployment...")
 launch_result = agentcore_runtime.launch()
 print(launch_result)

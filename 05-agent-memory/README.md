@@ -575,7 +575,7 @@ if __name__ == "__main__":
     parser.add_argument("--message", required=True)
     args = parser.parse_args()
     
-    # Generate new session ID for each run (to verify LTM persists across sessions)
+    # Generate a new session ID for each run (to verify LTM persists across sessions)
     session_id = f"session_{uuid.uuid4().hex[:8]}"
     agent = create_agent(session_id, args.actor)
     agent(args.message)
@@ -778,7 +778,7 @@ with st.sidebar:
 **2-6.** Add chat history display and input handling code.
 
 ```python
-# Initialize chat history
+# Chat history initialization
 if "messages" not in st.session_state:
     st.session_state.messages = []
 

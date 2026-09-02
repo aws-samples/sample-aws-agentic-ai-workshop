@@ -376,7 +376,7 @@ cd ..
 
 해당 챕터에는 각각 **정리(Cleanup)** 섹션이 있습니다. 실습을 마친 뒤 반드시 수행하세요. 특히 OpenSearch Serverless 컬렉션은 조회하지 않아도 계속 과금됩니다.
 
-## 문제 해결
+## 트러블슈팅
 
 **uv를 설치했는데 `uv: command not found`가 표시됩니다**
 설치 스크립트는 바이너리를 `~/.local/bin`에 배치합니다. 새 셸을 열거나 `PATH`에 추가하세요: `export PATH="$HOME/.local/bin:$PATH"`.
@@ -392,9 +392,6 @@ cd ..
 
 **차트의 한글 라벨이 사각형으로 표시됩니다**
 [(선택) matplotlib 한글 폰트 설정](#6-선택-matplotlib-한글-폰트-설정)을 참고하세요.
-
-**`create-uv-env.sh`가 시스템 패키지 설치 단계에서 `...aws`로 끝나는 줄을 출력합니다**
-스크립트 158번째 줄의 `print_info` 호출 뒤에 명령어가 잘못 붙어 있습니다. 출력만 이상해질 뿐 환경 설정에는 영향이 없습니다.
 
 ---
 Prev: [Agentic AI 101 on AWS](../README.ko.md) | Next: [01. 기본 단일 에이전트 만들어보기](../01-single-agent/README.ko.md)

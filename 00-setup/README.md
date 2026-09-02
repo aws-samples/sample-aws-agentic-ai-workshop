@@ -393,8 +393,5 @@ You are running the system Python instead of the project environment. Use `uv ru
 **Korean labels render as boxes in charts**
 See [Optional: Korean fonts for matplotlib](#6-optional-korean-fonts-for-matplotlib).
 
-**`create-uv-env.sh` prints a line ending in `...aws` while installing system packages**
-Line 158 of the script has a stray command appended to a `print_info` call. It is cosmetic and does not affect the setup.
-
 ---
 Prev: [Agentic AI 101 on AWS](../README.md) | Next: [01. Building a Basic Single Agent](../01-single-agent/README.md)

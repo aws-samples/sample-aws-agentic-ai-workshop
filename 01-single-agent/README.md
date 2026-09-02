@@ -25,7 +25,7 @@ The agent we build first has 1) mathematical calculation, 2) time checking, and 
 - Connecting MCP servers (AWS Documentation MCP, Playwright MCP) as agent tools
 - Two self-improving patterns: an agent that writes its own tools, and an agent that rewrites its own system prompt
 
-**Estimated time:** ~90 minutes (sections 1 and 3 are ~30 minutes; section 2 adds ~30 minutes of console work; section 4 is optional)
+**Estimated time:** ~30 minutes for sections 1 and 3 (section 2 adds ~30 minutes of console work; section 4 is optional)
 
 ## How the labs work
 

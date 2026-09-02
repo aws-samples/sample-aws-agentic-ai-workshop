@@ -20,7 +20,7 @@ In this chapter you will learn how to build systems where multiple agents collab
 - Branching a graph to different agents with conditional edges
 - Choosing between the three patterns for a given task
 
-**Estimated time:** ~50 minutes
+**Estimated time:** ~30 minutes
 
 ## Files in this chapter
 

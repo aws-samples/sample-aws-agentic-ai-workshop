@@ -21,7 +21,7 @@ In this lab you will view traces, metrics, and logs for the agent deployed to Ag
 - Which Runtime metrics AgentCore publishes under the `Bedrock-AgentCore` namespace
 - Where the agent's stdout/stderr and OTEL structured logs are stored in CloudWatch Logs
 
-**Estimated time:** ~20 minutes
+**Estimated time:** ~10 minutes
 
 ## Files in this chapter
 

@@ -1,4 +1,4 @@
-# Agentic AI 101 on AWS
+# Agentic AI on AWS Workshop
 
 [한국어 README](README.ko.md)
 
@@ -10,7 +10,7 @@ Build an AI agent from scratch with the [Strands Agents SDK](https://strandsagen
 
 - **Duration:** about 2 hours for the required chapters, about 3 hours for all eight lab chapters.
 
-<!-- ![Agentic AI 101 on AWS](docs/images/agentic-ai-101.png) -->
+<!-- ![Agentic AI on AWS Workshop](docs/images/agentic-ai-101.png) -->
 <p align="center">
   <img src="docs/images/agentic-ai-learning-path.png" alt="Agentic AI on AWS, a complete learning path: chapter 1 getting started with Strands Agents, 2 building multi-agent systems, 3 serving agents in a chatbot application, 4 observability with Strands, 5 adding memory to your agent, 6 deploying agents to production, 7 observing agents in production" width="620">
 </p>
@@ -42,7 +42,7 @@ Build an AI agent from scratch with the [Strands Agents SDK](https://strandsagen
 | 07 | [AgentCore Observability](07-agentcore-observability/README.md) | CloudWatch GenAI Observability dashboard | 10 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
 | 08 | [Developing with Kiro IDE](08-kiro-dev/README.md) | Steering, MCP config, and spec-driven development | 10 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Optional |
 
-> [❗️TIP]
+> [!IMPORTANT]
 > Chapters 01, 02, 05, 06, and 07 form the core path. Chapters 03, 04, and 08 are self-contained and can be skipped. Chapter 07 is the one dependency worth noting: it reads telemetry from the agent you deploy in chapter 06.
 
 ---

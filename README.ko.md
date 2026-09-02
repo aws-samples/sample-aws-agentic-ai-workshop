@@ -1,4 +1,4 @@
-# Agentic AI 101 on AWS
+# Agentic AI on AWS Workshop
 
 [English README](README.md)
 
@@ -10,7 +10,7 @@
 
 - **소요 시간:** 필수 챕터 기준 약 2시간, 8개 챕터 전체는 약 3시간 소요됩니다. 
 
-<!-- ![Agentic AI 101 on AWS](docs/images/agentic-ai-101.png) -->
+<!-- ![Agentic AI on AWS Workshop](docs/images/agentic-ai-101.png) -->
 <p align="center">
   <img src="docs/images/agentic-ai-learning-path.png" alt="Agentic AI on AWS 학습 경로: 1장 Strands Agents 시작하기, 2장 멀티 에이전트 시스템 만들기, 3장 챗봇 애플리케이션에 올리기, 4장 Strands로 관측하기, 5장 에이전트에 메모리 추가하기, 6장 프로덕션에 배포하기, 7장 프로덕션에서 관측하기" width="620">
 </p>
@@ -42,7 +42,7 @@
 | 07 | [AgentCore Observability](07-agentcore-observability/README.ko.md) | CloudWatch GenAI Observability 대시보드 | 10분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
 | 08 | [Kiro IDE로 개발하기](08-kiro-dev/README.ko.md) | Steering, MCP 설정, 스펙 기반 개발 | 10분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 선택 |
 
-> [❗️TIP]
+> [!IMPORTANT]
 > 01, 02, 05, 06, 07 챕터가 핵심 경로입니다. 03, 04, 08 챕터는 독립적으로 구성되어 있어 건너뛸 수 있습니다. 챕터 간 의존성은 하나뿐입니다. 07 챕터는 06 챕터에서 배포한 에이전트의 텔레메트리를 확인하는 실습입니다.
 
 ---

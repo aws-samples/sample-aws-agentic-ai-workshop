@@ -26,7 +26,7 @@ The lab pattern is the same as the other chapters: you write the code into the e
 - How to invoke a deployed runtime with boto3 and session IDs
 - (Optional) How to deploy a multi-agent system and watch sessions scale in the console
 
-**Estimated time:** ~40 minutes (the optional section 5 adds ~20 minutes)
+**Estimated time:** ~20 minutes (the optional section 5 adds ~10 minutes)
 
 ## Files in this chapter
 

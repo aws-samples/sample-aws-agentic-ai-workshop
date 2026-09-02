@@ -394,4 +394,4 @@ cd ..
 [(선택) matplotlib 한글 폰트 설정](#6-선택-matplotlib-한글-폰트-설정)을 참고하세요.
 
 ---
-Prev: [Agentic AI 101 on AWS](../README.ko.md) | Next: [01. 기본 단일 에이전트 만들어보기](../01-single-agent/README.ko.md)
+Prev: [Agentic AI on AWS Workshop](../README.ko.md) | Next: [01. 기본 단일 에이전트 만들어보기](../01-single-agent/README.ko.md)

@@ -394,4 +394,4 @@ You are running the system Python instead of the project environment. Use `uv ru
 See [Optional: Korean fonts for matplotlib](#6-optional-korean-fonts-for-matplotlib).
 
 ---
-Prev: [Agentic AI 101 on AWS](../README.md) | Next: [01. Building a Basic Single Agent](../01-single-agent/README.md)
+Prev: [Agentic AI on AWS Workshop](../README.md) | Next: [01. Building a Basic Single Agent](../01-single-agent/README.md)

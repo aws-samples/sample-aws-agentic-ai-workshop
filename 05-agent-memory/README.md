@@ -21,7 +21,7 @@ The agents we've built so far couldn't remember previous conversations when star
 - Apply Long-Term Memory (LTM) strategies for knowledge accumulation
 - Integrate memory with Strands agents and a Streamlit app
 
-**Estimated time:** ~40 minutes
+**Estimated time:** ~30 minutes
 
 ## How this lab works
 

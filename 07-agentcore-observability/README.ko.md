@@ -21,7 +21,7 @@
 - `Bedrock-AgentCore` 네임스페이스에 발행되는 Runtime 메트릭
 - 에이전트의 stdout/stderr 및 OTEL 구조화 로그가 저장되는 CloudWatch Logs 위치
 
-**예상 소요 시간:** 약 20분
+**예상 소요 시간:** 약 10분
 
 ## 이 챕터의 파일
 

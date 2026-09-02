@@ -34,7 +34,7 @@ In this chapter you will set up a Strands Agents development environment using *
 - How to register an MCP server in Kiro so it can look up Strands SDK documentation
 - How to produce a working Strands agent from a single natural-language prompt, then review and run it
 
-**Estimated time:** ~30 minutes
+**Estimated time:** ~10 minutes
 
 ## Files in this chapter
 

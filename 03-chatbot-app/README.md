@@ -21,7 +21,7 @@ Beyond simply adding a UI, you will implement core features needed for real appl
 - Display real-time responses with asynchronous streaming
 - Visualize the tool calling process
 
-**Estimated time:** ~20 minutes
+**Estimated time:** ~10 minutes
 
 ## Files in this chapter
 

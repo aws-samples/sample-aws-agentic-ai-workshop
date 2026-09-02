@@ -1,6 +1,6 @@
 # 3. 에이전트를 실제 챗봇 애플리케이션에 적용하기
 
-[English](README.md) | [한국어](README.ko.md)
+<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
 
 이번 실습에서는 터미널에서 실행하던 Strands 에이전트를 Streamlit 웹 애플리케이션으로 변환하는 방법을 학습합니다.
 

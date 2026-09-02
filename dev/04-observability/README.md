@@ -1,6 +1,6 @@
 # 4. Agent Observability (Strands Observability)
 
-[한국어](README.ko.md) | [English](README.md)
+<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
 
 In this chapter, you will learn about the Agent Observability features provided by the Strands SDK. We'll cover Metrics, Logs, and Traces, which are essential for monitoring and debugging agent behavior.
 

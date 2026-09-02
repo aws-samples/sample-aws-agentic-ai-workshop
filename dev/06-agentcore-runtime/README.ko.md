@@ -1,6 +1,6 @@
 # 6. 에이전트 배포 (AgentCore Runtime)
 
-[English](README.md) | [한국어](README.ko.md)
+<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
 
 이번 실습에서는 지금까지 로컬에서 실행하던 Strands 에이전트를 [Amazon Bedrock AgentCore Runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html)에 배포하는 방법을 학습합니다.
 

@@ -1,6 +1,6 @@
 # 3. Applying Agents to Real Chatbot Applications
 
-[한국어](README.ko.md) | [English](README.md)
+<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
 
 In this chapter you will convert a Strands agent that was running in the terminal into a Streamlit web application.
 

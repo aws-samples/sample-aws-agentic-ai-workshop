@@ -1,6 +1,6 @@
 # Agentic AI on AWS Workshop
 
-[한국어](README.ko.md) | [English](README.md)
+<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
 
 Build an AI agent from scratch with the [Strands Agents SDK](https://strandsagents.com/docs/), then deploy and operate it with [Amazon Bedrock AgentCore](https://aws.amazon.com/bedrock/agentcore/).
 

@@ -1,6 +1,6 @@
 # 2. 멀티 에이전트 패턴을 통해 복잡한 작업을 수행하는 시스템 구축하기
 
-[English](README.md) | [한국어](README.ko.md)
+<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
 
 [English README](README.md)
 

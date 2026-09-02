@@ -1,6 +1,6 @@
 # 00. 환경 설정
 
-[English](README.md) | [한국어](README.ko.md)
+<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
 
 이 챕터에서는 이후 모든 챕터에서 사용할 환경을 준비합니다. [uv](https://docs.astral.sh/uv/)로 관리되는 Python 3.12 프로젝트, Amazon Bedrock을 호출할 수 있는 AWS 자격 증명, 그리고 `us-west-2` 리전의 Bedrock 모델 액세스가 필요합니다.
 

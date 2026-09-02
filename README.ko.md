@@ -2,8 +2,6 @@
 
 [English](README.md) | [한국어](README.ko.md)
 
-[English README](README.md)
-
 [Strands Agents SDK](https://strandsagents.com/docs/)로 AI 에이전트를 처음부터 만들고, [Amazon Bedrock AgentCore](https://aws.amazon.com/ko/bedrock/agentcore/)로 배포·운영하는 과정을 다루는 핸즈온 워크샵입니다.
 
 <!-- ![Agentic AI on AWS Workshop](docs/images/agentic-ai-101.png) -->

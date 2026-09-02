@@ -1,5 +1,7 @@
 # 4. 에이전트 가시성 (Strands Observability)
 
+[English](README.md) | 한국어
+
 이번 챕터에서는 Strands SDK가 제공하는 에이전트 가시성(Observability) 기능을 학습합니다. 에이전트의 동작을 모니터링하고 디버깅하는 데 필수적인 **Metrics**, **Logs**, **Traces**를 다룹니다.
 
 > [!NOTE]

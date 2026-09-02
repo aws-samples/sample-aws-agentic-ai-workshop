@@ -1,5 +1,7 @@
 # 00. Setup
 
+[한국어](README.ko.md) | English
+
 This chapter prepares the environment that every later chapter uses: a Python 3.12 project managed by [uv](https://docs.astral.sh/uv/), AWS credentials that can call Amazon Bedrock, and Bedrock model access in `us-west-2`.
 
 An AWS account is required for the workshop. There are two ways to get a working environment, and you only need one of them. Path A runs the labs on your own machine and is the shorter route if you are reading this repository on GitHub. Path B deploys an AWS-hosted VS Code Server with CloudFormation and is what the instructor-led workshop uses.

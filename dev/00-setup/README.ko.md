@@ -1,5 +1,7 @@
 # 00. 환경 설정
 
+[English](README.md) | 한국어
+
 이 챕터에서는 이후 모든 챕터에서 사용할 환경을 준비합니다. [uv](https://docs.astral.sh/uv/)로 관리되는 Python 3.12 프로젝트, Amazon Bedrock을 호출할 수 있는 AWS 자격 증명, 그리고 `us-west-2` 리전의 Bedrock 모델 액세스가 필요합니다.
 
 실습에는 AWS 계정이 필요합니다. 환경을 준비하는 방법은 두 가지이며, 둘 중 하나만 수행하면 됩니다. 경로 A는 본인 컴퓨터에서 실습을 실행하는 방법으로, GitHub에서 이 리포지토리를 보고 계신 경우 더 빠른 방법입니다. 경로 B는 CloudFormation으로 AWS에 VS Code Server를 배포하는 방법이며, 강사가 진행하는 워크샵에서 사용하는 환경입니다.

@@ -1,5 +1,7 @@
 # 2. Building Systems that Perform Complex Tasks through Multi-Agent Patterns
 
+[한국어](README.ko.md) | English
+
 [한국어 README](README.ko.md)
 
 In this chapter you will learn how to build systems where multiple agents collaborate, using the multi-agent patterns of the Strands Agents SDK. You will practice the following three patterns and create agent systems that solve tasks a single agent would struggle with.

@@ -1,5 +1,7 @@
 # 5. Agent Memory (AgentCore Memory)
 
+[한국어](README.ko.md) | English
+
 In this lab, you will learn how to use Amazon Bedrock AgentCore Memory to enable agents to remember conversations and accumulate knowledge about users.
 
 The agents we've built so far couldn't remember previous conversations when starting a new chat. With AgentCore Memory, agents can store conversation history, learn user preferences, and retain important information long-term.

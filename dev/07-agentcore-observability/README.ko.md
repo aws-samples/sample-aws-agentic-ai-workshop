@@ -1,5 +1,7 @@
 # 07. 에이전트 가시성 (AgentCore Observability)
 
+[English](README.md) | 한국어
+
 [English README](README.md)
 
 > [!WARNING]

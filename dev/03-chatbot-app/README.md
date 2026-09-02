@@ -1,5 +1,7 @@
 # 3. Applying Agents to Real Chatbot Applications
 
+[한국어](README.ko.md) | English
+
 In this chapter you will convert a Strands agent that was running in the terminal into a Streamlit web application.
 
 Beyond simply adding a UI, you will implement core features needed for real applications such as session management, asynchronous processing, and streaming responses.

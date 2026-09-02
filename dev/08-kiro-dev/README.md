@@ -1,5 +1,7 @@
 # 08. Developing with Kiro IDE
 
+[한국어](README.ko.md) | English
+
 [한국어 README](README.ko.md)
 
 > [!NOTE]

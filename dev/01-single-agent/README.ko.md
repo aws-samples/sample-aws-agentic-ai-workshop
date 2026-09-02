@@ -1,5 +1,7 @@
 # 1. 기본 단일 에이전트 만들어보기
 
+[English](README.md) | 한국어
+
 이번 실습에서는 Strands SDK의 핵심 구성 요소인 Prompt, Model, Tools를 다뤄보며, 기본 에이전트를 만드는 방법을 학습합니다.
 
 ![Strands SDK 구성 요소](../../docs/images/c1-strands-diagram.png)

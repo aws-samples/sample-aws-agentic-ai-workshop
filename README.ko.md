@@ -2,16 +2,18 @@
 
 [English README](README.md)
 
-🎯 **학습 경로**: 환경 설정 → 단일 에이전트 → 멀티 에이전트 패턴 → 메모리 → 배포 → 관측
-
 [Strands Agents SDK](https://strandsagents.com/docs/)로 AI 에이전트를 처음부터 만들고, [Amazon Bedrock AgentCore](https://aws.amazon.com/ko/bedrock/agentcore/)로 배포·운영하는 과정을 다루는 핸즈온 워크샵입니다.
 
-각 챕터는 `labs/` 폴더와 `completed/` 폴더로 구성됩니다. `labs/`의 빈 파일에 직접 코드를 작성하고, `completed/`의 완성된 코드와 비교하면서 학습합니다.
+- **학습 방법:** 각 챕터는 `labs/` 폴더와 `completed/` 폴더로 구성됩니다. `labs/`의 빈 파일에 직접 코드를 작성하고, `completed/`의 완성된 코드와 비교하면서 학습합니다.
 
-![Agentic AI 101 on AWS](docs/images/agentic-ai-101.png)
+- **레벨:** 100~200 (입문~중급). 에이전트나 LLM 사전 경험이 없어도 진행할 수 있습니다.
 
-**레벨:** 100~200 (입문~중급). 에이전트나 LLM 사전 경험이 없어도 진행할 수 있습니다.
-**소요 시간:** 필수 챕터 기준 약 4시간, 9개 챕터 전체는 약 5.5시간.
+- **소요 시간:** 필수 챕터 기준 약 2시간, 8개 챕터 전체는 약 3시간 소요됩니다. 
+
+<!-- ![Agentic AI 101 on AWS](docs/images/agentic-ai-101.png) -->
+<p align="center">
+  <img src="docs/images/agentic-ai-learning-path.png" alt="Agentic AI on AWS 학습 경로: 1장 Strands Agents 시작하기, 2장 멀티 에이전트 시스템 만들기, 3장 챗봇 애플리케이션에 올리기, 4장 Strands로 관측하기, 5장 에이전트에 메모리 추가하기, 6장 프로덕션에 배포하기, 7장 프로덕션에서 관측하기" width="620">
+</p>
 
 ---
 
@@ -31,16 +33,16 @@
 | # | 챕터 | 내용 | ⏱️ 소요 시간 | 📊 난이도 | 구분 |
 |---|------|------|--------------|-----------|------|
 | 00 | [환경 설정](00-setup/README.ko.md) | Python 환경, AWS 자격 증명, Bedrock 모델 액세스 | 10분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
-| 01 | [단일 에이전트](01-single-agent/README.ko.md) | Prompt·Model·Tools 기본 구성, Bedrock Knowledge Base, MCP 도구, 자가개선 에이전트 | 90분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
-| 02 | [멀티 에이전트 패턴](02-multi-agents/README.ko.md) | Agents-as-Tools, Swarm, Graph | 50분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
-| 03 | [챗봇 애플리케이션](03-chatbot-app/README.ko.md) | Streamlit 채팅 UI, 스트리밍 응답, 도구 호출 시각화 | 20분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 선택 |
+| 01 | [단일 에이전트](01-single-agent/README.ko.md) | Prompt·Model·Tools 기본 구성, Bedrock Knowledge Base, MCP 도구, 자가개선 에이전트 | 30분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
+| 02 | [멀티 에이전트 패턴](02-multi-agents/README.ko.md) | Agents-as-Tools, Swarm, Graph | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
+| 03 | [챗봇 애플리케이션](03-chatbot-app/README.ko.md) | Streamlit 채팅 UI, 스트리밍 응답, 도구 호출 시각화 | 10분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 선택 |
 | 04 | [Strands Observability](04-observability/README.ko.md) | 메트릭, 로그, OTLP 트레이스와 로컬 Jaeger | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 선택 |
-| 05 | [에이전트 메모리](05-agent-memory/README.ko.md) | AgentCore Memory 단기·장기 메모리 | 40분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
-| 06 | [AgentCore Runtime](06-agentcore-runtime/README.ko.md) | 에이전트 서버리스 배포 | 40분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
-| 07 | [AgentCore Observability](07-agentcore-observability/README.ko.md) | CloudWatch GenAI Observability 대시보드 | 20분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
-| 08 | [Kiro IDE로 개발하기](08-kiro-dev/README.ko.md) | Steering, MCP 설정, 스펙 기반 개발 | 30분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 선택 |
+| 05 | [에이전트 메모리](05-agent-memory/README.ko.md) | AgentCore Memory 단기·장기 메모리 | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
+| 06 | [AgentCore Runtime](06-agentcore-runtime/README.ko.md) | 에이전트 서버리스 배포 | 20분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
+| 07 | [AgentCore Observability](07-agentcore-observability/README.ko.md) | CloudWatch GenAI Observability 대시보드 | 10분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
+| 08 | [Kiro IDE로 개발하기](08-kiro-dev/README.ko.md) | Steering, MCP 설정, 스펙 기반 개발 | 10분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 선택 |
 
-> [!TIP]
+> [❗️TIP]
 > 01, 02, 05, 06, 07 챕터가 핵심 경로입니다. 03, 04, 08 챕터는 독립적으로 구성되어 있어 건너뛸 수 있습니다. 챕터 간 의존성은 하나뿐입니다. 07 챕터는 06 챕터에서 배포한 에이전트의 텔레메트리를 확인하는 실습입니다.
 
 ---

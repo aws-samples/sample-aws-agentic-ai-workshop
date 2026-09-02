@@ -2,16 +2,18 @@
 
 [한국어 README](README.ko.md)
 
-🎯 **Learning path**: Setup → Single agent → Multi-agent patterns → Memory → Deployment → Observability
-
 Build an AI agent from scratch with the [Strands Agents SDK](https://strandsagents.com/docs/), then deploy and operate it with [Amazon Bedrock AgentCore](https://aws.amazon.com/bedrock/agentcore/).
 
-This is a hands-on workshop. Each chapter has a `labs/` folder with empty files that you fill in yourself, and a `completed/` folder holding the reference implementation. You learn by typing the code, then comparing against the reference.
+- **How you learn:** each chapter has a `labs/` folder with empty files that you fill in yourself, and a `completed/` folder holding the reference implementation. You write the code, then compare against the reference.
 
-![Agentic AI 101 on AWS](docs/images/agentic-ai-101.png)
+- **Level:** 100 to 200 (beginner to intermediate). No prior agent or LLM experience required.
 
-**Level:** 100 to 200 (beginner to intermediate). No prior agent or LLM experience required.
-**Duration:** about 4 hours for the required chapters, about 5.5 hours for all nine.
+- **Duration:** about 2 hours for the required chapters, about 3 hours for all eight lab chapters.
+
+<!-- ![Agentic AI 101 on AWS](docs/images/agentic-ai-101.png) -->
+<p align="center">
+  <img src="docs/images/agentic-ai-learning-path.png" alt="Agentic AI on AWS, a complete learning path: chapter 1 getting started with Strands Agents, 2 building multi-agent systems, 3 serving agents in a chatbot application, 4 observability with Strands, 5 adding memory to your agent, 6 deploying agents to production, 7 observing agents in production" width="620">
+</p>
 
 ---
 
@@ -31,16 +33,16 @@ This is a hands-on workshop. Each chapter has a `labs/` folder with empty files 
 | # | Chapter | What you build | ⏱️ Time | 📊 Level | Track |
 |---|---------|----------------|---------|----------|-------|
 | 00 | [Setup](00-setup/README.md) | Python environment, AWS credentials, Bedrock model access | 10 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Required |
-| 01 | [Single agent](01-single-agent/README.md) | Agent with prompt, model, and tools. Bedrock Knowledge Base, MCP tools, self-improving agent | 90 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Required |
-| 02 | [Multi-agent patterns](02-multi-agents/README.md) | Agents-as-Tools, Swarm, and Graph | 50 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
-| 03 | [Chatbot application](03-chatbot-app/README.md) | Streamlit chat UI with streaming and tool-call display | 20 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Optional |
+| 01 | [Single agent](01-single-agent/README.md) | Agent with prompt, model, and tools. Bedrock Knowledge Base, MCP tools, self-improving agent | 30 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Required |
+| 02 | [Multi-agent patterns](02-multi-agents/README.md) | Agents-as-Tools, Swarm, and Graph | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
+| 03 | [Chatbot application](03-chatbot-app/README.md) | Streamlit chat UI with streaming and tool-call display | 10 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Optional |
 | 04 | [Observability with Strands](04-observability/README.md) | Metrics, logs, and OTLP traces to a local Jaeger | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Optional |
-| 05 | [Agent memory](05-agent-memory/README.md) | Short-term and long-term memory with AgentCore Memory | 40 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
-| 06 | [AgentCore Runtime](06-agentcore-runtime/README.md) | Serverless deployment of the agent | 40 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
-| 07 | [AgentCore Observability](07-agentcore-observability/README.md) | CloudWatch GenAI Observability dashboard | 20 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
-| 08 | [Developing with Kiro IDE](08-kiro-dev/README.md) | Steering, MCP config, and spec-driven development | 30 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Optional |
+| 05 | [Agent memory](05-agent-memory/README.md) | Short-term and long-term memory with AgentCore Memory | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
+| 06 | [AgentCore Runtime](06-agentcore-runtime/README.md) | Serverless deployment of the agent | 20 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
+| 07 | [AgentCore Observability](07-agentcore-observability/README.md) | CloudWatch GenAI Observability dashboard | 10 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
+| 08 | [Developing with Kiro IDE](08-kiro-dev/README.md) | Steering, MCP config, and spec-driven development | 10 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Optional |
 
-> [!TIP]
+> [❗️TIP]
 > Chapters 01, 02, 05, 06, and 07 form the core path. Chapters 03, 04, and 08 are self-contained and can be skipped. Chapter 07 is the one dependency worth noting: it reads telemetry from the agent you deploy in chapter 06.
 
 ---

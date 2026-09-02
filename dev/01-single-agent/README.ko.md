@@ -113,6 +113,35 @@ uv run python 01-single-agent/labs/basic.py
 ![calculator 실행 결과](../docs/images/c1-calculator.png)
 
 <details>
+<summary>오류가 발생하나요? (⚠️ 모델 접근 오류 해결 방법)</summary>
+
+`basic.py`는 `model` 인자를 지정하지 않으므로 Strands의 기본 Bedrock 모델을 사용합니다. 이 기본 모델을 호출할 수 있는지는 계정에 따라 다릅니다. `us-west-2`에서 해당 모델의 액세스가 활성화되지 않았거나, 계정에서 그 추론 프로파일을 사용할 수 없는 경우가 있습니다. 오류는 import 시점이 아니라 `agent(...)` 를 실행하는 시점에 발생하며, 보통 `AccessDeniedException` 또는 `ValidationException` 으로 나타납니다.
+
+실습 구조를 바꿀 필요는 없습니다. 액세스가 가능한 모델 ID를 `model` 인자로 전달하면 됩니다:
+
+```py
+from strands import Agent
+from strands_tools import calculator, current_time, python_repl
+
+agent = Agent(
+    model="us.anthropic.claude-sonnet-4-6",   # 👈 specify the model directly
+    tools=[calculator, current_time, python_repl],
+)
+response = agent("What is the square root of 80 / 4 * 5?") # prompt
+```
+
+현재 계정에서 호출 가능한 모델 ID 목록을 확인하고 그중 하나를 사용하세요:
+
+```bash
+aws bedrock list-inference-profiles --region us-west-2 \
+  --query "inferenceProfileSummaries[].inferenceProfileId"
+```
+
+모델을 지정하지 않는 `custom_tool1.py`, `custom_tool2.py`, `knowledge_base.py`, `mcp_tool.py` 도 마찬가지입니다. 아래 2번 섹션에서 같은 설정의 확장된 형태인 `BedrockModel` 을 다루며, 이 챕터의 다른 Bedrock 관련 오류는 [트러블슈팅](#트러블슈팅) 을 참고하세요.
+
+</details>
+
+<details>
 <summary>전체 코드 확인</summary>
 
 지금까지 작성한 `basic.py`의 전체 코드는 다음과 같습니다. `01-single-agent/completed/basic.py` 파일을 열면 동일한 내용이 있습니다:
@@ -126,6 +155,19 @@ agent = Agent(
     system_prompt="Answer as if you are explaining to an elementary school student"
     )
 response = agent("What is the square root of 80 / 4 * 5?") # prompt
+
+# No model is set above, so Strands uses its default Bedrock model. If the run fails with
+# AccessDeniedException or ValidationException, that default is not callable from your
+# account. Specify the model directly instead:
+#
+# from strands import Agent
+# from strands_tools import calculator, current_time, python_repl
+#
+# agent = Agent(
+#     model="us.anthropic.claude-sonnet-4-6",   # 👈 specify the model directly
+#     tools=[calculator, current_time, python_repl],
+# )
+# response = agent("What is the square root of 80 / 4 * 5?") # prompt
 ```
 
 </details>
@@ -1026,7 +1068,6 @@ from strands import tool
 
 PROMPT_FILE = Path(".prompt")
 
-
 @tool
 def system_prompt(action: str, prompt: str | None = None) -> dict:
     """Manage the agent's own system prompt at runtime.
@@ -1173,7 +1214,6 @@ from tools.system_prompt import system_prompt
 
 PROMPT_FILE = Path(".prompt")
 
-
 def build_system_prompt() -> str:
     base = (
         "You are a self-improving research agent.\n"
@@ -1187,7 +1227,6 @@ def build_system_prompt() -> str:
     if persisted:
         parts.append(f"\n## Persisted instructions (.prompt):\n{persisted}")
     return "\n".join(parts)
-
 
 bedrock_model = BedrockModel(model_id="us.anthropic.claude-sonnet-4-6")
 

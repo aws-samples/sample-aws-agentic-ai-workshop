@@ -113,6 +113,35 @@ You can confirm that the agent automatically selects the `calculator` tool to ca
 ![calculator result](../docs/images/c1-calculator.png)
 
 <details>
+<summary>Getting an error? (⚠️ How to fix a model access error)</summary>
+
+`basic.py` passes no `model` argument, so Strands falls back to its default Bedrock model. Whether that default is callable depends on the account: model access for it may not be enabled in `us-west-2`, or the account may not be able to use that inference profile. The error appears when `agent(...)` runs, not at import time. It usually shows up as `AccessDeniedException` or `ValidationException`.
+
+You do not need to restructure the lab. Add a `model` argument with an ID you do have access to:
+
+```py
+from strands import Agent
+from strands_tools import calculator, current_time, python_repl
+
+agent = Agent(
+    model="us.anthropic.claude-sonnet-4-6",   # 👈 specify the model directly
+    tools=[calculator, current_time, python_repl],
+)
+response = agent("What is the square root of 80 / 4 * 5?") # prompt
+```
+
+To see which IDs this account can actually call, list them and pick one:
+
+```bash
+aws bedrock list-inference-profiles --region us-west-2 \
+  --query "inferenceProfileSummaries[].inferenceProfileId"
+```
+
+The same applies to `custom_tool1.py`, `custom_tool2.py`, `knowledge_base.py`, and `mcp_tool.py`, which also leave the model unset. Section 2 below introduces `BedrockModel`, the fuller form of this setting, and [Troubleshooting](#troubleshooting) covers the other Bedrock errors in this chapter.
+
+</details>
+
+<details>
 <summary>Check Complete Code</summary>
 
 The complete code for `basic.py` written so far is as follows. You can find the same content by opening the `01-single-agent/completed/basic.py` file:
@@ -126,6 +155,19 @@ agent = Agent(
     system_prompt="Answer as if you are explaining to an elementary school student"
     )
 response = agent("What is the square root of 80 / 4 * 5?") # prompt
+
+# No model is set above, so Strands uses its default Bedrock model. If the run fails with
+# AccessDeniedException or ValidationException, that default is not callable from your
+# account. Specify the model directly instead:
+#
+# from strands import Agent
+# from strands_tools import calculator, current_time, python_repl
+#
+# agent = Agent(
+#     model="us.anthropic.claude-sonnet-4-6",   # 👈 specify the model directly
+#     tools=[calculator, current_time, python_repl],
+# )
+# response = agent("What is the square root of 80 / 4 * 5?") # prompt
 ```
 
 </details>
@@ -1026,7 +1068,6 @@ from strands import tool
 
 PROMPT_FILE = Path(".prompt")
 
-
 @tool
 def system_prompt(action: str, prompt: str | None = None) -> dict:
     """Manage the agent's own system prompt at runtime.
@@ -1173,7 +1214,6 @@ from tools.system_prompt import system_prompt
 
 PROMPT_FILE = Path(".prompt")
 
-
 def build_system_prompt() -> str:
     base = (
         "You are a self-improving research agent.\n"
@@ -1187,7 +1227,6 @@ def build_system_prompt() -> str:
     if persisted:
         parts.append(f"\n## Persisted instructions (.prompt):\n{persisted}")
     return "\n".join(parts)
-
 
 bedrock_model = BedrockModel(model_id="us.anthropic.claude-sonnet-4-6")
 

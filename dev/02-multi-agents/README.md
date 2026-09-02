@@ -1,6 +1,6 @@
 # 2. Building Systems that Perform Complex Tasks through Multi-Agent Patterns
 
-[한국어](README.ko.md) | English
+[한국어](README.ko.md) | [English](README.md)
 
 [한국어 README](README.ko.md)
 

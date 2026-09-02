@@ -1,6 +1,6 @@
 # 08. Kiro IDE로 개발하기
 
-[English](README.md) | 한국어
+[English](README.md) | [한국어](README.ko.md)
 
 [English README](README.md)
 

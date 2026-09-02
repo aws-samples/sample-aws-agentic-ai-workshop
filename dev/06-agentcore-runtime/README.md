@@ -1,6 +1,6 @@
 # 6. Agent Deployment (AgentCore Runtime)
 
-[한국어](README.ko.md) | English
+[한국어](README.ko.md) | [English](README.md)
 
 In this lab, you'll learn how to deploy Strands agents that have been running locally to [Amazon Bedrock AgentCore Runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html).
 

@@ -1,6 +1,6 @@
 # 5. 에이전트 메모리 (AgentCore Memory)
 
-[English](README.md) | 한국어
+[English](README.md) | [한국어](README.ko.md)
 
 이번 실습에서는 Amazon Bedrock AgentCore Memory를 활용하여 에이전트가 대화를 기억하고 사용자에 대한 지식을 축적하는 방법을 학습합니다.
 

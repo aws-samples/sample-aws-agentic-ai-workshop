@@ -1,6 +1,6 @@
 # 5. Agent Memory (AgentCore Memory)
 
-[한국어](README.ko.md) | English
+[한국어](README.ko.md) | [English](README.md)
 
 In this lab, you will learn how to use Amazon Bedrock AgentCore Memory to enable agents to remember conversations and accumulate knowledge about users.
 

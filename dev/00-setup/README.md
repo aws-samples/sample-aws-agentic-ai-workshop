@@ -1,6 +1,6 @@
 # 00. Setup
 
-[한국어](README.ko.md) | English
+[한국어](README.ko.md) | [English](README.md)
 
 This chapter prepares the environment that every later chapter uses: a Python 3.12 project managed by [uv](https://docs.astral.sh/uv/), AWS credentials that can call Amazon Bedrock, and Bedrock model access in `us-west-2`.
 

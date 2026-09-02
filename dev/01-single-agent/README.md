@@ -1,6 +1,6 @@
 # 1. Building a Basic Single Agent
 
-[한국어](README.ko.md) | English
+[한국어](README.ko.md) | [English](README.md)
 
 In this chapter, we will learn how to create a basic agent by working with the core components of the Strands SDK: Prompt, Model, and Tools.
 

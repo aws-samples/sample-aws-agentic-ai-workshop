@@ -1,4 +1,4 @@
-# Agentic AI on AWS Workshop
+<h1 align="center">Agentic AI on AWS Workshop</h1>
 
 <p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
 

@@ -1,46 +1,49 @@
-# 3. 에이전트를 실제 챗봇 애플리케이션에 적용하기
+# 3. Applying Agents to Real Chatbot Applications
 
-<p align="center"><a href="README.md">한국어</a> | <a href="../../en/03-chatbot-app/README.md">English</a></p>
+<p align="center"><a href="../../ko/03-chatbot-app/README.md">한국어</a> | <a href="README.md">English</a></p>
 
-이번 실습에서는 터미널에서 실행하던 Strands 에이전트를 Streamlit 웹 애플리케이션으로 변환하는 방법을 학습합니다.
+In this chapter you will convert a Strands agent that was running in the terminal into a Streamlit web application.
 
-단순히 UI를 추가하는 것을 넘어, 세션 관리, 비동기 처리, 스트리밍 응답 등 실제 애플리케이션에 필요한 핵심 기능들을 구현합니다.
-
-> [!NOTE]
-> **이 챕터는 선택 실습입니다.** 챕터 1, 2, 5, 6, 7은 필수 실습이며, 나머지 챕터(3, 4, 8)는 시간 여유에 따라 선택적으로 진행하세요.
-
-<img src="../../images/c3-streamlit-1.png" alt="Streamlit 챗봇" width="800">
+Beyond simply adding a UI, you will implement core features needed for real applications such as session management, asynchronous processing, and streaming responses.
 
 > [!NOTE]
-> **사전 준비**
-> - [00-setup](../00-setup/README.md)에 따라 환경 구성 완료 (`streamlit`은 `00-setup/pyproject.toml`에 이미 포함되어 있습니다)
-> - Amazon Bedrock 모델 액세스 활성화
-> - [01-single-agent](../01-single-agent/README.md) 챕터를 먼저 진행하는 것을 권장합니다. 이번 챕터는 [`../01-single-agent/completed/basic.py`](../../../dev/01-single-agent/completed/basic.py)에서 만든 에이전트를 기반으로 합니다.
+> **This chapter is optional.** Chapters 1, 2, 5, 6, and 7 are the required labs. Chapters 3, 4, and 8 are optional, so complete them as time allows.
 
-**학습 목표**
-- Streamlit으로 챗봇 UI 구현
-- 세션 상태로 대화 히스토리 관리
-- 비동기 스트리밍으로 실시간 응답 표시
-- 도구 호출 과정 시각화
+<img src="../../images/c3-streamlit-1.png" alt="Streamlit chatbot" width="800">
 
-**예상 소요 시간:** 약 10분
+> [!NOTE]
+> **Prerequisites**
+> - Environment set up per [00-setup](../00-setup/README.md) (`streamlit` is already included in `00-setup/pyproject.toml`)
+> - Amazon Bedrock model access enabled
+> - Chapter [01-single-agent](../01-single-agent/README.md) recommended, since this chapter builds on the agent from [`../01-single-agent/completed/basic.py`](../../../code/01-single-agent/completed/basic.py)
 
-## 이번 챕터의 파일
+**What you will learn**
+- Implement a chatbot UI with Streamlit
+- Manage conversation history with session state
+- Display real-time responses with asynchronous streaming
+- Visualize the tool calling process
 
-| 파일 | 용도 |
+**Estimated time:** ~10 minutes
+
+## Files in this chapter
+
+| File | Purpose |
 |---|---|
-| `labs/streamlit_app.py` | (빈 파일) 직접 작성합니다 |
-| `completed/streamlit_app.py` | 정답 코드 |
+| `labs/streamlit_app.py` | (empty) you write this |
+| `completed/streamlit_app.py` | reference answer |
 
-이 저장소의 실습 방식은 다음과 같습니다. `labs/` 아래의 빈 파일에 직접 코드를 작성하고, `completed/`에는 정답 코드가 들어 있습니다. `03-chatbot-app/labs/streamlit_app.py`에서 작업하고, 막히는 부분이 있을 때만 `03-chatbot-app/completed/streamlit_app.py`를 참고하세요.
+The lab pattern in this repo: you write the code into the empty file under `labs/`, and `completed/` holds the reference answer. Work in `03-chatbot-app/labs/streamlit_app.py` and only look at `03-chatbot-app/completed/streamlit_app.py` if you get stuck.
+
+> [!NOTE]
+> The reference file `completed/streamlit_app.py` uses Korean UI labels (page title, button labels, and message prefixes). The code below uses English labels. The logic is identical, so either version works.
 
 ---
 
-## 터미널 실행 vs 웹 애플리케이션
+## Terminal Execution vs Web Application
 
-먼저 우리가 만든 `basic.py`와 이를 웹 애플리케이션으로 변환한 `streamlit_app.py`의 차이를 이해해봅시다.
+First, let's understand the difference between `basic.py` and `streamlit_app.py`, which converts it to a web application.
 
-### basic.py (터미널 실행)
+### basic.py (Terminal Execution)
 
 ```python
 from strands import Agent
@@ -51,22 +54,22 @@ response = agent("What is 80/4?")
 print(response)
 ```
 
-**특징:**
-- 한 번의 질문과 답변으로 종료
-- 결과가 나올 때까지 기다림 (동기 방식)
-- 이전 대화를 기억하지 못함
-- 결과만 터미널에 출력
+**Characteristics:**
+- Ends with a single question and answer
+- Waits until results are ready (synchronous method)
+- Cannot remember previous conversations
+- Only outputs results to terminal
 
-### streamlit_app.py (웹 애플리케이션)
+### streamlit_app.py (Web Application)
 
-**특징:**
-- 여러 번의 질문과 답변 가능
-- 응답이 생성되는 과정을 실시간으로 확인 (비동기 스트리밍)
-- 대화 히스토리 유지
-- 도구 호출 과정을 시각적으로 표시
+**Characteristics:**
+- Multiple questions and answers possible
+- Real-time viewing of the response generation process (asynchronous streaming)
+- Maintains conversation history
+- Visually displays the tool calling process
 
 <details>
-<summary>streamlit_app.py 코드 전체보기</summary>
+<summary>View complete streamlit_app.py code</summary>
 
 ```python
 import streamlit as st
@@ -260,11 +263,11 @@ with st.sidebar:
 
 ---
 
-## 1. Streamlit 기본 설정
+## 1. Streamlit Basic Configuration
 
-**1-1.** `03-chatbot-app/labs/streamlit_app.py` 파일을 엽니다.
+**1-1.** Open the `03-chatbot-app/labs/streamlit_app.py` file.
 
-**1-2.** 필요한 라이브러리를 import하고 페이지를 설정합니다.
+**1-2.** Import necessary libraries and configure the page.
 
 ```python
 import streamlit as st
@@ -284,15 +287,15 @@ st.set_page_config(
 st.title("🤖 Strands Agent Chatbot")
 ```
 
-`st.set_page_config()`는 브라우저 탭의 제목과 아이콘, 레이아웃을 설정합니다.
+`st.set_page_config()` sets the browser tab title, icon, and layout.
 
 ---
 
-## 2. 세션 상태 관리
+## 2. Session State Management
 
-웹 애플리케이션에서는 사용자가 새로운 메시지를 보낼 때마다 페이지가 다시 실행됩니다. 에이전트와 대화 히스토리를 유지하려면 세션 상태를 사용해야 합니다.
+In web applications, the page is re-executed every time a user sends a new message. To maintain the agent and conversation history, you need to use session state.
 
-**2-1.** 에이전트를 세션 상태에 저장합니다.
+**2-1.** Store the agent in session state.
 
 ```python
 # Agent initialization (stored in session state)
@@ -300,9 +303,9 @@ if "agent" not in st.session_state:
     st.session_state.agent = Agent(tools=[calculator, current_time, use_aws, python_repl])
 ```
 
-`st.session_state`는 페이지가 다시 실행되어도 값을 유지하는 딕셔너리입니다. 에이전트를 한 번만 생성하고 계속 재사용합니다.
+`st.session_state` is a dictionary that maintains values even when the page is re-executed. Create the agent once and continue reusing it.
 
-**2-2.** 대화 히스토리를 초기화합니다.
+**2-2.** Initialize conversation history.
 
 ```python
 # Chat history initialization
@@ -310,30 +313,30 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 ```
 
-대화 내용을 리스트에 저장하여 이전 대화를 화면에 표시할 수 있게 합니다.
+Store conversation content in a list so previous conversations can be displayed on screen.
 
 > [!TIP]
-> **세션 상태가 필요한 이유**
+> **Why session state is needed**
 >
-> Streamlit은 사용자가 버튼을 클릭하거나 입력할 때마다 Python 스크립트를 처음부터 끝까지 다시 실행합니다.
+> Streamlit re-executes the Python script from start to finish every time a user clicks a button or provides input.
 >
 > ```python
-> # 세션 상태 없이 작성하면?
-> agent = Agent(tools=[...])  # 매번 새로 생성됨
-> messages = []  # 매번 빈 리스트로 초기화됨
+> # Without session state?
+> agent = Agent(tools=[...])  # Created anew every time
+> messages = []  # Initialized as empty list every time
 > ```
 >
-> 이렇게 하면:
-> - 에이전트가 매번 새로 생성되어 비효율적
-> - 대화 히스토리가 초기화되어 이전 대화를 볼 수 없음
+> This would result in:
+> - The agent being created anew every time, which is inefficient
+> - Conversation history being initialized, making previous conversations invisible
 >
-> `st.session_state`를 사용하면 사용자의 브라우저 세션 동안 값을 유지할 수 있습니다.
+> Using `st.session_state` allows you to maintain values during the user's browser session.
 
 ---
 
-## 3. 대화 히스토리 표시
+## 3. Display Conversation History
 
-**3-1.** 저장된 대화를 화면에 표시합니다.
+**3-1.** Display saved conversations on screen.
 
 ```python
 # Display chat history
@@ -351,13 +354,13 @@ for message in st.session_state.messages:
             st.markdown(message["content"])
 ```
 
-`st.chat_message()`는 채팅 메시지를 말풍선 형태로 표시합니다. `role`이 "user"면 오른쪽에, "assistant"면 왼쪽에 표시됩니다.
+`st.chat_message()` displays chat messages in speech bubble format. If `role` is "user", it displays on the right; if "assistant", it displays on the left.
 
 ---
 
-## 4. 사용자 입력 받기
+## 4. Receiving User Input
 
-**4-1.** 사용자로부터 메시지를 입력받습니다.
+**4-1.** Receive messages from users.
 
 ```python
 # User input
@@ -368,31 +371,31 @@ if prompt := st.chat_input("Enter your message..."):
         st.markdown(prompt)
 ```
 
-`st.chat_input()`은 화면 하단에 메시지 입력창을 표시합니다. 사용자가 엔터를 누르면 `prompt` 변수에 입력 내용이 저장되고, `if` 블록이 실행됩니다.
+`st.chat_input()` displays a message input field at the bottom of the screen. When the user presses enter, the input content is stored in the `prompt` variable and the `if` block is executed.
 
 ---
 
-## 5. 비동기 스트리밍 응답 처리
+## 5. Asynchronous Streaming Response Processing
 
-여기가 가장 핵심 부분입니다. 에이전트의 응답을 실시간으로 스트리밍하여 사용자에게 보여줍니다.
+This is the most crucial part. We stream the agent's response in real-time to show it to users.
 
-### 비동기 처리란?
+### What is Asynchronous Processing?
 
-일반적인 동기 방식:
-
-```python
-response = agent("질문")  # 응답이 완성될 때까지 기다림 (10초)
-print(response)  # 10초 후에 한 번에 출력
-```
-
-비동기 스트리밍 방식:
+Typical synchronous method:
 
 ```python
-async for event in agent.stream_async("질문"):  # 응답이 생성되는 과정을 실시간으로 받음
-    print(event)  # "안" → "녕" → "하" → "세" → "요" (실시간 출력)
+response = agent("question")  # Wait until response is complete (10 seconds)
+print(response)  # Output all at once after 10 seconds
 ```
 
-**5-1.** Assistant 응답 영역을 생성합니다.
+Asynchronous streaming method:
+
+```python
+async for event in agent.stream_async("question"):  # Receive response generation process in real-time
+    print(event)  # "Hel" → "lo" → " wo" → "rld" (real-time output)
+```
+
+**5-1.** Create the Assistant response area.
 
 ```python
     # Generate Assistant response
@@ -401,9 +404,9 @@ async for event in agent.stream_async("질문"):  # 응답이 생성되는 과�
         main_container = st.container()
 ```
 
-`st.container()`는 나중에 동적으로 내용을 추가할 수 있는 공간을 만듭니다.
+`st.container()` creates a space where content can be added dynamically later.
 
-**5-2.** 비동기 함수를 정의합니다.
+**5-2.** Define the asynchronous function.
 
 ```python
         try:
@@ -418,9 +421,9 @@ async for event in agent.stream_async("질문"):  # 응답이 생성되는 과�
                 agent_stream = st.session_state.agent.stream_async(prompt)
 ```
 
-`async def`는 비동기 함수를 정의하는 키워드입니다. `stream_async()`는 에이전트 응답을 실시간으로 받을 수 있게 해줍니다.
+`async def` is a keyword for defining asynchronous functions. `stream_async()` allows receiving agent responses in real-time.
 
-**5-3.** 이벤트를 처리합니다.
+**5-3.** Process events.
 
 ```python
                 async for event in agent_stream:
@@ -438,26 +441,26 @@ async for event in agent.stream_async("질문"):  # 응답이 생성되는 과�
                         current_text_box.info(current_text)
 ```
 
-`async for`는 비동기적으로 발생하는 이벤트를 하나씩 받아 처리합니다.
+`async for` receives and processes asynchronously occurring events one by one.
 
 > [!NOTE]
-> **스트리밍 이벤트 이해하기**
+> **Understanding streaming events**
 >
-> `stream_async()`는 에이전트가 작업하는 과정에서 여러 종류의 이벤트를 발생시킵니다.
+> `stream_async()` generates various types of events during the agent's work process.
 
 <details open>
-<summary>이벤트 종류와 처리 방법</summary>
+<summary>Event types and processing methods</summary>
 
-**1. `"data"` 이벤트 - 텍스트 스트리밍**
+**1. `"data"` Event - Text Streaming**
 
 ```python
-{"data": "안녕"}
-{"data": "하세요"}
+{"data": "Hello"}
+{"data": " world"}
 ```
 
-에이전트가 생성하는 텍스트가 한 조각씩 전달됩니다. 이를 누적하여 파란색 박스에 표시합니다.
+Text generated by the agent is delivered piece by piece. Accumulate this and display it in a blue box.
 
-**2. `"current_tool_use"` 이벤트 - 도구 호출 시작**
+**2. `"current_tool_use"` Event - Tool Call Start**
 
 ```python
 {
@@ -469,9 +472,9 @@ async for event in agent.stream_async("질문"):  # 응답이 생성되는 과�
 }
 ```
 
-에이전트가 도구를 사용하기 시작하면 발생합니다. 어떤 도구를 어떤 입력으로 호출하는지 알 수 있습니다.
+Occurs when the agent starts using a tool. You can know which tool is being called with what input.
 
-**3. `"message"` 이벤트 - 도구 실행 결과**
+**3. `"message"` Event - Tool Execution Result**
 
 ```python
 {
@@ -486,39 +489,39 @@ async for event in agent.stream_async("질문"):  # 응답이 생성되는 과�
 }
 ```
 
-도구 실행이 완료되고 결과가 전달됩니다.
+Tool execution is completed and results are delivered.
 
-**4. `"result"` 이벤트 - 최종 응답**
+**4. `"result"` Event - Final Response**
 
 ```python
 {
   "result": {
     "message": {
-      "content": [{"text": "80을 4로 나눈 값은 20입니다."}]
+      "content": [{"text": "80 divided by 4 equals 20."}]
     }
   }
 }
 ```
 
-에이전트의 최종 응답이 전달됩니다.
+The agent's final response is delivered.
 
 </details>
 
-실시간 처리 흐름:
+Real-time processing flow:
 
 ```text
-사용자: "80을 4로 나눈 값은?"
+User: "What is 80 divided by 4?"
     ↓
-[data] "80을"          → 화면: "80을" (파란색 박스)
-[data] " 4로"         → 화면: "80을 4로" (업데이트)
-[current_tool_use]    → 화면: "🔧 calculator 호출" (주황색 박스)
-[message]             → 화면: "✅ 결과: 20" (초록색 박스)
-[data] "나눈 값은"    → 화면: "나눈 값은" (파란색 박스)
-[data] " 20입니다"    → 화면: "나눈 값은 20입니다" (업데이트)
-[result]              → 최종 응답 완성
+[data] "80"          → Screen: "80" (blue box)
+[data] " divided"    → Screen: "80 divided" (update)
+[current_tool_use]  → Screen: "🔧 calculator call" (orange box)
+[message]           → Screen: "✅ Result: 20" (green box)
+[data] " by 4"      → Screen: " by 4" (blue box)
+[data] " equals 20" → Screen: " by 4 equals 20" (update)
+[result]            → Final response complete
 ```
 
-**5-4.** 도구 호출 이벤트를 처리합니다.
+**5-4.** Process tool call events.
 
 ```python
                     # Tool call information
@@ -549,9 +552,9 @@ async for event in agent.stream_async("질문"):  # 응답이 생성되는 과�
                                     st.warning(f"🔧 **Tool Call:** `{tool_name}`")
 ```
 
-도구를 호출할 때 주황색 경고 박스로 표시하여 사용자가 에이전트가 무엇을 하고 있는지 알 수 있게 합니다.
+When calling tools, display them with an orange warning box so users can see what the agent is doing.
 
-**5-5.** 도구 결과 이벤트를 처리합니다.
+**5-5.** Process tool result events.
 
 ```python
                     # Tool results
@@ -573,9 +576,9 @@ async for event in agent.stream_async("질문"):  # 응답이 생성되는 과�
                                         st.success(f"✅ **Tool Result:** {result_text[:200]}...")
 ```
 
-도구 실행이 완료되면 초록색 성공 박스로 결과를 표시합니다.
+When tool execution is complete, display the result with a green success box.
 
-**5-6.** 최종 결과를 처리합니다.
+**5-6.** Process the final result.
 
 ```python
                     # Final result
@@ -594,49 +597,49 @@ async for event in agent.stream_async("질문"):  # 응답이 생성되는 과�
                 return final_response, tool_info
 ```
 
-최종 응답 텍스트와 도구 사용 정보를 반환합니다.
+Return the final response text and tool usage information.
 
-**5-7.** 비동기 함수를 실행합니다.
+**5-7.** Execute the asynchronous function.
 
 ```python
             # Execute async function
             final_response, tool_info = asyncio.run(run_agent())
 ```
 
-`asyncio.run()`은 비동기 함수를 실행하고 결과를 기다립니다. 이 함수가 완료될 때까지 모든 스트리밍 처리가 진행됩니다.
+`asyncio.run()` executes the asynchronous function and waits for results. All streaming processing proceeds until this function completes.
 
 > [!NOTE]
-> **asyncio.run() 이해하기**
+> **Understanding asyncio.run()**
 >
-> `asyncio.run()`은 비동기 함수를 동기 환경(일반 Python 코드)에서 실행할 수 있게 해주는 다리 역할을 합니다.
+> `asyncio.run()` acts as a bridge that allows asynchronous functions to be executed in synchronous environments (regular Python code).
 >
 > ```python
-> # 비동기 함수 정의
+> # Define async function
 > async def run_agent():
 >     async for event in agent.stream_async(prompt):
->         # 이벤트 처리...
+>         # Process events...
 >     return result
 >
-> # 일반 코드에서 비동기 함수 실행
-> result = asyncio.run(run_agent())  # 비동기 함수가 완료될 때까지 기다림
+> # Execute async function in regular code
+> result = asyncio.run(run_agent())  # Wait until async function completes
 > ```
 >
-> **왜 필요한가?**
-> - Streamlit은 기본적으로 동기 환경에서 실행됨
-> - 하지만 에이전트의 `stream_async()`는 비동기 함수
-> - `asyncio.run()`이 이 둘을 연결해줌
+> **Why is it needed?**
+> - Streamlit basically runs in a synchronous environment
+> - But the agent's `stream_async()` is an asynchronous function
+> - `asyncio.run()` connects these two
 >
-> **내부 동작:**
-> 1. 비동기 이벤트 루프를 생성
-> 2. `run_agent()` 함수를 이벤트 루프에서 실행
-> 3. 함수가 완료될 때까지 대기
-> 4. 결과 반환
+> **Internal operation:**
+> 1. Create an asynchronous event loop
+> 2. Execute the `run_agent()` function in the event loop
+> 3. Wait until the function completes
+> 4. Return the result
 
 ---
 
-## 6. 결과 표시 및 저장
+## 6. Display and Save Results
 
-**6-1.** 최종 응답을 표시합니다.
+**6-1.** Display the final response.
 
 ```python
             # Display final response (as plain text)
@@ -645,7 +648,7 @@ async for event in agent.stream_async("질문"):  # 응답이 생성되는 과�
                 st.markdown(final_response)
 ```
 
-**6-2.** 도구 사용 정보를 정리합니다.
+**6-2.** Organize tool usage information.
 
 ```python
             # Save message (including reasoning information)
@@ -660,7 +663,7 @@ async for event in agent.stream_async("질문"):  # 응답이 생성되는 과�
                     reasoning_text += "---\n\n"
 ```
 
-**6-3.** 대화 히스토리에 저장합니다.
+**6-3.** Save to conversation history.
 
 ```python
             st.session_state.messages.append({
@@ -670,13 +673,13 @@ async for event in agent.stream_async("질문"):  # 응답이 생성되는 과�
             })
 ```
 
-`thinking_steps`에 도구 사용 정보를 저장하면, 나중에 대화 히스토리를 표시할 때 "생각 과정 보기" expander에서 확인할 수 있습니다.
+By storing tool usage information in `thinking_steps`, you can check it in the "View Thinking Process" expander when the conversation history is displayed later.
 
 ---
 
-## 7. 에러 처리
+## 7. Error Handling
 
-**7-1.** 예외를 처리합니다.
+**7-1.** Handle exceptions.
 
 ```python
         except Exception as e:
@@ -686,13 +689,13 @@ async for event in agent.stream_async("질문"):  # 응답이 생성되는 과�
             st.session_state.messages.append({"role": "assistant", "content": f"Error: {str(e)}"})
 ```
 
-에러가 발생해도 애플리케이션이 죽지 않고 사용자에게 에러 메시지를 표시한 후 계속 실행됩니다.
+Even if errors occur, the application doesn't crash. It displays an error message to the user and continues running.
 
 ---
 
-## 8. 사이드바 추가
+## 8. Add Sidebar
 
-**8-1.** 사이드바에 정보와 기능을 추가합니다.
+**8-1.** Add information and features to the sidebar.
 
 ```python
 # Additional information in sidebar
@@ -716,45 +719,45 @@ with st.sidebar:
         st.rerun()
 ```
 
-`st.rerun()`은 페이지를 새로고침하여 변경사항을 즉시 반영합니다.
+`st.rerun()` refreshes the page to immediately reflect changes.
 
 ---
 
-## 9. 실행하기
+## 9. Running
 
-**9-1.** 저장소 루트에서 Streamlit 애플리케이션을 실행합니다.
+**9-1.** Run the Streamlit application from the repo root:
 
 ```bash
 uv run streamlit run 03-chatbot-app/labs/streamlit_app.py
 ```
 
-워크샵에서도 별도 플래그 없이 위와 같은 형태를 그대로 사용합니다. 정답 코드를 실행하려면 `completed/` 경로를 지정합니다.
+The workshop uses this plain form with no extra flags. To run the reference answer instead, point at `completed/`:
 
 ```bash
 uv run streamlit run 03-chatbot-app/completed/streamlit_app.py
 ```
 
-**9-2.** 브라우저에서 앱을 엽니다.
+**9-2.** Open the app in a browser.
 
-Streamlit이 터미널에 Local URL(기본값 `http://localhost:8501`)을 출력하며, 보통 브라우저가 자동으로 열립니다. 자동으로 열리지 않으면 출력된 URL을 브라우저 주소창에 붙여넣습니다.
+Streamlit prints a Local URL in the terminal (`http://localhost:8501` by default) and normally opens it in your browser automatically. If it does not open, copy the printed URL into a browser tab.
 
-AWS에서 호스팅되는 VS Code Server처럼 원격 머신에서 작업하는 경우, 8501 포트에 로컬 PC에서 바로 접근할 수 없습니다. IDE의 포트 포워딩 기능 등으로 포트를 로컬로 포워딩하거나 프록시한 뒤, 포워딩된 URL로 접속하세요.
+If you are working on a remote machine such as an AWS-hosted VS Code Server, port 8501 is not reachable from your laptop directly. Forward or proxy the port to your local machine first (for example, using your IDE's port forwarding feature), then open the forwarded URL.
 
-<img src="../../images/c3-streamlit-2.png" alt="실행된 Streamlit 챗봇" width="800">
+<img src="../../images/c3-streamlit-2.png" alt="Streamlit chatbot running" width="800">
 
-**9-3.** 챗봇을 테스트해봅니다.
+**9-3.** Test the chatbot:
 
-- "80을 4로 나눈 값은?" 입력
-- 에이전트가 calculator 도구를 호출하는 과정 확인
-- 실시간으로 응답이 생성되는 과정 확인
-- "생각 과정 보기"를 클릭하여 도구 사용 정보 확인
+- Enter "What is 80 divided by 4?"
+- Check the process of the agent calling the calculator tool
+- Check the real-time response generation process
+- Click "View Thinking Process" to check tool usage information
 
 ---
 
 <details>
-<summary>이번 실습에서의 핵심 개념 다시보기</summary>
+<summary>Review of key concepts from this chapter</summary>
 
-### 1. 세션 상태 (Session State)
+### 1. Session State
 
 ```python
 if "agent" not in st.session_state:
@@ -764,136 +767,136 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 ```
 
-페이지가 다시 실행되어도 값을 유지하는 저장소입니다.
+Storage that maintains values even when the page is re-executed.
 
-### 2. 비동기 스트리밍 (Async Streaming)
+### 2. Asynchronous Streaming
 
 ```python
 async def run_agent():
     agent_stream = agent.stream_async(prompt)
     async for event in agent_stream:
-        # 이벤트 처리
+        # Process events
     return result
 
 result = asyncio.run(run_agent())
 ```
 
-응답이 생성되는 과정을 실시간으로 받아 처리합니다.
+Receive and process the response generation process in real-time.
 
-### 3. 이벤트 처리
+### 3. Event Processing
 
-| 이벤트 | 내용 | 표시 방법 |
-|--------|------|----------|
-| `"data"` | 텍스트 스트리밍 | 파란색 info 박스 |
-| `"current_tool_use"` | 도구 호출 시작 | 주황색 warning 박스 |
-| `"message"` | 도구 실행 결과 | 초록색 success 박스 |
-| `"result"` | 최종 응답 | 일반 마크다운 |
+| Event | Content | Display Method |
+|-------|---------|----------------|
+| `"data"` | Text streaming | Blue info box |
+| `"current_tool_use"` | Tool call start | Orange warning box |
+| `"message"` | Tool execution result | Green success box |
+| `"result"` | Final response | Regular markdown |
 
-### 4. 동기 vs 비동기 비교
+### 4. Synchronous vs Asynchronous Comparison
 
-**동기 방식 (basic.py):**
-
-```python
-response = agent("질문")  # 완료될 때까지 대기 (10초)
-print(response)  # 10초 후 출력
-```
-
-**비동기 스트리밍 (streamlit_app.py):**
+**Synchronous method (basic.py):**
 
 ```python
-async for event in agent.stream_async("질문"):
-    print(event)  # 실시간으로 조금씩 출력
+response = agent("question")  # Wait until complete (10 seconds)
+print(response)  # Output after 10 seconds
 ```
 
-**차이점:**
-- 동기: 결과를 한 번에 받음, 기다리는 동안 아무것도 할 수 없음
-- 비동기: 결과를 조금씩 받음, 받는 즉시 화면에 표시 가능
+**Asynchronous streaming (streamlit_app.py):**
+
+```python
+async for event in agent.stream_async("question"):
+    print(event)  # Output bit by bit in real-time
+```
+
+**Differences:**
+- Synchronous: Receive results all at once, can't do anything while waiting
+- Asynchronous: Receive results bit by bit, can display on screen immediately upon receipt
 
 </details>
 
 <details open>
-<summary>전체 실행 흐름 단계별로 보기</summary>
+<summary>Overall execution flow, step by step</summary>
 
-**초기화 단계:**
+**Initialization Stage:**
 
 ```text
-앱 시작
+App start
   ↓
-페이지 설정
+Page configuration
   ↓
-Agent 초기화 (세션 확인)
+Agent initialization (session check)
   ↓
-메시지 히스토리 초기화 (세션 확인)
+Message history initialization (session check)
   ↓
-이전 대화 표시
+Display previous conversations
 ```
 
-**사용자 입력 처리:**
+**User Input Processing:**
 
 ```text
-사용자가 "80을 4로 나눈 값은?" 입력
+User enters "What is 80 divided by 4?"
   ↓
-메시지를 히스토리에 추가
+Add message to history
   ↓
-화면에 사용자 메시지 표시
+Display user message on screen
 ```
 
-**비동기 스트리밍 실행:**
+**Asynchronous Streaming Execution:**
 
 ```text
-run_agent() 비동기 함수 시작
+Start run_agent() async function
   ↓
-stream_async() 호출
+Call stream_async()
   ↓
-이벤트 루프 시작
+Start event loop
   │
-  ├─ [data] "80을" → 화면에 표시
-  ├─ [data] " 4로 나눈 값은" → 화면 업데이트
-  ├─ [current_tool_use] calculator → "🔧 도구 호출" 표시
-  ├─ [message] 결과: 20 → "✅ 도구 결과" 표시
-  ├─ [data] " 20입니다" → 화면 업데이트
-  └─ [result] 최종 응답 → 함수 종료
+  ├─ [data] "80" → Display on screen
+  ├─ [data] " divided by 4 is" → Update screen
+  ├─ [current_tool_use] calculator → Display "🔧 Tool Call"
+  ├─ [message] Result: 20 → Display "✅ Tool Result"
+  ├─ [data] " 20" → Update screen
+  └─ [result] Final response → End function
   ↓
-final_response, tool_info 반환
+Return final_response, tool_info
 ```
 
-**결과 표시 및 저장:**
+**Display and Save Results:**
 
 ```text
-최종 응답 화면에 표시
+Display final response on screen
   ↓
-도구 사용 정보 정리
+Organize tool usage information
   ↓
-히스토리에 저장
+Save to history
   ↓
-페이지 리렌더링
+Page re-rendering
 ```
 
 </details>
 
 ---
 
-## 트러블슈팅
+## Troubleshooting
 
-**8501 포트가 이미 사용 중입니다**
+**Port 8501 is already in use**
 
-다른 프로세스(대부분 앞서 실행한 이 앱)가 포트를 계속 점유하고 있으면 Streamlit이 바인딩에 실패합니다. 기존 프로세스를 종료하거나, Streamlit의 `--server.port` 옵션으로 다른 포트에서 실행합니다.
+Streamlit fails to bind if another process (often an earlier run of this app) still holds the port. Stop the old process, or start on a different port with Streamlit's `--server.port` option:
 
 ```bash
 uv run streamlit run 03-chatbot-app/labs/streamlit_app.py --server.port 8502
 ```
 
-포트를 점유한 프로세스를 확인하려면 다음 명령을 사용합니다.
+To find what is holding the port:
 
 ```bash
 lsof -i :8501
 ```
 
-**메시지를 보낼 때마다 스크립트 전체가 다시 실행되는 것처럼 보입니다**
+**The whole script seems to run again on every interaction**
 
-버그가 아니라 Streamlit의 실행 모델입니다. 메시지를 보내거나 버튼을 클릭하는 등 위젯과 상호작용할 때마다 Streamlit은 스크립트를 첫 줄부터 끝까지 다시 실행합니다. 일반 지역 변수는 매 재실행마다 처음부터 다시 생성됩니다.
+This is Streamlit's execution model, not a bug. Every time you send a message, click a button, or otherwise interact with a widget, Streamlit re-executes the script from the first line to the last. Any plain local variable is recreated from scratch on each rerun.
 
-그래서 에이전트와 대화 히스토리를 반드시 `st.session_state`에 두어야 합니다.
+That is exactly why the agent and the chat history must live in `st.session_state`:
 
 ```python
 if "agent" not in st.session_state:
@@ -903,19 +906,19 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 ```
 
-`if ... not in st.session_state` 가드 덕분에 값이 첫 실행에서 한 번만 생성되고 이후 재실행에서는 재사용됩니다. 대신 모듈 최상단에 `messages = []`라고 작성하면 메시지를 보낼 때마다 히스토리가 지워져 마지막 대화만 보입니다.
+The `if ... not in st.session_state` guard means the value is created on the first run only and reused on every later rerun. If you write `messages = []` at module level instead, the history is wiped on every message and only the latest turn is ever shown.
 
-**스트리밍이 되지 않거나 응답이 한 번에 나옵니다**
+**Nothing streams, or the response appears all at once**
 
-`agent(prompt)`를 호출하고 있지 않은지, `async for ... in agent.stream_async(prompt)`로 순회하고 있는지 확인하세요. 텍스트가 점진적으로 나타나게 하는 `data` 이벤트는 `stream_async()`에서만 발생합니다.
+Confirm you are iterating with `async for ... in agent.stream_async(prompt)` and not calling `agent(prompt)`. Only `stream_async()` emits the incremental `data` events that make text appear progressively.
 
-**응답은 나오는데 도구 호출 박스가 표시되지 않습니다**
+**The agent answers, but no tool boxes appear**
 
-도구를 사용할지 여부는 에이전트가 스스로 판단합니다. "10의 제곱근을 계산해줘" 또는 "현재 시간 알려줘"처럼 도구가 필요한 질문을 해보세요.
+The agent decides on its own whether a tool is needed. Ask something that requires a tool, such as "Calculate the square root of 10" or "Tell me the current time".
 
-## 앱 종료하기
+## Stopping the app
 
-이번 챕터는 대화 중 발생하는 Bedrock 모델 호출 비용 외에 지속적으로 과금되는 AWS 리소스를 만들지 않습니다. 종료하려면 Streamlit이 실행 중인 터미널에서 `Ctrl+C`를 누릅니다.
+This chapter creates no billable AWS resources beyond the Bedrock model invocations made while chatting. To stop, press `Ctrl+C` in the terminal running Streamlit.
 
 ---
-Prev: [멀티 에이전트](../02-multi-agents/README.md) | Next: [에이전트 가시성](../04-observability/README.md)
+Prev: [Multi-Agents](../02-multi-agents/README.md) | Next: [Observability](../04-observability/README.md)

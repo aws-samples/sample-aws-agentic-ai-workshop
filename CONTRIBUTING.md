@@ -33,7 +33,7 @@ To send us a pull request, please:
 
 1. Fork the repository.
 2. Modify the source; please focus on the specific change you are contributing. If you also reformat all the code, it will be hard for us to focus on your change.
-3. If you change a lab, update **both** `README.md` and `README.ko.md` for that chapter, and keep `labs/` and `completed/` consistent. `labs/` files are intentionally empty, because the learner writes them.
+3. Lab code lives in `code/NN-chapter/`, and the guides live in `workshop/en/NN-chapter/README.md` and `workshop/ko/NN-chapter/README.md`. If you change a lab, update **both** language guides, and keep `labs/` and `completed/` consistent. `labs/` files are intentionally empty, because the learner writes them.
 4. Ensure any code you add actually runs against Amazon Bedrock in `us-west-2`.
 5. Commit to your fork using clear commit messages.
 6. Send us a pull request, answering any default questions in the pull request interface.

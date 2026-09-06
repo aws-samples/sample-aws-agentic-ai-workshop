@@ -275,7 +275,7 @@ Power는 Kiro에서 MCP(Model Context Protocol) 서버, 문서, 워크플로우 
 
 Steering은 Kiro AI가 코드를 생성할 때 따라야 할 규칙과 컨텍스트를 정의합니다. Steering 파일은 `.kiro/steering/` 하위의 마크다운 파일로, 앞부분에 작은 frontmatter 블록이 붙습니다. `inclusion: always`로 설정하면 Kiro가 해당 워크스페이스의 모든 요청에서 이 파일을 컨텍스트로 불러오므로, 매 프롬프트마다 규칙을 다시 적을 필요가 없습니다.
 
-이 리포지토리에는 실습용 Steering 파일이 [`.kiro/steering/strands-dev.md`](../../../dev/08-kiro-dev/.kiro/steering/strands-dev.md)에 이미 포함되어 있습니다. 주요 규칙은 다음과 같습니다.
+이 리포지토리에는 실습용 Steering 파일이 [`.kiro/steering/strands-dev.md`](../../../code/08-kiro-dev/.kiro/steering/strands-dev.md)에 이미 포함되어 있습니다. 주요 규칙은 다음과 같습니다.
 
 **작업 디렉토리**
 
@@ -357,7 +357,7 @@ inclusion: always
 
 ### MCP 서버 구성
 
-Kiro는 워크스페이스의 MCP 서버 설정을 `.kiro/settings/mcp.json`에서 읽습니다. 이 리포지토리의 [`.kiro/settings/mcp.json`](../../../dev/08-kiro-dev/.kiro/settings/mcp.json)은 비어 있는 상태로 제공됩니다.
+Kiro는 워크스페이스의 MCP 서버 설정을 `.kiro/settings/mcp.json`에서 읽습니다. 이 리포지토리의 [`.kiro/settings/mcp.json`](../../../code/08-kiro-dev/.kiro/settings/mcp.json)은 비어 있는 상태로 제공됩니다.
 
 ```json
 {
@@ -408,7 +408,7 @@ Kiro는 `.kiro/steering/strands-dev.md`를 읽고, `strands-docs` MCP 서버로 
 uv run --project 00-setup python 08-kiro-dev/labs/hanoi_tower.py
 ```
 
-이 프롬프트에 대한 참고 결과물은 [`completed/hanoi_tower.py`](../../../dev/08-kiro-dev/completed/hanoi_tower.py)에 있습니다. 공유 퍼즐 상태를 다루는 다섯 개의 `@tool` 함수(`initialize_hanoi`, `move_disk`, `get_current_state`, `check_solution`, `get_hint`)를 정의하고, Steering 규칙이 요구하는 모델과 system prompt로 `hanoi_tower_solver` 에이전트를 생성하며, 호출을 try-except로 감싸고, `http://localhost:4318`로 향하는 OTLP exporter를 설정합니다. 여러분의 결과물과 비교해 보세요. 세부 내용은 다르더라도 Steering 규칙에 따른 구조는 일치해야 합니다.
+이 프롬프트에 대한 참고 결과물은 [`completed/hanoi_tower.py`](../../../code/08-kiro-dev/completed/hanoi_tower.py)에 있습니다. 공유 퍼즐 상태를 다루는 다섯 개의 `@tool` 함수(`initialize_hanoi`, `move_disk`, `get_current_state`, `check_solution`, `get_hint`)를 정의하고, Steering 규칙이 요구하는 모델과 system prompt로 `hanoi_tower_solver` 에이전트를 생성하며, 호출을 try-except로 감싸고, `http://localhost:4318`로 향하는 OTLP exporter를 설정합니다. 여러분의 결과물과 비교해 보세요. 세부 내용은 다르더라도 Steering 규칙에 따른 구조는 일치해야 합니다.
 
 C4의 컬렉터를 실행한 상태라면 에이전트의 도구 호출이 스팬으로 표시됩니다.
 

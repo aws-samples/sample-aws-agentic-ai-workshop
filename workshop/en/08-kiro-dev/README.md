@@ -275,7 +275,7 @@ Power is a package in Kiro that bundles MCP (Model Context Protocol) servers, do
 
 Steering defines rules and context that Kiro AI should follow when generating code. A Steering file is a markdown file under `.kiro/steering/` with a small frontmatter block. With `inclusion: always`, Kiro loads the file into context on every request in that workspace, so the rules apply without you restating them in each prompt.
 
-This repository already ships the Steering file for the lab at [`.kiro/steering/strands-dev.md`](../../../dev/08-kiro-dev/.kiro/steering/strands-dev.md). It is written in Korean, since that is what the workshop used. Its key rules are:
+This repository already ships the Steering file for the lab at [`.kiro/steering/strands-dev.md`](../../../code/08-kiro-dev/.kiro/steering/strands-dev.md). It is written in Korean, since that is what the workshop used. Its key rules are:
 
 **Working directory**
 
@@ -355,7 +355,7 @@ followed by the rules above.
 
 ### MCP server configuration
 
-Kiro reads workspace MCP servers from `.kiro/settings/mcp.json`. The file in this repository, [`.kiro/settings/mcp.json`](../../../dev/08-kiro-dev/.kiro/settings/mcp.json), ships as an empty placeholder:
+Kiro reads workspace MCP servers from `.kiro/settings/mcp.json`. The file in this repository, [`.kiro/settings/mcp.json`](../../../code/08-kiro-dev/.kiro/settings/mcp.json), ships as an empty placeholder:
 
 ```json
 {
@@ -406,7 +406,7 @@ Review what it produced, then run it:
 uv run --project 00-setup python 08-kiro-dev/labs/hanoi_tower.py
 ```
 
-The reference output for this prompt is in [`completed/hanoi_tower.py`](../../../dev/08-kiro-dev/completed/hanoi_tower.py). It defines five `@tool` functions (`initialize_hanoi`, `move_disk`, `get_current_state`, `check_solution`, `get_hint`) over a shared puzzle state, creates an agent named `hanoi_tower_solver` with the model and system prompt required by the Steering rules, wraps the invocation in try-except, and sets up the OTLP exporter to `http://localhost:4318`. Compare it against yours: the structure should match the Steering rules even though the details will differ.
+The reference output for this prompt is in [`completed/hanoi_tower.py`](../../../code/08-kiro-dev/completed/hanoi_tower.py). It defines five `@tool` functions (`initialize_hanoi`, `move_disk`, `get_current_state`, `check_solution`, `get_hint`) over a shared puzzle state, creates an agent named `hanoi_tower_solver` with the model and system prompt required by the Steering rules, wraps the invocation in try-except, and sets up the OTLP exporter to `http://localhost:4318`. Compare it against yours: the structure should match the Steering rules even though the details will differ.
 
 With the chapter 04 collector running, the agent's tool calls show up as spans:
 

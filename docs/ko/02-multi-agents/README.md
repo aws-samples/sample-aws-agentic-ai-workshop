@@ -1,18 +1,16 @@
 # 2. 멀티 에이전트 패턴을 통해 복잡한 작업을 수행하는 시스템 구축하기
 
-<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
-
-[English README](README.md)
+<p align="center"><a href="README.md">한국어</a> | <a href="../../en/02-multi-agents/README.md">English</a></p>
 
 이번 실습에서는 Strands Agents SDK의 멀티 에이전트 패턴을 사용하여 여러 에이전트가 협업하는 시스템을 구축하는 방법을 학습합니다. 아래 3가지의 멀티 에이전트 패턴을 실습하며, 단일 에이전트로는 해결하기 어려운 복잡한 태스크를 처리하는 에이전트 시스템을 만들어봅니다.
 
-<img src="../docs/images/c2-diagram.png" alt="멀티 에이전트 패턴" width="600">
+<img src="../../images/c2-diagram.png" alt="멀티 에이전트 패턴" width="600">
 
 > [!NOTE]
 > **사전 준비 사항**
-> - [00-setup](../00-setup/README.ko.md) 에 따라 환경 설정 완료
+> - [00-setup](../00-setup/README.md) 에 따라 환경 설정 완료
 > - `us-west-2` 리전에서 `us.anthropic.claude-sonnet-4-20250514-v1:0`(SDK 기본 모델)과 `us.anthropic.claude-sonnet-4-6` 에 대한 Amazon Bedrock 모델 액세스 활성화
-> - [01 챕터](../01-single-agent/README.ko.md)를 먼저 진행하는 것을 권장합니다. 이번 챕터는 `Agent` 를 생성하고 도구를 전달하는 방법을 이미 알고 있다고 가정합니다.
+> - [01 챕터](../01-single-agent/README.md)를 먼저 진행하는 것을 권장합니다. 이번 챕터는 `Agent` 를 생성하고 도구를 전달하는 방법을 이미 알고 있다고 가정합니다.
 
 **이번 챕터에서 배우는 내용**
 
@@ -42,7 +40,7 @@
 
 실습 방식은 다른 챕터와 동일합니다. `labs/` 폴더의 빈 파일에 코드를 직접 작성하고, `completed/` 폴더의 완성된 코드는 정답으로 참고합니다. 막힐 때만 completed 파일을 열어보세요.
 
-![labs 폴더](../../docs/images/c2-labs.png)
+![labs 폴더](../../images/c2-labs.png)
 
 > [!NOTE]
 > **`artifacts-*` 폴더는 소스 코드가 아니라 실행 결과입니다**
@@ -67,7 +65,7 @@
 
 이번 실습에서는 Agents-as-Tools 패턴을 활용해서, 리서치, 제품 추천, 여행 계획 등 다양한 전문 영역의 요청을 자동으로 분류하고 적절한 전문 에이전트에게 위임하는 멀티 에이전트 시스템을 만들어보겠습니다.
 
-![agents as tools](../../docs/images/c2-agents-as-tools.png)
+![agents as tools](../../images/c2-agents-as-tools.png)
 
 **1-1.** `02-multi-agents/labs/agents_as_tools.py` 파일을 엽니다.
 
@@ -215,11 +213,11 @@ uv run --project 00-setup python 02-multi-agents/labs/agents_as_tools.py
 
 | `research_assistant`를 도구로 호출 | `trip_planning_assistant`를 도구로 호출 | `file_write` 도구 호출 |
 |----------|---------|----------|
-| ![result1](../../docs/images/c2-aat-1.png) | ![result2](../../docs/images/c2-aat-2.png) | ![result3](../../docs/images/c2-aat-3.png) |
+| ![result1](../../images/c2-aat-1.png) | ![result2](../../images/c2-aat-2.png) | ![result3](../../images/c2-aat-3.png) |
 
 *최종 결과물:*
 
-<img src="../docs/images/c2-aat-4.png" alt="result4" width="600">
+<img src="../../images/c2-aat-4.png" alt="result4" width="600">
 
 <details>
 <summary>Agents-as-Tools 패턴 알아보기</summary>
@@ -271,7 +269,7 @@ Agents-as-Tools에서는 중앙에서 오케스트레이터 에이전트가 작�
 - **critical_agent**: 제안된 아이디어의 **문제점 발견 및 개선안 제시** 전담
 - **summarizer_agent**: 모든 에이전트의 **결과를 종합하여 최종 결과 작성** 전담
 
-<img src="../docs/images/c2-swarms.png" alt="swarm" width="600">
+<img src="../../images/c2-swarms.png" alt="swarm" width="600">
 
 **2-1.** `02-multi-agents/labs/swarms.py` 파일을 엽니다.
 
@@ -410,7 +408,7 @@ uv run --project 00-setup python 02-multi-agents/labs/swarms.py
 
 | **최종 결과** | `creative_agent` 결과 | `critical_agent` 결과 | `summarizer_agent` 결과 |
 |----------|---------|----------|----------|
-| ![result4](../../docs/images/c2-swarm-result4.png) | ![result1](../../docs/images/c2-swarm-result1.png) | ![result2](../../docs/images/c2-swarm-result2.png) | ![result3](../../docs/images/c2-swarm-result3.png) |
+| ![result4](../../images/c2-swarm-result4.png) | ![result1](../../images/c2-swarm-result1.png) | ![result2](../../images/c2-swarm-result2.png) | ![result3](../../images/c2-swarm-result3.png) |
 
 이 실습은 최대 5개의 마크다운 파일(`research.md`, `creative.md`, `critical.md`, `summarizer.md`, `travel_plan.md`)을 생성합니다. 결과 예시는 `completed/artifacts-swarms/` 에서 확인할 수 있습니다.
 
@@ -475,7 +473,7 @@ summarizer_agent
 - **market_researcher**: 시장 상황 및 경쟁 환경 분석
 - **risk_analyst**: 종합 위험 평가 및 완화 전략 제시
 
-<img src="../docs/images/c2-graph-1.png" alt="graph" width="600">
+<img src="../../images/c2-graph-1.png" alt="graph" width="600">
 
 **3-1.** `02-multi-agents/labs/graph_parallel.py` 파일을 엽니다.
 
@@ -600,7 +598,7 @@ Graph vs Swarm 비교:
 - **technical_report**: 기술적 관점의 보고서 작성
 - **business_report**: 비즈니스 관점의 보고서 작성
 
-<img src="../docs/images/c2-graph-2.png" alt="graph" width="600">
+<img src="../../images/c2-graph-2.png" alt="graph" width="600">
 
 **4-1.** `02-multi-agents/labs/graph_condition.py` 파일을 엽니다.
 
@@ -727,7 +725,7 @@ uv run --project 00-setup python 02-multi-agents/labs/graph_condition.py \
 
 | business_report 노드를 호출 | 결과를 요약하여 business_report.md 에 파일로 저장 |
 |----------|------|
-| ![lab-result1](../../docs/images/c2-condition-business-1.png) | ![lab-result2](../../docs/images/c2-condition-business-2.png) |
+| ![lab-result1](../../images/c2-condition-business-1.png) | ![lab-result2](../../images/c2-condition-business-2.png) |
 
 **4-7.** 이번에는 터미널에서 아래 쿼리를 실행하고, technical_report 노드로 요청이 잘 라우팅되었는지 결과를 확인합니다:
 
@@ -740,7 +738,7 @@ uv run --project 00-setup python 02-multi-agents/labs/graph_condition.py \
 
 | technical_report 노드를 호출 | 결과를 요약하여 technical_report.md 에 파일로 저장 |
 |----------|------|
-| ![lab-result1](../../docs/images/c2-condition-technical-1.png) | ![lab-result2](../../docs/images/c2-condition-technical-2.png) |
+| ![lab-result1](../../images/c2-condition-technical-1.png) | ![lab-result2](../../images/c2-condition-technical-2.png) |
 
 **4-6**에서의 테스트는 classifier → business_report 경로로, **4-7**에서의 테스트는 classifier → technical_report 경로로 실행되는 것을 확인할 수 있습니다. 두 실행 모두 명령어를 실행한 위치에 보고서 파일을 생성하며, `completed/artifacts-graph/` 에 각각의 결과 예시가 저장되어 있습니다.
 
@@ -859,4 +857,4 @@ rm -f plan.md research.md creative.md critical.md summarizer.md travel_plan.md b
 > 위 명령어는 실습을 실행한 디렉토리에서 실행하고, 삭제 전 파일 목록을 먼저 확인하세요. `02-multi-agents/completed/artifacts-*/` 에 저장된 결과 예시는 삭제하지 마세요.
 
 ---
-Prev: [단일 에이전트](../01-single-agent/README.ko.md) | Next: [챗봇 애플리케이션](../03-chatbot-app/README.ko.md)
+Prev: [단일 에이전트](../01-single-agent/README.md) | Next: [챗봇 애플리케이션](../03-chatbot-app/README.md)

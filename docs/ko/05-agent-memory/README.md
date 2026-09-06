@@ -1,6 +1,6 @@
 # 5. 에이전트 메모리 (AgentCore Memory)
 
-<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
+<p align="center"><a href="README.md">한국어</a> | <a href="../../en/05-agent-memory/README.md">English</a></p>
 
 이번 실습에서는 Amazon Bedrock AgentCore Memory를 활용하여 에이전트가 대화를 기억하고 사용자에 대한 지식을 축적하는 방법을 학습합니다.
 
@@ -8,10 +8,10 @@
 
 > [!NOTE]
 > **사전 준비 사항**
-> - [00-setup](../00-setup/README.ko.md) 에 따라 환경을 구성하고 uv 환경을 활성화합니다
+> - [00-setup](../00-setup/README.md) 에 따라 환경을 구성하고 uv 환경을 활성화합니다
 > - `us-west-2` 리전에서 Amazon Bedrock 모델 액세스가 활성화되어 있어야 합니다 (이번 챕터에서 사용하는 리전입니다)
 > - `bedrock-agentcore` 컨트롤 플레인과 데이터 플레인을 호출할 수 있는 AWS 자격 증명이 필요합니다 ([트러블슈팅](#트러블슈팅) 참고)
-> - Streamlit 섹션은 [03-chatbot-app](../03-chatbot-app/README.ko.md) 챕터를 먼저 학습하면 이해하기 쉽지만, 필수는 아닙니다
+> - Streamlit 섹션은 [03-chatbot-app](../03-chatbot-app/README.md) 챕터를 먼저 학습하면 이해하기 쉽지만, 필수는 아닙니다
 
 > [!WARNING]
 > **이번 챕터는 실제 AWS 리소스를 생성합니다**
@@ -48,7 +48,7 @@
 
 ## AgentCore Memory 핵심 개념
 
-<img src="../docs/images/c4-agentcore-memory-logo.png" alt="AgentCore Memory Logo" width="800">
+<img src="../../images/c4-agentcore-memory-logo.png" alt="AgentCore Memory Logo" width="800">
 
 AgentCore Memory는 AI 에이전트가 대화와 지식을 저장하고 활용할 수 있게 해주는 관리형 메모리 서비스입니다.
 
@@ -66,7 +66,7 @@ AgentCore Memory는 두 가지 유형의 메모리를 제공합니다. 각 메�
 
 #### 단기 메모리 (Short-Term Memory)
 
-<img src="../docs/images/c4-stm-sample-chat-ko.png" alt="STM 대화 예시" width="800">
+<img src="../../images/c4-stm-sample-chat-ko.png" alt="STM 대화 예시" width="800">
 
 단기 메모리는 하나의 대화 세션 안에서 흐름을 유지합니다. 고객 서비스 시나리오를 예로 들어보겠습니다. 고객이 "주문 상태 확인해주세요"라고 말하면, 에이전트는 "주문번호를 알려주세요"라고 응답합니다. 고객이 "12345입니다"라고 답하면, 에이전트는 이 주문번호를 기억합니다. 이후 고객이 "언제 도착하나요?"라고 물어도 에이전트는 다시 주문번호를 묻지 않습니다. 이미 12345라는 주문번호를 알고 있기 때문에 바로 "주문 12345는 내일 도착 예정입니다"라고 답할 수 있습니다.
 
@@ -74,7 +74,7 @@ AgentCore Memory는 두 가지 유형의 메모리를 제공합니다. 각 메�
 
 #### 장기 메모리 (Long-Term Memory)
 
-<img src="../docs/images/c4-ltm-sample-chat-ko.png" alt="LTM 대화 예시" width="800">
+<img src="../../images/c4-ltm-sample-chat-ko.png" alt="LTM 대화 예시" width="800">
 
 장기 메모리는 세션이 끝나도 지식이 유지됩니다. 예를 들어, 1주 전 대화에서 고객이 "저는 서울 강남구에 살아요"라고 말했다면, 에이전트는 이 주소 정보를 장기 메모리에 저장합니다. 일주일이 지난 오늘, 같은 고객이 "새 주문 배송지 확인해주세요"라고 물으면, 에이전트는 장기 메모리를 조회하여 "강남구 주소로 배송 예정입니다. 맞으신가요?"라고 응답할 수 있습니다.
 
@@ -165,7 +165,7 @@ Actor: "user_alice"
 
 ### 1. 단기 메모리란?
 
-<img src="../docs/images/c4-agentcore-stm.png" alt="AgentCore STM" width="800">
+<img src="../../images/c4-agentcore-stm.png" alt="AgentCore STM" width="800">
 
 단기 메모리(STM)는 세션 내에서 발생하는 대화 이벤트를 저장합니다.
 
@@ -343,7 +343,7 @@ agent = Agent(
 
 ### 1. 장기 메모리란?
 
-<img src="../docs/images/c4-agentcore-ltm.png" alt="AgentCore LTM" width="800">
+<img src="../../images/c4-agentcore-ltm.png" alt="AgentCore LTM" width="800">
 
 장기 메모리(LTM)는 대화에서 중요한 정보를 추출하여 영구적으로 저장합니다. STM과 달리 세션이 종료되어도 지식이 유지됩니다.
 
@@ -829,7 +829,7 @@ uv run streamlit run 05-agent-memory/labs/streamlit_with_memory.py
 
 브라우저를 새로고침해도 에이전트가 이전 대화를 기억하는 것을 확인할 수 있습니다.
 
-<img src="../docs/images/c4-streamlit-sample-chat1.png" alt="Streamlit Chat 1" width="800">
+<img src="../../images/c4-streamlit-sample-chat1.png" alt="Streamlit Chat 1" width="800">
 
 **3-3.** 새 세션 테스트.
 
@@ -840,7 +840,7 @@ uv run streamlit run 05-agent-memory/labs/streamlit_with_memory.py
 
 이 앱은 `session` URL 파라미터에서 세션 ID를 읽어오므로, `?session=<세션-ID>` 를 붙여 접속하는 방식으로도 이전 대화를 이어갈 수 있습니다. 해당 세션에서 나눈 대화를 에이전트가 기억합니다.
 
-<img src="../docs/images/c4-streamlit-sample-chat2.png" alt="Streamlit Chat 2" width="800">
+<img src="../../images/c4-streamlit-sample-chat2.png" alt="Streamlit Chat 2" width="800">
 
 <details>
 <summary>이번 챕터에서의 핵심 개념 다시보기</summary>
@@ -978,4 +978,4 @@ LTM 추출은 비동기로 처리됩니다. `learn` 실행 직후에는 단기 �
 </details>
 
 ---
-Prev: [관측 가능성](../04-observability/README.ko.md) | Next: [AgentCore Runtime](../06-agentcore-runtime/README.ko.md)
+Prev: [관측 가능성](../04-observability/README.md) | Next: [AgentCore Runtime](../06-agentcore-runtime/README.md)

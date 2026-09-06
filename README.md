@@ -32,15 +32,15 @@ Build an AI agent from scratch with the [Strands Agents SDK](https://strandsagen
 
 | # | Chapter | What you build | ⏱️ Time | 📊 Level | Track |
 |---|---------|----------------|---------|----------|-------|
-| 00 | [Setup](dev/00-setup/README.md) | Python environment, AWS credentials, Bedrock model access | 10 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Required |
-| 01 | [Single agent](dev/01-single-agent/README.md) | Agent with prompt, model, and tools. Bedrock Knowledge Base, MCP tools, self-improving agent | 30 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Required |
-| 02 | [Multi-agent patterns](dev/02-multi-agents/README.md) | Agents-as-Tools, Swarm, and Graph | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
-| 03 | [Chatbot application](dev/03-chatbot-app/README.md) | Streamlit chat UI with streaming and tool-call display | 10 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Optional |
-| 04 | [Observability with Strands](dev/04-observability/README.md) | Metrics, logs, and OTLP traces to a local Jaeger | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Optional |
-| 05 | [Agent memory](dev/05-agent-memory/README.md) | Short-term and long-term memory with AgentCore Memory | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
-| 06 | [AgentCore Runtime](dev/06-agentcore-runtime/README.md) | Serverless deployment of the agent | 20 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
-| 07 | [AgentCore Observability](dev/07-agentcore-observability/README.md) | CloudWatch GenAI Observability dashboard | 10 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
-| 08 | [Developing with Kiro IDE](dev/08-kiro-dev/README.md) | Steering, MCP config, and spec-driven development | 10 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Optional |
+| 00 | [Setup](docs/en/00-setup/README.md) | Python environment, AWS credentials, Bedrock model access | 10 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Required |
+| 01 | [Single agent](docs/en/01-single-agent/README.md) | Agent with prompt, model, and tools. Bedrock Knowledge Base, MCP tools, self-improving agent | 30 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Required |
+| 02 | [Multi-agent patterns](docs/en/02-multi-agents/README.md) | Agents-as-Tools, Swarm, and Graph | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
+| 03 | [Chatbot application](docs/en/03-chatbot-app/README.md) | Streamlit chat UI with streaming and tool-call display | 10 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Optional |
+| 04 | [Observability with Strands](docs/en/04-observability/README.md) | Metrics, logs, and OTLP traces to a local Jaeger | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Optional |
+| 05 | [Agent memory](docs/en/05-agent-memory/README.md) | Short-term and long-term memory with AgentCore Memory | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
+| 06 | [AgentCore Runtime](docs/en/06-agentcore-runtime/README.md) | Serverless deployment of the agent | 20 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
+| 07 | [AgentCore Observability](docs/en/07-agentcore-observability/README.md) | CloudWatch GenAI Observability dashboard | 10 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
+| 08 | [Developing with Kiro IDE](docs/en/08-kiro-dev/README.md) | Steering, MCP config, and spec-driven development | 10 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Optional |
 
 > [!IMPORTANT]
 > Chapters 01, 02, 05, 06, and 07 form the core path. Chapters 03, 04, and 08 are self-contained and can be skipped. Chapter 07 is the one dependency worth noting: it reads telemetry from the agent you deploy in chapter 06.
@@ -62,7 +62,7 @@ Build an AI agent from scratch with the [Strands Agents SDK](https://strandsagen
 
 ```bash
 git clone https://github.com/aws-samples/sample-aws-agentic-ai-workshop.git
-cd sample-aws-agentic-ai-workshop/00-setup
+cd sample-aws-agentic-ai-workshop/dev/00-setup
 uv sync
 cd ..
 ```
@@ -73,7 +73,10 @@ cd ..
 uv run --project 00-setup python 01-single-agent/completed/basic.py
 ```
 
-If that prints an agent response, your environment is ready. Now open [00-setup/README.md](dev/00-setup/README.md) for the full setup notes, then start [chapter 01](dev/01-single-agent/README.md).
+If that prints an agent response, your environment is ready. Now open the [setup guide](docs/en/00-setup/README.md) for the full setup notes, then start [chapter 01](docs/en/01-single-agent/README.md).
+
+> [!NOTE]
+> All lab commands are relative to the `dev/` directory, so run them from there.
 
 ---
 
@@ -112,36 +115,48 @@ Enable them in the [Bedrock console](https://us-west-2.console.aws.amazon.com/be
 
 ## 📁 Repository layout
 
+Code lives under `dev/`, and the lab guides live under `docs/`. The two trees mirror each other chapter for chapter.
+
 ```
 sample-aws-agentic-ai-workshop/
-├── 00-setup/                     # environment setup, uv project, dependencies
-│   ├── pyproject.toml
-│   ├── uv.lock
-│   └── create-uv-env.sh
-├── 01-single-agent/
-│   ├── labs/                     # you write these
-│   ├── completed/                # reference implementation
-│   └── README.md
-├── 02-multi-agents/
-├── 03-chatbot-app/
-├── 04-observability/
-│   └── docker/                   # OTel collector + Jaeger
-├── 05-agent-memory/
-├── 06-agentcore-runtime/
-├── 07-agentcore-observability/   # console-only chapter, README only
-├── 08-kiro-dev/
-│   └── .kiro/                    # steering rules and MCP config
-└── docs/images/                  # screenshots referenced by the chapter READMEs
+├── dev/                          # all workshop code, run the commands from here
+│   ├── 00-setup/                 # environment setup, uv project, dependencies
+│   │   ├── pyproject.toml
+│   │   ├── uv.lock
+│   │   └── create-uv-env.sh
+│   ├── 01-single-agent/
+│   │   ├── labs/                 # you write these
+│   │   └── completed/            # reference implementation
+│   ├── 02-multi-agents/
+│   ├── 03-chatbot-app/
+│   ├── 04-observability/
+│   │   └── docker/               # OTel collector + Jaeger
+│   ├── 05-agent-memory/
+│   ├── 06-agentcore-runtime/
+│   ├── 07-agentcore-observability/   # console-only chapter, no code
+│   └── 08-kiro-dev/
+│       └── .kiro/                # steering rules and MCP config
+└── docs/                         # all lab guides
+    ├── en/                       # English guides, one folder per chapter
+    │   ├── 00-setup/README.md
+    │   ├── 01-single-agent/README.md
+    │   └── ...
+    ├── ko/                       # Korean guides, same folder names
+    │   ├── 00-setup/README.md
+    │   ├── 01-single-agent/README.md
+    │   └── ...
+    └── images/                   # screenshots referenced by the guides
 ```
 
-Every chapter folder follows the same shape:
+Every chapter follows the same shape:
 
 ```
-NN-chapter/
-├── README.md        # English lab guide
-├── README.ko.md     # Korean lab guide
-├── labs/            # empty files, you write the code here
-└── completed/       # reference answers, run these if you get stuck
+dev/NN-chapter/
+├── labs/                    # empty files, you write the code here
+└── completed/               # reference answers, run these if you get stuck
+
+docs/en/NN-chapter/README.md # English lab guide
+docs/ko/NN-chapter/README.md # Korean lab guide
 ```
 
 ---
@@ -164,7 +179,7 @@ The labs call Bedrock models on demand, and several chapters create AWS resource
 
 ## 🐛 Troubleshooting
 
-These are the failures that come up across chapters. Each chapter also has its own Troubleshooting section for problems specific to it: [00](00-setup/README.md#troubleshooting), [01](01-single-agent/README.md#troubleshooting), [02](02-multi-agents/README.md#troubleshooting), [03](03-chatbot-app/README.md#troubleshooting), [04](04-observability/README.md#troubleshooting), [05](05-agent-memory/README.md#troubleshooting), [06](06-agentcore-runtime/README.md#troubleshooting).
+These are the failures that come up across chapters. Each chapter also has its own Troubleshooting section for problems specific to it: [00](docs/en/00-setup/README.md#troubleshooting), [01](docs/en/01-single-agent/README.md#troubleshooting), [02](docs/en/02-multi-agents/README.md#troubleshooting), [03](docs/en/03-chatbot-app/README.md#troubleshooting), [04](docs/en/04-observability/README.md#troubleshooting), [05](docs/en/05-agent-memory/README.md#troubleshooting), [06](docs/en/06-agentcore-runtime/README.md#troubleshooting).
 
 | Symptom | Cause and fix |
 |---|---|

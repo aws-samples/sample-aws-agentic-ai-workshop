@@ -1,6 +1,6 @@
 # 6. 에이전트 배포 (AgentCore Runtime)
 
-<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
+<p align="center"><a href="README.md">한국어</a> | <a href="../../en/06-agentcore-runtime/README.md">English</a></p>
 
 이번 실습에서는 지금까지 로컬에서 실행하던 Strands 에이전트를 [Amazon Bedrock AgentCore Runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html)에 배포하는 방법을 학습합니다.
 
@@ -10,14 +10,14 @@
 
 > [!NOTE]
 > **사전 준비**
-> - [00-setup](../00-setup/README.ko.md)에 따라 환경 구성 및 uv 환경 활성화
+> - [00-setup](../00-setup/README.md)에 따라 환경 구성 및 uv 환경 활성화
 > - 이전 챕터와 동일하게 `us-west-2` 리전의 Amazon Bedrock 모델(Claude) 액세스
 > - 컨테이너 런타임(Docker Desktop, Finch, Podman 등)이 설치되어 **실행 중**이어야 합니다. AgentCore는 에이전트를 컨테이너 이미지로 패키징하며, `configure()`가 이를 위한 `Dockerfile`을 생성합니다. Starter Toolkit 버전에 따라 `launch()`가 이미지를 로컬에서 빌드하거나(Docker 실행 필요) AWS CodeBuild에서 빌드합니다.
 > - Amazon ECR(리포지토리 생성, 이미지 푸시), IAM(역할 생성), Bedrock AgentCore, CloudWatch Logs에 대한 IAM 권한. ECR 리포지토리와 IAM 실행 역할은 Starter Toolkit이 자동으로 생성합니다(3단계 참고).
 > - 이 챕터는 **과금되는 AWS 리소스**(AgentCore Runtime, ECR 리포지토리)를 생성합니다. 실습 후 [리소스 정리](#리소스-정리)를 반드시 수행하세요.
 
 > [!IMPORTANT]
-> [07-agentcore-observability](../07-agentcore-observability/README.ko.md) 챕터는 이 챕터에 의존합니다. 여기서 배포한 런타임을 사용하며, 아래 **0단계**의 CloudWatch Transaction Search 설정이 반드시 필요합니다. 0단계를 건너뛰지 마시고, 7장을 마치기 전에는 리소스 정리를 수행하지 마세요.
+> [07-agentcore-observability](../07-agentcore-observability/README.md) 챕터는 이 챕터에 의존합니다. 여기서 배포한 런타임을 사용하며, 아래 **0단계**의 CloudWatch Transaction Search 설정이 반드시 필요합니다. 0단계를 건너뛰지 마시고, 7장을 마치기 전에는 리소스 정리를 수행하지 마세요.
 
 **이번 챕터에서 배우는 내용**
 
@@ -53,7 +53,7 @@
 
 ## AgentCore Runtime이란?
 
-![AgentCore logo](../../docs/images/agentcore-runtime-logo.png)
+![AgentCore logo](../../images/agentcore-runtime-logo.png)
 
 AgentCore Runtime은 AI 에이전트를 위한 서버리스 호스팅 환경입니다. 로컬에서 개발한 에이전트 코드를 **최소한의 변경**만으로 클라우드에 배포할 수 있습니다.
 
@@ -74,18 +74,18 @@ AgentCore Runtime에 배포된 에이전트의 트레이스, 메트릭, 세션 �
 
 **0-1.** AWS 콘솔에서 [CloudWatch](https://console.aws.amazon.com/cloudwatch/) 서비스를 엽니다.
 
-![CloudWatch](../../docs/images/c6-o11y_1.png)
+![CloudWatch](../../images/c6-o11y_1.png)
 
 **0-2.** 좌측 메뉴에서 **Settings**를 클릭하고, **Application Signals** 탭에서 **Edit** 버튼을 클릭합니다.
 
-![CloudWatch Settings](../../docs/images/c6-o11y_2.png)
+![CloudWatch Settings](../../images/c6-o11y_2.png)
 
 **0-3.** **Enable Transaction Search**를 토글하여 활성화합니다. 이때 **Sample rate를 반드시 100%로 설정**한 후 **Save**를 클릭합니다.
 
 > [!WARNING]
 > Sample rate가 기본값(1%)으로 되어 있으면 대부분의 트레이스가 수집되지 않아 대시보드에서 데이터를 확인할 수 없습니다. 워크샵 환경에서는 반드시 **100%**로 설정하세요.
 
-![Enable Transaction Search](../../docs/images/c6-o11y_3.png)
+![Enable Transaction Search](../../images/c6-o11y_3.png)
 
 ---
 
@@ -291,7 +291,7 @@ cd -
 
 배포가 완료되면 아래와 같은 로그가 출력됩니다.
 
-![AgentCore Deploy Output](../../docs/images/c6-agentcore-1.png)
+![AgentCore Deploy Output](../../images/c6-agentcore-1.png)
 
 > [!NOTE]
 > **`.bedrock_agentcore.yaml` 파일에 대하여**
@@ -305,11 +305,11 @@ cd -
 
 먼저 [Amazon Bedrock AgentCore 콘솔](https://us-west-2.console.aws.amazon.com/bedrock-agentcore/home?region=us-west-2#/runtimes)에 접속하여 **Runtime** 메뉴에서 `strands_workshop_agent`가 생성되었는지 확인합니다.
 
-![AgentCore Deploy Output2](../../docs/images/c6-agentcore-2.png)
+![AgentCore Deploy Output2](../../images/c6-agentcore-2.png)
 
 `strands_workshop_agent`를 클릭해 들어간 후, **Runtime ARN** 아래의 복사 버튼을 눌러 **에이전트의 ARN을 복사**해둡니다. 이는 다음 단계에서 에이전트를 호출할 때 사용됩니다.
 
-<img src="../docs/images/c6-agentcore-3.png" alt="Runtime ARN" width="800">
+<img src="../../images/c6-agentcore-3.png" alt="Runtime ARN" width="800">
 
 ---
 
@@ -378,7 +378,7 @@ else:
 uv run 06-agentcore-runtime/labs/invoke_agent.py
 ```
 
-<img src="../docs/images/c6-agentcore-6.png" alt="호출 결과" width="800">
+<img src="../../images/c6-agentcore-6.png" alt="호출 결과" width="800">
 
 > [!NOTE]
 > **축하드립니다!**
@@ -402,7 +402,7 @@ uv run 06-agentcore-runtime/labs/invoke_agent.py
 <details>
 <summary>코드 설명</summary>
 
-이 코드는 여러 개의 에이전트가 서로 협업하며 하나의 목표를 달성하는 멀티에이전트 시스템을 구현한 내용입니다. 자세한 내용은 [2. 멀티 에이전트 패턴을 통해 복잡한 작업을 수행하는 시스템 구축하기](../02-multi-agents/README.ko.md)를 참고하실 수 있습니다.
+이 코드는 여러 개의 에이전트가 서로 협업하며 하나의 목표를 달성하는 멀티에이전트 시스템을 구현한 내용입니다. 자세한 내용은 [2. 멀티 에이전트 패턴을 통해 복잡한 작업을 수행하는 시스템 구축하기](../02-multi-agents/README.md)를 참고하실 수 있습니다.
 
 1. **전문 에이전트를 `@tool`로 래핑**: 각 에이전트가 도구처럼 동작 (아래 코드에는 리서치, 제품 추천, 여행 계획 3개가 정의되어 있습니다)
 2. **오케스트레이터 에이전트**: 사용자 요청을 분석하여 적절한 전문 에이전트를 선택
@@ -575,7 +575,7 @@ print(launch_result)
 
 **5-3.** 배포하기 전, 기존 Runtime으로 배포했던 설정을 초기화하기 위해 `.bedrock_agentcore.yaml` 파일을 삭제해주겠습니다. deploy_agent.py와 동일한 디렉토리에 있는 `.bedrock_agentcore.yaml` 파일을 찾아 **'Delete Permanently'** 버튼을 눌러 삭제해주세요.
 
-<img src="../docs/images/c6-agentcore-delete.png" alt="설정 파일 삭제" width="800">
+<img src="../../images/c6-agentcore-delete.png" alt="설정 파일 삭제" width="800">
 
 터미널에서 삭제하려면 아래 명령어를 사용합니다.
 
@@ -596,7 +596,7 @@ cd -
 
 배포가 완료되면 아래와 같은 로그가 출력됩니다.
 
-![AgentCore Deploy Output](../../docs/images/c6-agentcore-1.png)
+![AgentCore Deploy Output](../../images/c6-agentcore-1.png)
 
 > [!NOTE]
 > AWS 콘솔의 AgentCore Runtimes에서 `strands_workshop_agent`와 `strands_workshop_agent_advanced` 두 개의 런타임이 생성된 것을 확인할 수 있습니다.
@@ -605,11 +605,11 @@ cd -
 
 [Amazon Bedrock AgentCore 콘솔](https://us-west-2.console.aws.amazon.com/bedrock-agentcore/home?region=us-west-2#/runtimes)에 접속하여 **Runtime** 메뉴에서 `strands_workshop_agent_advanced`가 생성되었는지 확인합니다.
 
-<img src="../docs/images/c6-agentcore-4.png" alt="런타임 목록" width="800">
+<img src="../../images/c6-agentcore-4.png" alt="런타임 목록" width="800">
 
 `strands_workshop_agent_advanced`를 클릭해 들어간 후, **Runtime ARN** 아래의 복사 버튼을 눌러 **에이전트의 ARN을 복사**해둡니다. 이는 다음 단계에서 에이전트를 호출할 때 사용됩니다.
 
-<img src="../docs/images/c6-agentcore-5.png" alt="Advanced 런타임 ARN" width="800">
+<img src="../../images/c6-agentcore-5.png" alt="Advanced 런타임 ARN" width="800">
 
 **5-6.** `06-agentcore-runtime/labs/invoke_agent.py` 파일을 열고, **기존 내용을 모두 지운 후** 다음 코드를 붙여넣습니다. **방금 전 단계(5-5)에서 복사해둔 ARN을 코드의 `agent_arn` 변수에 붙여넣어 줍니다.**
 
@@ -670,37 +670,37 @@ except Exception as e:
 uv run 06-agentcore-runtime/labs/invoke_agent.py
 ```
 
-![AgentCore Deploy Output7](../../docs/images/c6-agentcore-7.png)
+![AgentCore Deploy Output7](../../images/c6-agentcore-7.png)
 
 **5-8.** [Amazon Bedrock AgentCore 콘솔](https://us-west-2.console.aws.amazon.com/bedrock-agentcore/home?region=us-west-2#/runtimes)에 접속하여, `strands_workshop_agent_advanced` 런타임을 클릭하면 아래와 같은 화면을 보실 수 있습니다. Observability 란의 **Dashboard**를 클릭하여 에이전트 호출 로그를 확인하는 대시보드로 이동합니다.
 
-![AgentCore Observability 진입](../../docs/images/c6-agentcore-8.png)
+![AgentCore Observability 진입](../../images/c6-agentcore-8.png)
 
 **5-9.** 대시보드에서 **'Session' 탭을 클릭해 이동**하면 특정 세션을 찾을 수 있습니다. 세션 ID를 클릭해 이동합니다.
 
-![Session 탭](../../docs/images/c6-agentcore-8-1.png)
+![Session 탭](../../images/c6-agentcore-8-1.png)
 
 Traces가 ID별로 표시됩니다. 이 중 가장 최근에 활성화된 Trace ID를 클릭해보면, 오른쪽에 창이 열리며 에이전트의 작업 흐름 로그를 확인하실 수 있습니다.
 
-![Trace 상세](../../docs/images/c6-agentcore-9.png)
+![Trace 상세](../../images/c6-agentcore-9.png)
 
 토글을 펼쳐보면, 스크린샷과 같이 Trip Planning Agent의 출력을 확인하실 수도 있고, 터미널에서만 확인하던 에이전트의 작업 출력을 AWS 콘솔에서 확인하실 수 있습니다.
 
-<img src="../docs/images/c6-agentcore-10.png" alt="Trip Planning Agent 출력" width="600">
+<img src="../../images/c6-agentcore-10.png" alt="Trip Planning Agent 출력" width="600">
 
 > [!NOTE]
 > **AgentCore Runtime의 네이티브 가시성을 확인했습니다.**
 > 이와 같이 AgentCore Runtime은 별도의 설정 없이도 CloudWatch Logs와 Traces를 통해 에이전트의 실행 흐름, 도구 호출, 응답 내용을 실시간으로 확인할 수 있습니다.
 >
-> 더 자세한 Observability는 다음 챕터인 [7. 에이전트 가시성 (AgentCore Observability)](../07-agentcore-observability/README.ko.md)에서 다룹니다.
+> 더 자세한 Observability는 다음 챕터인 [7. 에이전트 가시성 (AgentCore Observability)](../07-agentcore-observability/README.md)에서 다룹니다.
 
 **5-10.** (Optional) 다시 터미널로 돌아가, 에이전트가 실행 중인 터미널 외에 새 터미널을 열고 3개 이상 invoke_agent.py를 동시 실행해봅니다.
 
-![동시 호출](../../docs/images/c6-agentcore-11.png)
+![동시 호출](../../images/c6-agentcore-11.png)
 
 다시 [Amazon Bedrock AgentCore 콘솔](https://us-west-2.console.aws.amazon.com/bedrock-agentcore/home?region=us-west-2#/runtimes)로 돌아가 `strands_workshop_agent_advanced` 런타임을 확인하면, 직전 호출로 인해 **총 세션이 3개로 늘어난 것을 확인**하실 수 있습니다.
 
-![세션 수](../../docs/images/c6-agentcore-12.png)
+![세션 수](../../images/c6-agentcore-12.png)
 
 > [!NOTE]
 > **AgentCore Runtime의 서버리스 확장성을 체험했습니다.**
@@ -714,7 +714,7 @@ Traces가 ID별로 표시됩니다. 이 중 가장 최근에 활성화된 Trace 
 > **반드시 수행하세요.** 배포된 AgentCore Runtime과 ECR 리포지토리에 저장된 컨테이너 이미지는 에이전트를 호출하지 않아도 존재하는 동안 계속 비용이 발생합니다. 선택 실습 5단계를 진행했다면 삭제할 런타임이 **2개**, ECR 리포지토리도 **2개**입니다.
 
 > [!IMPORTANT]
-> [07-agentcore-observability](../07-agentcore-observability/README.ko.md) 챕터는 여기서 배포한 런타임을 사용합니다. 7장을 이어서 진행할 예정이라면, 7장을 마친 후에 정리하세요.
+> [07-agentcore-observability](../07-agentcore-observability/README.md) 챕터는 여기서 배포한 런타임을 사용합니다. 7장을 이어서 진행할 예정이라면, 7장을 마친 후에 정리하세요.
 
 ### 삭제할 리소스
 
@@ -887,4 +887,4 @@ strands-agents-tools
 - [AgentCore Runtime Quickstart](https://aws.github.io/bedrock-agentcore-starter-toolkit/user-guide/runtime/quickstart.html)
 
 ---
-Prev: [5. 에이전트 메모리](../05-agent-memory/README.ko.md) | Next: [7. 에이전트 가시성 (AgentCore Observability)](../07-agentcore-observability/README.ko.md)
+Prev: [5. 에이전트 메모리](../05-agent-memory/README.md) | Next: [7. 에이전트 가시성 (AgentCore Observability)](../07-agentcore-observability/README.md)

@@ -1,18 +1,16 @@
 # 07. 에이전트 가시성 (AgentCore Observability)
 
-<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
-
-[English README](README.md)
+<p align="center"><a href="README.md">한국어</a> | <a href="../../en/07-agentcore-observability/README.md">English</a></p>
 
 > [!WARNING]
-> 이 챕터를 진행하려면 먼저 [06. 에이전트 런타임 (AgentCore Runtime)](../06-agentcore-runtime/README.ko.md) 실습을 완료해야 합니다. 이 챕터는 이전 챕터에서 배포한 에이전트가 생성한 텔레메트리를 확인합니다. 배포된 에이전트가 없으면 대시보드에는 아무 데이터도 표시되지 않습니다.
+> 이 챕터를 진행하려면 먼저 [06. 에이전트 런타임 (AgentCore Runtime)](../06-agentcore-runtime/README.md) 실습을 완료해야 합니다. 이 챕터는 이전 챕터에서 배포한 에이전트가 생성한 텔레메트리를 확인합니다. 배포된 에이전트가 없으면 대시보드에는 아무 데이터도 표시되지 않습니다.
 
 이번 실습에서는 이전 챕터에서 AgentCore Runtime에 배포한 에이전트의 트레이스, 메트릭, 로그를 Amazon CloudWatch GenAI Observability 대시보드에서 확인하는 방법을 학습합니다.
 
 > [!NOTE]
 > **사전 준비 사항**
-> - [00-setup](../00-setup/README.ko.md) 기준으로 환경 구성 완료
-> - [06. 에이전트 런타임 (AgentCore Runtime)](../06-agentcore-runtime/README.ko.md) 완료 (`strands_workshop_agent`가 배포되어 호출 가능한 상태)
+> - [00-setup](../00-setup/README.md) 기준으로 환경 구성 완료
+> - [06. 에이전트 런타임 (AgentCore Runtime)](../06-agentcore-runtime/README.md) 완료 (`strands_workshop_agent`가 배포되어 호출 가능한 상태)
 > - 계정에 CloudWatch Transaction Search 활성화 (C6에서 수행했으며, 아래에서 다시 확인합니다)
 > - CloudWatch 메트릭, 로그, 트레이스를 조회할 수 있는 권한이 있는 AWS Management Console 접근
 
@@ -37,7 +35,7 @@
 
 ## AgentCore Observability란?
 
-<img src="../docs/images/agentcore-observability-logo.png" alt="AgentCore logo" width="800">
+<img src="../../images/agentcore-observability-logo.png" alt="AgentCore logo" width="800">
 
 AgentCore Runtime에 배포된 에이전트는 자동으로 텔레메트리 데이터를 생성합니다. [AgentCore Observability](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability.html)는 이 데이터를 Amazon CloudWatch에 수집하고, GenAI 전용 대시보드를 통해 시각화합니다.
 
@@ -47,28 +45,28 @@ AgentCore Runtime에 배포된 에이전트는 자동으로 텔레메트리 데�
 - **메트릭**: 세션 수, 지연 시간, 토큰 사용량, 에러율
 - **로그**: 에이전트 프로세스의 stdout/stderr 출력
 
-계측 코드를 작성할 필요가 없습니다. 이 점이 OTLP exporter를 직접 설정하고 컬렉터를 직접 실행했던 [04. Strands SDK로 가시성 확보하기](../04-observability/README.ko.md)와의 차이입니다.
+계측 코드를 작성할 필요가 없습니다. 이 점이 OTLP exporter를 직접 설정하고 컬렉터를 직접 실행했던 [04. Strands SDK로 가시성 확보하기](../04-observability/README.md)와의 차이입니다.
 
 ---
 
 ## 1. Transaction Search 활성화 확인
 
 > [!WARNING]
-> 이 챕터의 대시보드에서 트레이스, 세션, 메트릭 데이터를 확인하려면 **CloudWatch Transaction Search가 활성화**되어 있어야 합니다. [C6](../06-agentcore-runtime/README.ko.md)의 사전 준비 단계에서 이미 활성화한 경우 이 섹션을 건너뛰어도 됩니다.
+> 이 챕터의 대시보드에서 트레이스, 세션, 메트릭 데이터를 확인하려면 **CloudWatch Transaction Search가 활성화**되어 있어야 합니다. [C6](../06-agentcore-runtime/README.md)의 사전 준비 단계에서 이미 활성화한 경우 이 섹션을 건너뛰어도 됩니다.
 
 Transaction Search는 AWS 계정당 한 번만 수행하는 설정입니다. 활성화 후 트레이스가 검색 가능해지기까지 약 10분이 소요될 수 있으므로, 대시보드를 보기 시작한 뒤가 아니라 지금 확인해 두는 것이 좋습니다.
 
 **1-1.** AWS 콘솔에서 [CloudWatch](https://console.aws.amazon.com/cloudwatch/) 서비스를 엽니다.
 
-![CloudWatch](../../docs/images/c7-o11y_1.png)
+![CloudWatch](../../images/c7-o11y_1.png)
 
 **1-2.** 좌측 메뉴에서 **Settings**를 클릭한 뒤 **Application signals** 탭을 열고, **Transaction Search** 패널의 **Edit**을 클릭합니다.
 
-![CloudWatch Settings](../../docs/images/c7-o11y_2.png)
+![CloudWatch Settings](../../images/c7-o11y_2.png)
 
 **1-3.** **Enable Transaction Search**가 켜져 있고 Sample rate가 **100%** 인지 확인한 후 **Save**를 클릭합니다.
 
-![Enable Transaction Search](../../docs/images/c7-o11y_3.png)
+![Enable Transaction Search](../../images/c7-o11y_3.png)
 
 > [!WARNING]
 > Sample rate를 기본값(1%)으로 두면 대부분의 트레이스가 수집되지 않아 대시보드에서 데이터를 확인할 수 없습니다. 이번 실습에서는 반드시 **100%** 로 설정해야 합니다.
@@ -117,7 +115,7 @@ CloudWatch GenAI Observability 대시보드는 추가 설정 없이 에이전트
   - 각 단계의 소요 시간
   - 도구 호출 파라미터 및 결과
 
-![GenAI Observability Dashboard](../../docs/images/c7-o11y_8.png)
+![GenAI Observability Dashboard](../../images/c7-o11y_8.png)
 
 ---
 
@@ -142,7 +140,7 @@ AgentCore는 **AWS/Bedrock-AgentCore** 네임스페이스 아래에 메트릭을
 | **SystemErrors** | 서버 측 에러 (500) |
 | **Throttles** | 제한 초과로 거부된 요청 (429) |
 
-![CloudWatch Metrics](../../docs/images/c7-o11y_4.png)
+![CloudWatch Metrics](../../images/c7-o11y_4.png)
 
 ---
 
@@ -154,7 +152,7 @@ AgentCore Runtime은 에이전트의 로그를 자동으로 CloudWatch Logs에 �
 
 **5-2.** 검색창에 `/aws/bedrock-agentcore/runtimes/strands_workshop_agent`를 입력합니다.
 
-![Log Group Filtering](../../docs/images/c7-o11y_5.png)
+![Log Group Filtering](../../images/c7-o11y_5.png)
 
 **5-3.** 로그 그룹을 클릭하면 두 가지 유형의 로그 스트림을 확인할 수 있습니다.
 
@@ -163,9 +161,9 @@ AgentCore Runtime은 에이전트의 로그를 자동으로 CloudWatch Logs에 �
 
 **5-4.** `runtime-logs`가 포함된 로그 스트림을 클릭하면 에이전트 실행의 상세 로그를 확인할 수 있습니다.
 
-![Runtime Log Filtering](../../docs/images/c7-o11y_6.png)
+![Runtime Log Filtering](../../images/c7-o11y_6.png)
 
-![Runtime Log Results](../../docs/images/c7-o11y_7.png)
+![Runtime Log Results](../../images/c7-o11y_7.png)
 
 ---
 
@@ -173,7 +171,7 @@ AgentCore Runtime은 에이전트의 로그를 자동으로 CloudWatch Logs에 �
 
 이제 두 가지 방식을 모두 확인했습니다.
 
-| | [04. Strands SDK로 가시성 확보하기](../04-observability/README.ko.md) | 이 챕터 |
+| | [04. Strands SDK로 가시성 확보하기](../04-observability/README.md) | 이 챕터 |
 |---|---|---|
 | 계측 | 코드에 `StrandsTelemetry`를 추가하고 `OTEL_EXPORTER_OTLP_ENDPOINT`를 설정 | 없음, AgentCore Runtime이 자동 발행 |
 | 백엔드 | 직접 실행하는 컬렉터 (Docker 기반 로컬 Jaeger) | Amazon CloudWatch |
@@ -192,7 +190,7 @@ AgentCore Runtime은 에이전트의 로그를 자동으로 CloudWatch Logs에 �
 
 워크샵 이후 Transaction Search를 켜 두고 싶지 않다면 활성화했던 곳에서 다시 끌 수 있습니다. CloudWatch 콘솔 > **Settings** > **Application signals** 탭 > **Transaction Search** > **Edit** 에서 **Enable Transaction Search** 토글을 끄고 저장합니다. **Log Management**에서 `/aws/bedrock-agentcore/runtimes/strands_workshop_agent` 로그 그룹을 삭제하거나 보관 기간을 짧게 설정할 수도 있습니다.
 
-배포한 에이전트 자체와 그 뒤의 ECR 이미지, IAM 역할은 [C6](../06-agentcore-runtime/README.ko.md)에서 만든 리소스입니다. 실습을 마친 뒤 해당 챕터에서 정리하세요.
+배포한 에이전트 자체와 그 뒤의 ECR 이미지, IAM 역할은 [C6](../06-agentcore-runtime/README.md)에서 만든 리소스입니다. 실습을 마친 뒤 해당 챕터에서 정리하세요.
 
 ---
 
@@ -204,4 +202,4 @@ AgentCore Runtime은 에이전트의 로그를 자동으로 CloudWatch Logs에 �
 - [AgentCore Starter Toolkit - Observability 퀵스타트](https://aws.github.io/bedrock-agentcore-starter-toolkit/user-guide/observability/quickstart.html#getting-started-with-agentcore-observability)
 
 ---
-Prev: [에이전트 런타임 (AgentCore Runtime)](../06-agentcore-runtime/README.ko.md) | Next: [Kiro IDE로 개발하기](../08-kiro-dev/README.ko.md)
+Prev: [에이전트 런타임 (AgentCore Runtime)](../06-agentcore-runtime/README.md) | Next: [Kiro IDE로 개발하기](../08-kiro-dev/README.md)

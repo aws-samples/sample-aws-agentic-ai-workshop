@@ -1,12 +1,12 @@
 # 00. 환경 설정
 
-<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
+<p align="center"><a href="README.md">한국어</a> | <a href="../../en/00-setup/README.md">English</a></p>
 
 이 챕터에서는 이후 모든 챕터에서 사용할 환경을 준비합니다. [uv](https://docs.astral.sh/uv/)로 관리되는 Python 3.12 프로젝트, Amazon Bedrock을 호출할 수 있는 AWS 자격 증명, 그리고 `us-west-2` 리전의 Bedrock 모델 액세스가 필요합니다.
 
 실습에는 AWS 계정이 필요합니다. 환경을 준비하는 방법은 두 가지이며, 둘 중 하나만 수행하면 됩니다. 경로 A는 본인 컴퓨터에서 실습을 실행하는 방법으로, GitHub에서 이 리포지토리를 보고 계신 경우 더 빠른 방법입니다. 경로 B는 CloudFormation으로 AWS에 VS Code Server를 배포하는 방법이며, 강사가 진행하는 워크샵에서 사용하는 환경입니다.
 
-![시작하기](../../docs/images/1-getting-start.svg)
+![시작하기](../../images/1-getting-start.svg)
 
 > [!NOTE]
 > **실습 진행 방식**
@@ -56,7 +56,7 @@
   Windows 및 다른 설치 방법은 [uv 설치 가이드](https://docs.astral.sh/uv/getting-started/installation/)를 참고하세요.
 - **AWS 계정.** Amazon Bedrock을 호출하고 [필요한 IAM 권한](#필요한-iam-권한)에 정리된 리소스를 생성할 수 있는 권한이 있어야 합니다.
 - **AWS CLI 설정.** 해당 계정의 자격 증명이 구성되어 있고 기본 리전이 `us-west-2`여야 합니다.
-- **Docker.** [04-observability](../04-observability/README.ko.md)의 OTLP 실습에서만 필요합니다. 그 외에는 사용하지 않습니다.
+- **Docker.** [04-observability](../04-observability/README.md)의 OTLP 실습에서만 필요합니다. 그 외에는 사용하지 않습니다.
 
 ### 2. AWS 자격 증명 설정
 
@@ -179,27 +179,27 @@ AWS 이벤트 중에 워크샵을 진행하며 이벤트에서 제공하는 AWS 
 
 1. 이벤트 주최자로부터 로그인 URL을 받습니다. 해당 URL에 접속하면 아래와 같은 페이지가 나타납니다. **Email One-Time Password (OTP)** 버튼을 클릭합니다.
 
-   <img src="../docs/images/b1-01-sign-with-email.png" alt="이메일로 로그인">
+   <img src="../../images/b1-01-sign-with-email.png" alt="이메일로 로그인">
 
 2. 이메일 주소를 입력하고 **Send passcode**를 클릭합니다.
 
-   <img src="../docs/images/b1-02-WSS-email.png" alt="이메일 주소 입력" width="1000">
+   <img src="../../images/b1-02-WSS-email.png" alt="이메일 주소 입력" width="1000">
 
 3. 입력한 이메일 계정에서 "Your one-time passcode" 메일을 열어 암호를 복사합니다. 복사한 암호를 붙여넣고 **Sign in** 버튼을 클릭합니다.
 
-   <img src="../docs/images/b1-03-WSS-passcode.png" alt="일회용 암호 입력">
+   <img src="../../images/b1-03-WSS-passcode.png" alt="일회용 암호 입력">
 
 4. 이벤트 주최자가 제공한 코드를 입력하고 **Next**를 클릭합니다. 보통 자동으로 기재되어 있거나 AWS 이벤트 진행자가 공지합니다.
 
-   <img src="../docs/images/b1-04-enter-access-code.png" alt="액세스 코드 입력">
+   <img src="../../images/b1-04-enter-access-code.png" alt="액세스 코드 입력">
 
 5. **I agree with the Terms and Conditions** 체크박스를 체크하고 **Join event**를 클릭합니다.
 
-   <img src="../docs/images/b1-05-workshop-studio-tc.png" alt="약관 동의">
+   <img src="../../images/b1-05-workshop-studio-tc.png" alt="약관 동의">
 
 6. 왼쪽 메뉴에서 **Open AWS Console** 버튼을 클릭하면 새 브라우저 창에서 AWS 콘솔이 열립니다.
 
-   <img src="../docs/images/b1-06-console_access.png" alt="AWS 콘솔 열기">
+   <img src="../../images/b1-06-console_access.png" alt="AWS 콘솔 열기">
 
 </details>
 
@@ -218,22 +218,22 @@ AWS 계정을 생성했거나 이미 있는 경우, AWS 계정에 접근할 수 
 1. [로그인 페이지](https://console.aws.amazon.com/)에서 AWS 계정 이메일 주소와 비밀번호를 사용하여 **AWS 계정의 루트 사용자**로 [IAM 콘솔](https://console.aws.amazon.com/iam/home#/home)에 로그인합니다.
 2. IAM 콘솔 화면 왼쪽 사이드바에서 **Users**(사용자)를 클릭한 다음, **Add user**(사용자 추가) 버튼을 클릭합니다.
 
-   ![IAM 사용자 생성](../../docs/images/iam-user-01.png)
+   ![IAM 사용자 생성](../../images/iam-user-01.png)
 
 3. **User name**(사용자 이름)은 `Administrator`로 입력합니다.
 4. **AWS Management Console access** 체크박스를 선택하고, **I want to create an IAM user**를 체크합니다.
 5. **Custom password**를 선택한 다음 비밀번호를 입력합니다.
 6. **Next**(다음)를 클릭합니다.
 
-   ![IAM 사용자 생성](../../docs/images/iam-user-02.png)
+   ![IAM 사용자 생성](../../images/iam-user-02.png)
 
 7. **Attach existing policies directly**(기존 정책 직접 연결)를 선택하고, **AdministratorAccess** 정책의 체크박스를 선택한 후 **Next**(다음)를 클릭합니다.
 
-   ![AdministratorAccess 연결](../../docs/images/iam-user-03.png)
+   ![AdministratorAccess 연결](../../images/iam-user-03.png)
 
 8. Administrator 사용자에 AdministratorAccess 관리형 정책이 추가된 것을 확인하고 **Create user**(사용자 만들기)를 클릭합니다.
 
-   ![검토 및 생성](../../docs/images/iam-user-04.png)
+   ![검토 및 생성](../../images/iam-user-04.png)
 
 9. 사용자가 추가되면 **Console sign-in URL**을 복사합니다. 해당 URL은 아래의 형식을 가집니다.
 
@@ -244,7 +244,7 @@ AWS 계정을 생성했거나 이미 있는 경우, AWS 계정에 접근할 수 
    > [!WARNING]
    > `<your_aws_account_id>`는 본인 AWS 계정의 고유 ID가 들어가는 자리입니다. 루트 사용자로 실습을 진행하는 것은 권고하지 않습니다. 반드시 Administrator 사용자로 로그인하여 실습을 진행하세요.
 
-   ![콘솔 로그인 URL](../../docs/images/iam-user-05.png)
+   ![콘솔 로그인 URL](../../images/iam-user-05.png)
 
 10. 이제 루트 사용자에서 로그아웃하고, 방금 복사한 URL로 접속해서 **새로 생성한 Administrator 사용자로 로그인**합니다.
 
@@ -259,11 +259,11 @@ AWS 계정을 생성했거나 이미 있는 경우, AWS 계정에 접근할 수 
 
 1. AWS 콘솔에서 CloudFormation으로 이동한 뒤 **Create stack**, **With new resources (standard)**를 클릭합니다.
 
-   <img src="../docs/images/b2-sagemaker-3.png" alt="새 리소스로 스택 생성">
+   <img src="../../images/b2-sagemaker-3.png" alt="새 리소스로 스택 생성">
 
 2. **Upload a template file**을 클릭한 뒤 다운로드한 yaml 파일을 업로드합니다.
 
-   <img src="../docs/images/b3-sagemaker-4.png" alt="템플릿 파일 업로드">
+   <img src="../../images/b3-sagemaker-4.png" alt="템플릿 파일 업로드">
 
 3. Stack 이름을 다음과 같이 입력합니다.
 
@@ -271,7 +271,7 @@ AWS 계정을 생성했거나 이미 있는 경우, AWS 계정에 접근할 수 
    code-server-python
    ```
 
-   <img src="../docs/images/code-server-1.png" alt="스택 이름">
+   <img src="../../images/code-server-1.png" alt="스택 이름">
 
 4. IAM 리소스 생성에 동의한다는 체크박스를 선택합니다.
 5. 이후 모두 default로 두고 **Next**, **Submit**을 눌러 스택을 배포합니다.
@@ -284,16 +284,16 @@ AWS 계정을 생성했거나 이미 있는 경우, AWS 계정에 접근할 수 
 1. AWS 콘솔에서 [CloudFormation](https://us-east-1.console.aws.amazon.com/cloudformation/home)으로 이동한 뒤 `code-server-python` 스택이 배포된 것을 확인합니다.
 2. **Outputs** 탭을 눌러 code server의 password를 복사하고, 같은 탭의 code server URL에 접속해 복사한 password를 붙여넣습니다.
 
-   <img src="../docs/images/code-server-2.png" alt="스택 Outputs의 URL과 password" width="1000">
-   <img src="../docs/images/b2-sagemaker-2.png" alt="code-server 로그인" width="1000">
+   <img src="../../images/code-server-2.png" alt="스택 Outputs의 URL과 password" width="1000">
+   <img src="../../images/b2-sagemaker-2.png" alt="code-server 로그인" width="1000">
 
 3. 아래 화면을 확인합니다.
 
-   <img src="../docs/images/b2-sagemaker-7.png" alt="code-server 준비 완료" width="800">
+   <img src="../../images/b2-sagemaker-7.png" alt="code-server 준비 완료" width="800">
 
 4. 터미널을 엽니다.
 
-   ![터미널 열기](../../docs/images/b2-2-terminal.png)
+   ![터미널 열기](../../images/b2-2-terminal.png)
 
 ### 3. Python 환경 생성
 
@@ -306,8 +306,8 @@ chmod +x ./create-uv-env.sh
 cd ..
 ```
 
-![create-uv-env.sh 실행](../../docs/images/codeserver-uv-1.png)
-![create-uv-env.sh 실행 완료](../../docs/images/codeserver-uv-2.png)
+![create-uv-env.sh 실행](../../images/codeserver-uv-1.png)
+![create-uv-env.sh 실행 완료](../../images/codeserver-uv-2.png)
 
 > [!NOTE]
 > **코드 이해하기**
@@ -396,4 +396,4 @@ cd ..
 [(선택) matplotlib 한글 폰트 설정](#6-선택-matplotlib-한글-폰트-설정)을 참고하세요.
 
 ---
-Prev: [Agentic AI on AWS Workshop](../README.ko.md) | Next: [01. 기본 단일 에이전트 만들어보기](../01-single-agent/README.ko.md)
+Prev: [Agentic AI on AWS Workshop](../../../README.ko.md) | Next: [01. 기본 단일 에이전트 만들어보기](../01-single-agent/README.md)

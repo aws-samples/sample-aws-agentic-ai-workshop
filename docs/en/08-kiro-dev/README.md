@@ -1,8 +1,6 @@
 # 08. Developing with Kiro IDE
 
-<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
-
-[한국어 README](README.ko.md)
+<p align="center"><a href="../../ko/08-kiro-dev/README.md">한국어</a> | <a href="README.md">English</a></p>
 
 > [!NOTE]
 > This chapter is **optional**. It does not build on chapters 01 to 07 and nothing later depends on it. Skip it if you only want the Strands Agents and AgentCore path.
@@ -13,7 +11,7 @@ In this chapter you will set up a Strands Agents development environment using *
 
 [Kiro](https://kiro.dev/) is an AI-powered integrated development environment (IDE) provided by AWS. Built on VS Code, it offers a familiar development experience while AI agents support the entire development process.
 
-![Kiro logo](../../docs/images/kiro-logo.png)
+![Kiro logo](../../images/kiro-logo.png)
 
 ### Key features of Kiro
 
@@ -77,7 +75,7 @@ Kiro offers credit-based pricing plans. You can create organization users and li
 > **What are credits?**
 > Credits are units that measure your usage of Kiro AI features. Credits are consumed whenever you use AI features such as code generation, chat, and Spec creation.
 
-<img src="../docs/images/c7-kiro-plans.png" alt="Kiro Console" width="800">
+<img src="../../images/c7-kiro-plans.png" alt="Kiro Console" width="800">
 
 ### Step 1: Create a Kiro profile
 
@@ -85,11 +83,11 @@ Create a Kiro profile in the AWS Console in the N.Virginia region.
 
 **1.** Navigate to the [Kiro Console](https://us-east-1.console.aws.amazon.com/amazonq/developer/home) in the AWS Console.
 
-<img src="../docs/images/c7-kiro-console.png" alt="Kiro Console" width="800">
+<img src="../../images/c7-kiro-console.png" alt="Kiro Console" width="800">
 
 **2.** Click **Enable small teams**. This feature allows you to register new Kiro users and link subscription plans.
 
-<img src="../docs/images/c7-kiro-add-user.png" alt="Kiro Create User" width="800">
+<img src="../../images/c7-kiro-add-user.png" alt="Kiro Create User" width="800">
 
 **3.** Enter the user information:
 - **Email address**: Enter accurately (required for subsequent steps)
@@ -100,11 +98,11 @@ Create a Kiro profile in the AWS Console in the N.Virginia region.
 
 **5.** Select the Kiro subscription plan to assign to this user. Select **Kiro Pro** and click **Continue**.
 
-<img src="../docs/images/c7-kiro-plan-selection.png" alt="Kiro Plan Selection" width="800">
+<img src="../../images/c7-kiro-plan-selection.png" alt="Kiro Plan Selection" width="800">
 
 **6.** Click **Enable and Subscribe**.
 
-<img src="../docs/images/c7-kiro-enable-subs.png" alt="Kiro Enable and Subscribe" width="800">
+<img src="../../images/c7-kiro-enable-subs.png" alt="Kiro Enable and Subscribe" width="800">
 
 ### Step 2: Configure Multi-Factor Authentication (MFA)
 
@@ -112,11 +110,11 @@ Configure the MFA policy for the IAM Identity Center organization instance that 
 
 **7.** Navigate to the [AWS IAM Identity Center Console](https://us-east-1.console.aws.amazon.com/singlesignon/home) in N.Virginia.
 
-<img src="../docs/images/c7-sso-console.png" alt="IAM Identity Center Console" width="800">
+<img src="../../images/c7-sso-console.png" alt="IAM Identity Center Console" width="800">
 
 **8.** Click **Configure MFA**.
 
-<img src="../docs/images/c7-sso-mfa-config.png" alt="MFA Configuration" width="800">
+<img src="../../images/c7-sso-mfa-config.png" alt="MFA Configuration" width="800">
 
 **9.** For this lab, we will skip the MFA authentication process. Select **Never** for the **Prompt users for MFA** attribute and save.
 
@@ -130,7 +128,7 @@ Accept the invitation sent to your registered email and activate your subscripti
 
 **10.** Click the **Accept invitation** button in the invitation email sent to your registered email address.
 
-<img src="../docs/images/c7-kiro-invitation-email.png" alt="Invitation Email" width="800">
+<img src="../../images/c7-kiro-invitation-email.png" alt="Invitation Email" width="800">
 
 > [!NOTE]
 > **Important information**
@@ -139,11 +137,11 @@ Accept the invitation sent to your registered email and activate your subscripti
 
 **11.** Set a password for the new user.
 
-<img src="../docs/images/c7-kiro-set-password.png" alt="Set Password" width="800">
+<img src="../../images/c7-kiro-set-password.png" alt="Set Password" width="800">
 
 **12.** You will be redirected to the AWS access portal. This is the process to authorize this user to access the Kiro service.
 
-<img src="../docs/images/c7-kiro-access-portal.png" alt="Kiro Access Portal" width="800">
+<img src="../../images/c7-kiro-access-portal.png" alt="Kiro Access Portal" width="800">
 
 ### Verify the subscription
 
@@ -151,9 +149,9 @@ Accept the invitation sent to your registered email and activate your subscripti
 
 **14.** Check the **Users & Groups** > **Users** tab in the left menu.
 
-<img src="../docs/images/c7-kiro-user-tab.png" alt="Kiro User Tab" width="800">
+<img src="../../images/c7-kiro-user-tab.png" alt="Kiro User Tab" width="800">
 
-<img src="../docs/images/c7-kiro-sub-tab.png" alt="Kiro Subscription Tab" width="800">
+<img src="../../images/c7-kiro-sub-tab.png" alt="Kiro Subscription Tab" width="800">
 
 You can see the user currently registered with the Kiro Pro plan. Verify that it matches the information you provided.
 
@@ -183,7 +181,7 @@ You can see the user currently registered with the Kiro Pro plan. Verify that it
 | **KiroIDEURL** | Kiro IDE access URL (DCV web client) |
 | **Password** | Login password |
 
-<img src="../docs/images/c7-cfn-outputs.png" alt="CloudFormation Outputs" width="800">
+<img src="../../images/c7-cfn-outputs.png" alt="CloudFormation Outputs" width="800">
 
 **4.** Copy the **KiroIDEURL** value and open it in a new browser tab.
 
@@ -192,29 +190,29 @@ You can see the user currently registered with the Kiro Pro plan. Verify that it
 - **Username**: `ec2-user`
 - **Password**: The **Password** value from CloudFormation Output
 
-<img src="../docs/images/c7-dcv-login.png" alt="DCV Login" width="800">
+<img src="../../images/c7-dcv-login.png" alt="DCV Login" width="800">
 
 **6.** After login, the desktop environment will be displayed.
 
 **7.** Find and click the **Kiro IDE** icon in the app list or on the desktop to launch it.
 
-<img src="../docs/images/c7-kiro-icon-search.png" alt="Kiro IDE Icon" width="800">
+<img src="../../images/c7-kiro-icon-search.png" alt="Kiro IDE Icon" width="800">
 
-<img src="../docs/images/c7-kiro-icon.png" alt="Kiro IDE Icon" width="800">
+<img src="../../images/c7-kiro-icon.png" alt="Kiro IDE Icon" width="800">
 
 ### Kiro IDE initial setup
 
 **8.** When Kiro IDE launches, click **Sign in** and select the **Your organization** option to log in.
 
-<img src="../docs/images/c7-kiro-login-options.png" alt="Kiro Login Options" width="800">
+<img src="../../images/c7-kiro-login-options.png" alt="Kiro Login Options" width="800">
 
-<img src="../docs/images/c7-org-start-url.png" alt="Organization Start URL" width="800">
+<img src="../../images/c7-org-start-url.png" alt="Organization Start URL" width="800">
 
 - Start URL: Check the email you received during the organization invitation process for the Start URL information.
 
 **9.** Once signed in, the Kiro IDE main screen will be displayed.
 
-<img src="../docs/images/c7-kiro-main.png" alt="Kiro IDE Main" width="800">
+<img src="../../images/c7-kiro-main.png" alt="Kiro IDE Main" width="800">
 
 > [!WARNING]
 > **Troubleshooting connection issues**
@@ -233,7 +231,7 @@ You can see the user currently registered with the Kiro Pro plan. Verify that it
 /home/ec2-user/workspace/my-workspace/dev
 ```
 
-<img src="../docs/images/c7-open-project.png" alt="Open Project" width="800">
+<img src="../../images/c7-open-project.png" alt="Open Project" width="800">
 
 **12.** Once the project opens, you can see the file structure in the left Explorer.
 
@@ -265,7 +263,7 @@ Power is a package in Kiro that bundles MCP (Model Context Protocol) servers, do
 
 **4.** Find the **Build an agent with Strands** Power in the Available window.
 
-<img src="../docs/images/c7-get-strands-power.png" alt="Strands Power" width="800">
+<img src="../../images/c7-get-strands-power.png" alt="Strands Power" width="800">
 
 **5.** Click the **Install** button to install the Power.
 
@@ -277,7 +275,7 @@ Power is a package in Kiro that bundles MCP (Model Context Protocol) servers, do
 
 Steering defines rules and context that Kiro AI should follow when generating code. A Steering file is a markdown file under `.kiro/steering/` with a small frontmatter block. With `inclusion: always`, Kiro loads the file into context on every request in that workspace, so the rules apply without you restating them in each prompt.
 
-This repository already ships the Steering file for the lab at [`.kiro/steering/strands-dev.md`](.kiro/steering/strands-dev.md). It is written in Korean, since that is what the workshop used. Its key rules are:
+This repository already ships the Steering file for the lab at [`.kiro/steering/strands-dev.md`](../../../dev/08-kiro-dev/.kiro/steering/strands-dev.md). It is written in Korean, since that is what the workshop used. Its key rules are:
 
 **Working directory**
 
@@ -357,7 +355,7 @@ followed by the rules above.
 
 ### MCP server configuration
 
-Kiro reads workspace MCP servers from `.kiro/settings/mcp.json`. The file in this repository, [`.kiro/settings/mcp.json`](.kiro/settings/mcp.json), ships as an empty placeholder:
+Kiro reads workspace MCP servers from `.kiro/settings/mcp.json`. The file in this repository, [`.kiro/settings/mcp.json`](../../../dev/08-kiro-dev/.kiro/settings/mcp.json), ships as an empty placeholder:
 
 ```json
 {
@@ -408,11 +406,11 @@ Review what it produced, then run it:
 uv run --project 00-setup python 08-kiro-dev/labs/hanoi_tower.py
 ```
 
-The reference output for this prompt is in [`completed/hanoi_tower.py`](completed/hanoi_tower.py). It defines five `@tool` functions (`initialize_hanoi`, `move_disk`, `get_current_state`, `check_solution`, `get_hint`) over a shared puzzle state, creates an agent named `hanoi_tower_solver` with the model and system prompt required by the Steering rules, wraps the invocation in try-except, and sets up the OTLP exporter to `http://localhost:4318`. Compare it against yours: the structure should match the Steering rules even though the details will differ.
+The reference output for this prompt is in [`completed/hanoi_tower.py`](../../../dev/08-kiro-dev/completed/hanoi_tower.py). It defines five `@tool` functions (`initialize_hanoi`, `move_disk`, `get_current_state`, `check_solution`, `get_hint`) over a shared puzzle state, creates an agent named `hanoi_tower_solver` with the model and system prompt required by the Steering rules, wraps the invocation in try-except, and sets up the OTLP exporter to `http://localhost:4318`. Compare it against yours: the structure should match the Steering rules even though the details will differ.
 
 With the chapter 04 collector running, the agent's tool calls show up as spans:
 
-<img src="../docs/images/c7-strands-hanoi-traces.png" alt="Strands Hanoi traces" width="800">
+<img src="../../images/c7-strands-hanoi-traces.png" alt="Strands Hanoi traces" width="800">
 
 ### Free practice
 
@@ -479,4 +477,4 @@ Kiro itself creates no AWS resources, but the subscription and the model calls a
 You have completed all chapters of the workshop. Experiment freely with Kiro and build your own AI agents.
 
 ---
-Prev: [AgentCore Observability](../07-agentcore-observability/README.md) | Back to [workshop overview](../README.md)
+Prev: [AgentCore Observability](../07-agentcore-observability/README.md) | Back to [workshop overview](../../../README.md)

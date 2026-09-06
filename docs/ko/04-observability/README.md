@@ -1,6 +1,6 @@
 # 4. 에이전트 가시성 (Strands Observability)
 
-<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
+<p align="center"><a href="README.md">한국어</a> | <a href="../../en/04-observability/README.md">English</a></p>
 
 이번 챕터에서는 Strands SDK가 제공하는 에이전트 가시성(Observability) 기능을 학습합니다. 에이전트의 동작을 모니터링하고 디버깅하는 데 필수적인 **Metrics**, **Logs**, **Traces**를 다룹니다.
 
@@ -10,11 +10,11 @@
 
 > [!TIP]
 > **AgentCore Runtime을 사용하고 있다면**
-> 이 챕터에서는 Strands SDK가 제공하는 Observability 기능을 직접 구성하는 방법을 다룹니다. Strands 에이전트를 직접 운영하는 환경이라면 이 방식이 적합합니다. 한편, **Amazon Bedrock AgentCore Runtime** 위에서 에이전트를 실행하는 경우라면 [07-agentcore-observability](../07-agentcore-observability/README.ko.md)에서 별도 파이프라인 구성 없이 메트릭, 로그, 트레이스를 통합적으로 수집하는 방법을 확인해보세요.
+> 이 챕터에서는 Strands SDK가 제공하는 Observability 기능을 직접 구성하는 방법을 다룹니다. Strands 에이전트를 직접 운영하는 환경이라면 이 방식이 적합합니다. 한편, **Amazon Bedrock AgentCore Runtime** 위에서 에이전트를 실행하는 경우라면 [07-agentcore-observability](../07-agentcore-observability/README.md)에서 별도 파이프라인 구성 없이 메트릭, 로그, 트레이스를 통합적으로 수집하는 방법을 확인해보세요.
 
 > [!NOTE]
 > **사전 준비 사항**
-> - [00-setup](../00-setup/README.ko.md)에 따라 실습 환경을 구성합니다. 트레이스 전송에 필요한 `strands-agents[otel]` 추가 의존성은 `00-setup/pyproject.toml`에 이미 포함되어 있습니다.
+> - [00-setup](../00-setup/README.md)에 따라 실습 환경을 구성합니다. 트레이스 전송에 필요한 `strands-agents[otel]` 추가 의존성은 `00-setup/pyproject.toml`에 이미 포함되어 있습니다.
 > - Amazon Bedrock 모델 액세스: `us.amazon.nova-pro-v1:0` (Metrics 실습), `us.anthropic.claude-sonnet-4-20250514-v1:0` (Traces 실습)
 > - **로컬에서 실행 중인 Docker**. OTLP 구간(Traces 실습 2, 실습 3)에만 필요합니다. 워크샵에서 사용하는 AWS 호스팅 VS Code Server에는 Docker가 미리 설치되어 실행 중입니다. 개인 노트북에서 진행하는 경우 Docker Desktop을 먼저 설치해야 할 수 있습니다. Metrics, Logs, 콘솔 익스포터를 사용하는 Traces 실습 1은 Docker가 필요하지 않습니다.
 
@@ -457,7 +457,7 @@ OTLP는 OpenTelemetry에서 정의한 텔레메트리 데이터(트레이스, �
 
 #### 트레이스 전송 흐름
 
-<img src="../docs/images/c4-traces-pipeline-architecture.png" alt="트레이스 파이프라인 아키텍처" width="800">
+<img src="../../images/c4-traces-pipeline-architecture.png" alt="트레이스 파이프라인 아키텍처" width="800">
 
 트레이스 데이터는 세 가지 구성 요소를 거쳐 수집되고 시각화됩니다. 먼저 **Strands Agent**가 에이전트 실행 과정에서 트레이스 데이터를 생성합니다. 생성된 트레이스는 OTLP 호환 도구로 전송할 수 있는데, 오늘은 **ADOT Collector**를 사용합니다.
 
@@ -521,7 +521,7 @@ Strands 로 계측한 트레이스 구조를 나타내면 다음과 같습니다
 
 ### Python 패키지 설치
 
-Strands SDK 가 지원하는 OTEL 내보내기를 활성하려면 `otel` 추가 의존성과 함께 Strands Agents를 설치합니다. [00-setup](../00-setup/README.ko.md)의 환경에는 `strands-agents[otel]`이 이미 포함되어 있으므로, 해당 챕터를 진행했다면 이 단계는 건너뛸 수 있습니다.
+Strands SDK 가 지원하는 OTEL 내보내기를 활성하려면 `otel` 추가 의존성과 함께 Strands Agents를 설치합니다. [00-setup](../00-setup/README.md)의 환경에는 `strands-agents[otel]`이 이미 포함되어 있으므로, 해당 챕터를 진행했다면 이 단계는 건너뛸 수 있습니다.
 
 ```bash
 pip install 'strands-agents[otel]'
@@ -584,7 +584,7 @@ uv run python 04-observability/labs/traces_console.py
 - Jaeger 컨테이너는 OTLP 트레이스를 수신하여 UI로 시각화합니다.
 
 > [!WARNING]
-> **여기서부터는 Docker가 필요합니다.** 워크샵에서 사용하는 AWS 호스팅 VS Code Server에는 Docker가 미리 설치되어 실행 중입니다. 개인 노트북에서 진행하는 경우 Docker Desktop(또는 동등한 런타임)을 먼저 설치하고 실행해야 합니다. `docker ps` 명령으로 확인할 수 있습니다. Docker를 사용할 수 없다면 실습 1까지만 진행하거나, 로컬 컬렉터가 필요 없는 [07-agentcore-observability](../07-agentcore-observability/README.ko.md)의 관리형 방식을 이용하세요.
+> **여기서부터는 Docker가 필요합니다.** 워크샵에서 사용하는 AWS 호스팅 VS Code Server에는 Docker가 미리 설치되어 실행 중입니다. 개인 노트북에서 진행하는 경우 Docker Desktop(또는 동등한 런타임)을 먼저 설치하고 실행해야 합니다. `docker ps` 명령으로 확인할 수 있습니다. Docker를 사용할 수 없다면 실습 1까지만 진행하거나, 로컬 컬렉터가 필요 없는 [07-agentcore-observability](../07-agentcore-observability/README.md)의 관리형 방식을 이용하세요.
 
 **1.** OTLP 파이프라인을 구성하기 위한 스크립트가 준비되어 있습니다.
 
@@ -654,7 +654,7 @@ export OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318"
 
 브라우저에서 `http://localhost:16686/`에 접속합니다. 아직 트레이스 데이터가 없으므로 빈 화면이 표시됩니다.
 
-<img src="../docs/images/c4-jaeger-ui-empty.png" alt="Jaeger UI 빈 화면" width="756">
+<img src="../../images/c4-jaeger-ui-empty.png" alt="Jaeger UI 빈 화면" width="756">
 
 > [!NOTE]
 > **Workshop Jaeger 접속 정보**
@@ -662,7 +662,7 @@ export OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318"
 >
 > `https://<CodeServer 도메인>/proxy/16686/`
 
-<img src="../docs/images/c4-jaeger-url-sample.png" alt="Jaeger URL 예시" width="756">
+<img src="../../images/c4-jaeger-url-sample.png" alt="Jaeger URL 예시" width="756">
 
 ### 실습 3: OTLP 엔드포인트로 트레이스 전송
 
@@ -724,8 +724,8 @@ uv run python 04-observability/labs/traces_otlp.py
 2. **Find Traces** 버튼을 클릭합니다
 3. 트레이스를 클릭하여 상세 스팬 정보를 확인합니다
 
-<img src="../docs/images/c4-jaeger-ui-search.png" alt="Jaeger UI 트레이스 검색" width="756">
-<img src="../docs/images/c4-jaeger-span-chat.png" alt="Chat 스팬 상세 정보" width="756">
+<img src="../../images/c4-jaeger-ui-search.png" alt="Jaeger UI 트레이스 검색" width="756">
+<img src="../../images/c4-jaeger-span-chat.png" alt="Chat 스팬 상세 정보" width="756">
 
 <details>
 <summary>Appendix: 스팬 속성과 그 외 내보내기 옵션</summary>
@@ -848,7 +848,7 @@ docker logs adot | tail -50
 
 **`docker: command not found` 또는 Docker가 실행 중이 아닙니다**
 
-OTLP 실습에는 로컬 Docker 런타임이 필요합니다. 워크샵의 AWS 호스팅 VS Code Server에는 Docker가 미리 설치되어 있지만, 개인 노트북에는 없을 수 있습니다. Docker Desktop을 설치하고 실행한 뒤 `enable-otlp.sh`를 다시 실행하세요. Docker를 설치할 수 없다면 실습 1(콘솔 익스포터)만 진행하거나, 로컬 컬렉터가 필요 없는 [07-agentcore-observability](../07-agentcore-observability/README.ko.md)의 관리형 파이프라인을 사용하세요.
+OTLP 실습에는 로컬 Docker 런타임이 필요합니다. 워크샵의 AWS 호스팅 VS Code Server에는 Docker가 미리 설치되어 있지만, 개인 노트북에는 없을 수 있습니다. Docker Desktop을 설치하고 실행한 뒤 `enable-otlp.sh`를 다시 실행하세요. Docker를 설치할 수 없다면 실습 1(콘솔 익스포터)만 진행하거나, 로컬 컬렉터가 필요 없는 [07-agentcore-observability](../07-agentcore-observability/README.md)의 관리형 파이프라인을 사용하세요.
 
 **`Conflict. The container name "/jaeger" is already in use` 오류가 발생합니다**
 
@@ -859,4 +859,4 @@ OTLP 실습에는 로컬 Docker 런타임이 필요합니다. 워크샵의 AWS �
 `traces_otlp.py`는 `setup_meter(enable_otlp_exporter=True)`로 OTLP 메트릭 익스포터도 활성화하지만, `otel-config.yaml`에는 traces 파이프라인만 정의되어 있습니다. 따라서 트레이스는 정상 동작하고 메트릭 전송만 실패합니다. 제공된 설정에서는 예상되는 동작이며, 메트릭은 콘솔 익스포터를 통해 로컬에 계속 출력됩니다.
 
 ---
-Prev: [3. 챗봇 애플리케이션](../03-chatbot-app/README.ko.md) | Next: [5. 에이전트 메모리](../05-agent-memory/README.ko.md)
+Prev: [3. 챗봇 애플리케이션](../03-chatbot-app/README.md) | Next: [5. 에이전트 메모리](../05-agent-memory/README.md)

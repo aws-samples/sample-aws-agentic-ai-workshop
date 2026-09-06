@@ -1,8 +1,6 @@
 # 08. Kiro IDE로 개발하기
 
-<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
-
-[English README](README.md)
+<p align="center"><a href="README.md">한국어</a> | <a href="../../en/08-kiro-dev/README.md">English</a></p>
 
 > [!NOTE]
 > 이 챕터는 **선택 사항**입니다. C1부터 C7까지의 내용을 전제로 하지 않으며, 이후 챕터가 이 챕터에 의존하지도 않습니다. Strands Agents와 AgentCore 경로만 진행하려면 건너뛰어도 됩니다.
@@ -13,7 +11,7 @@
 
 [Kiro](https://kiro.dev/)는 AWS에서 제공하는 AI 기반 통합 개발 환경(IDE)입니다. VS Code 기반으로 구축되어 익숙한 개발 경험을 제공하면서도, AI 에이전트가 개발 과정 전반을 지원합니다.
 
-![Kiro logo](../../docs/images/kiro-logo.png)
+![Kiro logo](../../images/kiro-logo.png)
 
 ### Kiro의 주요 특징
 
@@ -24,7 +22,7 @@
 
 > [!NOTE]
 > **사전 준비 사항**
-> - [00-setup](../00-setup/README.ko.md) 기준으로 환경 구성 완료
+> - [00-setup](../00-setup/README.md) 기준으로 환경 구성 완료
 > - `us-west-2` 리전에서 Anthropic Claude 모델 액세스 활성화 (Kiro가 생성한 에이전트를 실행하기 위해 필요)
 > - Kiro IDE ([kiro.dev](https://kiro.dev/)에서 직접 설치하거나, 워크샵 환경에서 제공되는 것을 사용)
 > - Kiro 구독 (실습 체험에는 Free 티어로도 충분하며, 워크샵에서는 Kiro Pro를 사용합니다)
@@ -77,7 +75,7 @@ Kiro는 크레딧 기반의 요금제를 제공합니다. AWS 콘솔에서 조�
 > **크레딧이란?**
 > 크레딧은 Kiro AI 기능 사용량을 측정하는 단위입니다. 코드 생성, 채팅, Spec 작성 등 AI 기능을 사용할 때마다 크레딧이 소모됩니다.
 
-<img src="../docs/images/c7-kiro-plans.png" alt="Kiro Console" width="800">
+<img src="../../images/c7-kiro-plans.png" alt="Kiro Console" width="800">
 
 ### 1단계: Kiro 프로파일 만들기
 
@@ -85,11 +83,11 @@ N.Virginia 리전의 AWS 콘솔에서 Kiro 프로파일을 생성합니다.
 
 **1.** AWS 콘솔에서 [Kiro 콘솔](https://us-east-1.console.aws.amazon.com/amazonq/developer/home)로 이동합니다.
 
-<img src="../docs/images/c7-kiro-console.png" alt="Kiro Console" width="800">
+<img src="../../images/c7-kiro-console.png" alt="Kiro Console" width="800">
 
 **2.** **Enable small teams**를 클릭합니다. 이 기능으로 Kiro 사용자를 신규 등록하고 구독 플랜을 연결할 수 있습니다.
 
-<img src="../docs/images/c7-kiro-add-user.png" alt="Kiro Create User" width="800">
+<img src="../../images/c7-kiro-add-user.png" alt="Kiro Create User" width="800">
 
 **3.** 사용자 정보를 입력합니다.
 - **이메일 주소**: 정확하게 입력해주세요 (후속 절차에 필요)
@@ -100,11 +98,11 @@ N.Virginia 리전의 AWS 콘솔에서 Kiro 프로파일을 생성합니다.
 
 **5.** 이 유저에게 할당할 Kiro 구독 플랜을 선택합니다. **Kiro Pro**를 선택하고 **Continue**를 클릭합니다.
 
-<img src="../docs/images/c7-kiro-plan-selection.png" alt="Kiro Plan Selection" width="800">
+<img src="../../images/c7-kiro-plan-selection.png" alt="Kiro Plan Selection" width="800">
 
 **6.** **Enable and Subscribe**를 클릭합니다.
 
-<img src="../docs/images/c7-kiro-enable-subs.png" alt="Kiro Enable and Subscribe" width="800">
+<img src="../../images/c7-kiro-enable-subs.png" alt="Kiro Enable and Subscribe" width="800">
 
 ### 2단계: 다중인증(MFA) 설정
 
@@ -112,11 +110,11 @@ Kiro 프로파일 생성 시 함께 설정된 IAM Identity Center 조직 인스�
 
 **7.** N.Virginia의 [AWS IAM Identity Center 콘솔](https://us-east-1.console.aws.amazon.com/singlesignon/home)로 이동합니다.
 
-<img src="../docs/images/c7-sso-console.png" alt="IAM Identity Center Console" width="800">
+<img src="../../images/c7-sso-console.png" alt="IAM Identity Center Console" width="800">
 
 **8.** **Configure MFA**를 클릭합니다.
 
-<img src="../docs/images/c7-sso-mfa-config.png" alt="MFA Configuration" width="800">
+<img src="../../images/c7-sso-mfa-config.png" alt="MFA Configuration" width="800">
 
 **9.** 이번 실습에서는 MFA 인증 절차를 생략합니다. **Prompt users for MFA** 속성에서 **Never**를 선택하고 저장합니다.
 
@@ -130,7 +128,7 @@ Kiro 프로파일 생성 시 함께 설정된 IAM Identity Center 조직 인스�
 
 **10.** 등록한 이메일로 전송된 초대 메일에서 **초대 수락** 버튼을 클릭합니다.
 
-<img src="../docs/images/c7-kiro-invitation-email.png" alt="Invitation Email" width="800">
+<img src="../../images/c7-kiro-invitation-email.png" alt="Invitation Email" width="800">
 
 > [!NOTE]
 > **주요 정보**
@@ -139,11 +137,11 @@ Kiro 프로파일 생성 시 함께 설정된 IAM Identity Center 조직 인스�
 
 **11.** 새 사용자의 비밀번호를 설정합니다.
 
-<img src="../docs/images/c7-kiro-set-password.png" alt="Set Password" width="800">
+<img src="../../images/c7-kiro-set-password.png" alt="Set Password" width="800">
 
 **12.** AWS access portal로 이동됩니다. 이 유저가 Kiro 서비스에 접근하도록 허가하는 절차입니다.
 
-<img src="../docs/images/c7-kiro-access-portal.png" alt="Kiro Access Portal" width="800">
+<img src="../../images/c7-kiro-access-portal.png" alt="Kiro Access Portal" width="800">
 
 ### 구독 확인
 
@@ -151,9 +149,9 @@ Kiro 프로파일 생성 시 함께 설정된 IAM Identity Center 조직 인스�
 
 **14.** 좌측 메뉴에서 **Users & Groups** > **Users** 탭을 확인합니다.
 
-<img src="../docs/images/c7-kiro-user-tab.png" alt="Kiro User Tab" width="800">
+<img src="../../images/c7-kiro-user-tab.png" alt="Kiro User Tab" width="800">
 
-<img src="../docs/images/c7-kiro-sub-tab.png" alt="Kiro Subscription Tab" width="800">
+<img src="../../images/c7-kiro-sub-tab.png" alt="Kiro Subscription Tab" width="800">
 
 현재 Kiro Pro 플랜에 등록된 사용자가 확인됩니다. 여러분이 제공한 정보와 일치하는지 확인해 주세요.
 
@@ -183,7 +181,7 @@ Kiro 프로파일 생성 시 함께 설정된 IAM Identity Center 조직 인스�
 | **KiroIDEURL** | Kiro IDE 접속 URL (DCV 웹 클라이언트) |
 | **Password** | 로그인 비밀번호 |
 
-<img src="../docs/images/c7-cfn-outputs.png" alt="CloudFormation Outputs" width="800">
+<img src="../../images/c7-cfn-outputs.png" alt="CloudFormation Outputs" width="800">
 
 **4.** **KiroIDEURL** 값을 복사하여 브라우저에서 새 탭으로 엽니다.
 
@@ -192,29 +190,29 @@ Kiro 프로파일 생성 시 함께 설정된 IAM Identity Center 조직 인스�
 - **Username**: `ec2-user`
 - **Password**: CloudFormation Output의 **Password** 값
 
-<img src="../docs/images/c7-dcv-login.png" alt="DCV Login" width="800">
+<img src="../../images/c7-dcv-login.png" alt="DCV Login" width="800">
 
 **6.** 로그인 후 데스크톱 환경이 표시됩니다.
 
 **7.** 앱 목록 또는 바탕화면에서 **Kiro IDE** 아이콘을 찾아 클릭하여 실행합니다.
 
-<img src="../docs/images/c7-kiro-icon-search.png" alt="Kiro IDE Icon" width="800">
+<img src="../../images/c7-kiro-icon-search.png" alt="Kiro IDE Icon" width="800">
 
-<img src="../docs/images/c7-kiro-icon.png" alt="Kiro IDE Icon" width="800">
+<img src="../../images/c7-kiro-icon.png" alt="Kiro IDE Icon" width="800">
 
 ### Kiro IDE 초기 설정
 
 **8.** Kiro IDE가 실행되면 **Sign in**을 진행하고, 나타난 화면에서 **Your organization** 옵션으로 로그인합니다.
 
-<img src="../docs/images/c7-kiro-login-options.png" alt="Kiro Login Options" width="800">
+<img src="../../images/c7-kiro-login-options.png" alt="Kiro Login Options" width="800">
 
-<img src="../docs/images/c7-org-start-url.png" alt="Organization Start URL" width="800">
+<img src="../../images/c7-org-start-url.png" alt="Organization Start URL" width="800">
 
 - Start URL: 조직 초대 과정에서 받은 메일에서 조직 URL 정보를 확인해서 기입합니다.
 
 **9.** 로그인이 완료되면 Kiro IDE 메인 화면이 표시됩니다.
 
-<img src="../docs/images/c7-kiro-main.png" alt="Kiro IDE Main" width="800">
+<img src="../../images/c7-kiro-main.png" alt="Kiro IDE Main" width="800">
 
 > [!WARNING]
 > **접속 문제 해결**
@@ -233,7 +231,7 @@ Kiro 프로파일 생성 시 함께 설정된 IAM Identity Center 조직 인스�
 /home/ec2-user/workspace/my-workspace/dev
 ```
 
-<img src="../docs/images/c7-open-project.png" alt="Open Project" width="800">
+<img src="../../images/c7-open-project.png" alt="Open Project" width="800">
 
 **12.** 프로젝트가 열리면 좌측 Explorer에서 파일 구조를 확인할 수 있습니다.
 
@@ -265,7 +263,7 @@ Power는 Kiro에서 MCP(Model Context Protocol) 서버, 문서, 워크플로우 
 
 **4.** Available 창에서 **Build an agent with Strands** Power를 찾습니다.
 
-<img src="../docs/images/c7-get-strands-power.png" alt="Strands Power" width="800">
+<img src="../../images/c7-get-strands-power.png" alt="Strands Power" width="800">
 
 **5.** **Install** 버튼을 클릭하여 Power를 설치합니다.
 
@@ -277,7 +275,7 @@ Power는 Kiro에서 MCP(Model Context Protocol) 서버, 문서, 워크플로우 
 
 Steering은 Kiro AI가 코드를 생성할 때 따라야 할 규칙과 컨텍스트를 정의합니다. Steering 파일은 `.kiro/steering/` 하위의 마크다운 파일로, 앞부분에 작은 frontmatter 블록이 붙습니다. `inclusion: always`로 설정하면 Kiro가 해당 워크스페이스의 모든 요청에서 이 파일을 컨텍스트로 불러오므로, 매 프롬프트마다 규칙을 다시 적을 필요가 없습니다.
 
-이 리포지토리에는 실습용 Steering 파일이 [`.kiro/steering/strands-dev.md`](.kiro/steering/strands-dev.md)에 이미 포함되어 있습니다. 주요 규칙은 다음과 같습니다.
+이 리포지토리에는 실습용 Steering 파일이 [`.kiro/steering/strands-dev.md`](../../../dev/08-kiro-dev/.kiro/steering/strands-dev.md)에 이미 포함되어 있습니다. 주요 규칙은 다음과 같습니다.
 
 **작업 디렉토리**
 
@@ -345,7 +343,7 @@ response = agent("Hello World!")
 ```
 
 > [!NOTE]
-> OTLP 엔드포인트 `http://localhost:4318`은 [04. Strands SDK로 가시성 확보하기](../04-observability/README.ko.md)에서 사용한 로컬 컬렉터입니다. 컬렉터를 실행하고 있지 않아도 생성된 에이전트는 동작하며, 트레이스만 전송되지 않습니다. 트레이스를 확인하려면 C4의 Jaeger 컨테이너를 먼저 실행하세요.
+> OTLP 엔드포인트 `http://localhost:4318`은 [04. Strands SDK로 가시성 확보하기](../04-observability/README.md)에서 사용한 로컬 컬렉터입니다. 컬렉터를 실행하고 있지 않아도 생성된 에이전트는 동작하며, 트레이스만 전송되지 않습니다. 트레이스를 확인하려면 C4의 Jaeger 컨테이너를 먼저 실행하세요.
 
 리포지토리에 포함된 파일을 쓰지 않고 직접 작성하고 싶다면, 프로젝트 루트에 `.kiro/steering/` 디렉토리를 만들고 `strands-dev.md` 파일을 추가한 뒤 다음 frontmatter로 시작합니다.
 
@@ -359,7 +357,7 @@ inclusion: always
 
 ### MCP 서버 구성
 
-Kiro는 워크스페이스의 MCP 서버 설정을 `.kiro/settings/mcp.json`에서 읽습니다. 이 리포지토리의 [`.kiro/settings/mcp.json`](.kiro/settings/mcp.json)은 비어 있는 상태로 제공됩니다.
+Kiro는 워크스페이스의 MCP 서버 설정을 `.kiro/settings/mcp.json`에서 읽습니다. 이 리포지토리의 [`.kiro/settings/mcp.json`](../../../dev/08-kiro-dev/.kiro/settings/mcp.json)은 비어 있는 상태로 제공됩니다.
 
 ```json
 {
@@ -410,11 +408,11 @@ Kiro는 `.kiro/steering/strands-dev.md`를 읽고, `strands-docs` MCP 서버로 
 uv run --project 00-setup python 08-kiro-dev/labs/hanoi_tower.py
 ```
 
-이 프롬프트에 대한 참고 결과물은 [`completed/hanoi_tower.py`](completed/hanoi_tower.py)에 있습니다. 공유 퍼즐 상태를 다루는 다섯 개의 `@tool` 함수(`initialize_hanoi`, `move_disk`, `get_current_state`, `check_solution`, `get_hint`)를 정의하고, Steering 규칙이 요구하는 모델과 system prompt로 `hanoi_tower_solver` 에이전트를 생성하며, 호출을 try-except로 감싸고, `http://localhost:4318`로 향하는 OTLP exporter를 설정합니다. 여러분의 결과물과 비교해 보세요. 세부 내용은 다르더라도 Steering 규칙에 따른 구조는 일치해야 합니다.
+이 프롬프트에 대한 참고 결과물은 [`completed/hanoi_tower.py`](../../../dev/08-kiro-dev/completed/hanoi_tower.py)에 있습니다. 공유 퍼즐 상태를 다루는 다섯 개의 `@tool` 함수(`initialize_hanoi`, `move_disk`, `get_current_state`, `check_solution`, `get_hint`)를 정의하고, Steering 규칙이 요구하는 모델과 system prompt로 `hanoi_tower_solver` 에이전트를 생성하며, 호출을 try-except로 감싸고, `http://localhost:4318`로 향하는 OTLP exporter를 설정합니다. 여러분의 결과물과 비교해 보세요. 세부 내용은 다르더라도 Steering 규칙에 따른 구조는 일치해야 합니다.
 
 C4의 컬렉터를 실행한 상태라면 에이전트의 도구 호출이 스팬으로 표시됩니다.
 
-<img src="../docs/images/c7-strands-hanoi-traces.png" alt="Strands Hanoi traces" width="800">
+<img src="../../images/c7-strands-hanoi-traces.png" alt="Strands Hanoi traces" width="800">
 
 ### 자유 실습
 
@@ -481,4 +479,4 @@ Kiro 자체는 AWS 리소스를 만들지 않지만, 구독과 모델 호출에�
 워크샵의 모든 챕터를 완료했습니다. Kiro와 함께 자유롭게 실험하고, 여러분만의 AI 에이전트를 만들어보세요.
 
 ---
-Prev: [에이전트 가시성 (AgentCore Observability)](../07-agentcore-observability/README.ko.md) | [워크샵 개요로 돌아가기](../README.ko.md)
+Prev: [에이전트 가시성 (AgentCore Observability)](../07-agentcore-observability/README.md) | [워크샵 개요로 돌아가기](../../../README.ko.md)

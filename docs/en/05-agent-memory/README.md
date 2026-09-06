@@ -1,6 +1,6 @@
 # 5. Agent Memory (AgentCore Memory)
 
-<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
+<p align="center"><a href="../../ko/05-agent-memory/README.md">한국어</a> | <a href="README.md">English</a></p>
 
 In this lab, you will learn how to use Amazon Bedrock AgentCore Memory to enable agents to remember conversations and accumulate knowledge about users.
 
@@ -51,7 +51,7 @@ All commands below assume you are at the repo root.
 
 ## AgentCore Memory concepts
 
-<img src="../docs/images/c4-agentcore-memory-logo.png" alt="AgentCore Memory Logo" width="800">
+<img src="../../images/c4-agentcore-memory-logo.png" alt="AgentCore Memory Logo" width="800">
 
 AgentCore Memory is a managed memory service that enables AI agents to store and utilize conversations and knowledge.
 
@@ -69,7 +69,7 @@ AgentCore Memory provides two types of memory. Let's look at how each memory wor
 
 #### Short-Term Memory (STM)
 
-<img src="../docs/images/c4-stm-sample-chat-en.png" alt="STM sample chat" width="800">
+<img src="../../images/c4-stm-sample-chat-en.png" alt="STM sample chat" width="800">
 
 Short-term memory maintains conversation flow within a single session. Consider a customer service scenario as an example. When a customer says "Check my order status please," the agent responds with "Please tell me your order number." The customer replies "It's 12345," and the agent remembers this order number. Later, when the customer asks "When will it arrive?", the agent doesn't ask for the order number again. Since it already knows the order number is 12345, it can directly respond with "Order 12345 is expected to arrive tomorrow."
 
@@ -77,7 +77,7 @@ In this way, short-term memory saves turn-by-turn conversations within a session
 
 #### Long-Term Memory (LTM)
 
-<img src="../docs/images/c4-ltm-sample-chat-en.png" alt="LTM sample chat" width="800">
+<img src="../../images/c4-ltm-sample-chat-en.png" alt="LTM sample chat" width="800">
 
 Long-term memory persists knowledge even after sessions end. For example, if a customer said "I live in Gangnam, Seoul" during a conversation a week ago, the agent stores this address information in long-term memory. A week later, when the same customer asks "Please check the delivery address for my new order," the agent can query its long-term memory and respond with "It will be delivered to your Gangnam address. Is that correct?"
 
@@ -168,7 +168,7 @@ In this section, you will understand the concept of Short-Term Memory (STM) and 
 
 ### 1. What is short-term memory?
 
-<img src="../docs/images/c4-agentcore-stm.png" alt="AgentCore STM" width="800">
+<img src="../../images/c4-agentcore-stm.png" alt="AgentCore STM" width="800">
 
 Short-Term Memory (STM) stores conversation events that occur within a session.
 
@@ -346,7 +346,7 @@ In this section, you will learn how to accumulate knowledge across sessions usin
 
 ### 1. What is long-term memory?
 
-<img src="../docs/images/c4-agentcore-ltm.png" alt="AgentCore LTM" width="800">
+<img src="../../images/c4-agentcore-ltm.png" alt="AgentCore LTM" width="800">
 
 Long-Term Memory (LTM) extracts important information from conversations and stores it permanently. Unlike STM, knowledge persists even after sessions end.
 
@@ -832,7 +832,7 @@ uv run streamlit run 05-agent-memory/labs/streamlit_with_memory.py
 
 You can verify that the agent remembers previous conversations even after browser refresh.
 
-<img src="../docs/images/c4-streamlit-sample-chat1.png" alt="Streamlit Chat 1" width="800">
+<img src="../../images/c4-streamlit-sample-chat1.png" alt="Streamlit Chat 1" width="800">
 
 **3-3.** Test new session.
 
@@ -843,7 +843,7 @@ You can verify that the agent remembers previous conversations even after browse
 
 Because the app reads the session ID from the `session` URL parameter, you can also reopen a conversation by visiting the app with `?session=<session-id>`. The agent recalls what was said in that session.
 
-<img src="../docs/images/c4-streamlit-sample-chat2.png" alt="Streamlit Chat 2" width="800">
+<img src="../../images/c4-streamlit-sample-chat2.png" alt="Streamlit Chat 2" width="800">
 
 <details>
 <summary>Chapter key concepts review</summary>

@@ -1,6 +1,6 @@
 # 4. Agent Observability (Strands Observability)
 
-<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
+<p align="center"><a href="../../ko/04-observability/README.md">한국어</a> | <a href="README.md">English</a></p>
 
 In this chapter, you will learn about the Agent Observability features provided by the Strands SDK. We'll cover Metrics, Logs, and Traces, which are essential for monitoring and debugging agent behavior.
 
@@ -461,7 +461,7 @@ In this lab, you will learn how to trace agent execution using Strands SDK's Ope
 
 OTLP is a standard protocol defined by OpenTelemetry for transmitting telemetry data (traces, metrics, logs). It supports two transport methods, gRPC and HTTP. In this lab, we use **HTTP on port 4318**.
 
-<img src="../docs/images/c4-traces-pipeline-architecture.png" alt="Trace pipeline architecture" width="800">
+<img src="../../images/c4-traces-pipeline-architecture.png" alt="Trace pipeline architecture" width="800">
 
 Trace data is collected and visualized through three components. First, the **Strands Agent** generates trace data during agent execution. The generated traces can be sent to OTLP-compatible tools, and today we use the **ADOT Collector**. ADOT acts as an intermediate collector that receives data via OTLP protocol on HTTP port 4318 and forwards it to backend systems. Finally, **Jaeger** stores the traces and provides visualized trace information through its web UI on port 16686.
 
@@ -655,7 +655,7 @@ export OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318"
 
 Access `http://localhost:16686/` in your browser. Since there's no trace data yet, an empty screen will be displayed.
 
-<img src="../docs/images/c4-jaeger-ui-empty.png" alt="Jaeger UI Empty" width="756">
+<img src="../../images/c4-jaeger-ui-empty.png" alt="Jaeger UI Empty" width="756">
 
 > [!NOTE]
 > **Workshop Jaeger access information**
@@ -663,7 +663,7 @@ Access `http://localhost:16686/` in your browser. Since there's no trace data ye
 >
 > `https://<CodeServer domain>/proxy/16686/`
 
-<img src="../docs/images/c4-jaeger-url-sample.png" alt="Jaeger URL Sample" width="756">
+<img src="../../images/c4-jaeger-url-sample.png" alt="Jaeger URL Sample" width="756">
 
 ### Lab 3: Sending Traces to the OTLP Endpoint
 
@@ -725,8 +725,8 @@ Access `http://localhost:16686/` in your browser. Wait a moment for traces to ar
 2. Click the **Find Traces** button
 3. Click on a trace to view detailed span information
 
-<img src="../docs/images/c4-jaeger-ui-search.png" alt="Jaeger UI trace search" width="756">
-<img src="../docs/images/c4-jaeger-span-chat.png" alt="Jaeger span detail for a Chat span" width="756">
+<img src="../../images/c4-jaeger-ui-search.png" alt="Jaeger UI trace search" width="756">
+<img src="../../images/c4-jaeger-span-chat.png" alt="Jaeger span detail for a Chat span" width="756">
 
 <details>
 <summary>Appendix: span attributes and other export options</summary>

@@ -32,15 +32,15 @@
 
 | # | 챕터 | 내용 | ⏱️ 소요 시간 | 📊 난이도 | 구분 |
 |---|------|------|--------------|-----------|------|
-| 00 | [환경 설정](dev/00-setup/README.ko.md) | Python 환경, AWS 자격 증명, Bedrock 모델 액세스 | 10분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
-| 01 | [단일 에이전트](dev/01-single-agent/README.ko.md) | Prompt·Model·Tools 기본 구성, Bedrock Knowledge Base, MCP 도구, 자가개선 에이전트 | 30분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
-| 02 | [멀티 에이전트 패턴](dev/02-multi-agents/README.ko.md) | Agents-as-Tools, Swarm, Graph | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
-| 03 | [챗봇 애플리케이션](dev/03-chatbot-app/README.ko.md) | Streamlit 채팅 UI, 스트리밍 응답, 도구 호출 시각화 | 10분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 선택 |
-| 04 | [Strands Observability](dev/04-observability/README.ko.md) | 메트릭, 로그, OTLP 트레이스와 로컬 Jaeger | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 선택 |
-| 05 | [에이전트 메모리](dev/05-agent-memory/README.ko.md) | AgentCore Memory 단기·장기 메모리 | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
-| 06 | [AgentCore Runtime](dev/06-agentcore-runtime/README.ko.md) | 에이전트 서버리스 배포 | 20분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
-| 07 | [AgentCore Observability](dev/07-agentcore-observability/README.ko.md) | CloudWatch GenAI Observability 대시보드 | 10분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
-| 08 | [Kiro IDE로 개발하기](dev/08-kiro-dev/README.ko.md) | Steering, MCP 설정, 스펙 기반 개발 | 10분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 선택 |
+| 00 | [환경 설정](docs/ko/00-setup/README.md) | Python 환경, AWS 자격 증명, Bedrock 모델 액세스 | 10분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
+| 01 | [단일 에이전트](docs/ko/01-single-agent/README.md) | Prompt·Model·Tools 기본 구성, Bedrock Knowledge Base, MCP 도구, 자가개선 에이전트 | 30분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
+| 02 | [멀티 에이전트 패턴](docs/ko/02-multi-agents/README.md) | Agents-as-Tools, Swarm, Graph | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
+| 03 | [챗봇 애플리케이션](docs/ko/03-chatbot-app/README.md) | Streamlit 채팅 UI, 스트리밍 응답, 도구 호출 시각화 | 10분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 선택 |
+| 04 | [Strands Observability](docs/ko/04-observability/README.md) | 메트릭, 로그, OTLP 트레이스와 로컬 Jaeger | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 선택 |
+| 05 | [에이전트 메모리](docs/ko/05-agent-memory/README.md) | AgentCore Memory 단기·장기 메모리 | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
+| 06 | [AgentCore Runtime](docs/ko/06-agentcore-runtime/README.md) | 에이전트 서버리스 배포 | 20분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
+| 07 | [AgentCore Observability](docs/ko/07-agentcore-observability/README.md) | CloudWatch GenAI Observability 대시보드 | 10분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
+| 08 | [Kiro IDE로 개발하기](docs/ko/08-kiro-dev/README.md) | Steering, MCP 설정, 스펙 기반 개발 | 10분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 선택 |
 
 > [!IMPORTANT]
 > 01, 02, 05, 06, 07 챕터가 핵심 경로입니다. 03, 04, 08 챕터는 독립적으로 구성되어 있어 건너뛸 수 있습니다. 챕터 간 의존성은 하나뿐입니다. 07 챕터는 06 챕터에서 배포한 에이전트의 텔레메트리를 확인하는 실습입니다.
@@ -62,7 +62,7 @@
 
 ```bash
 git clone https://github.com/aws-samples/sample-aws-agentic-ai-workshop.git
-cd sample-aws-agentic-ai-workshop/00-setup
+cd sample-aws-agentic-ai-workshop/dev/00-setup
 uv sync
 cd ..
 ```
@@ -73,7 +73,10 @@ cd ..
 uv run --project 00-setup python 01-single-agent/completed/basic.py
 ```
 
-에이전트 응답이 출력되면 환경 준비가 끝났습니다. 자세한 설정 안내는 [00-setup/README.ko.md](dev/00-setup/README.ko.md)를 참고하고, [01 챕터](dev/01-single-agent/README.ko.md)부터 실습을 시작하세요.
+에이전트 응답이 출력되면 환경 준비가 끝났습니다. 자세한 설정 안내는 [환경 설정 가이드](docs/ko/00-setup/README.md)를 참고하고, [01 챕터](docs/ko/01-single-agent/README.md)부터 실습을 시작하세요.
+
+> [!NOTE]
+> 실습 명령어의 경로는 모두 `dev/` 디렉토리를 기준으로 합니다. 명령은 `dev/`에서 실행하세요.
 
 ---
 
@@ -112,36 +115,48 @@ uv run --project 00-setup python 01-single-agent/completed/basic.py
 
 ## 📁 레포지토리 구조
 
+코드는 `dev/` 아래, 실습 가이드는 `docs/` 아래에 있습니다. 두 트리는 챕터 단위로 같은 구조를 따릅니다.
+
 ```
 sample-aws-agentic-ai-workshop/
-├── 00-setup/                     # 환경 설정, uv 프로젝트, 의존성
-│   ├── pyproject.toml
-│   ├── uv.lock
-│   └── create-uv-env.sh
-├── 01-single-agent/
-│   ├── labs/                     # 직접 작성하는 파일
-│   ├── completed/                # 완성된 참고 코드
-│   └── README.md
-├── 02-multi-agents/
-├── 03-chatbot-app/
-├── 04-observability/
-│   └── docker/                   # OTel Collector + Jaeger
-├── 05-agent-memory/
-├── 06-agentcore-runtime/
-├── 07-agentcore-observability/   # 콘솔 실습 전용, README만 존재
-├── 08-kiro-dev/
-│   └── .kiro/                    # steering 규칙과 MCP 설정
-└── docs/images/                  # 챕터 README에서 참조하는 스크린샷
+├── dev/                          # 워크샵 코드 전체, 명령은 이 디렉토리에서 실행
+│   ├── 00-setup/                 # 환경 설정, uv 프로젝트, 의존성
+│   │   ├── pyproject.toml
+│   │   ├── uv.lock
+│   │   └── create-uv-env.sh
+│   ├── 01-single-agent/
+│   │   ├── labs/                 # 직접 작성하는 파일
+│   │   └── completed/            # 완성된 참고 코드
+│   ├── 02-multi-agents/
+│   ├── 03-chatbot-app/
+│   ├── 04-observability/
+│   │   └── docker/               # OTel Collector + Jaeger
+│   ├── 05-agent-memory/
+│   ├── 06-agentcore-runtime/
+│   ├── 07-agentcore-observability/   # 콘솔 실습 전용, 코드 없음
+│   └── 08-kiro-dev/
+│       └── .kiro/                # steering 규칙과 MCP 설정
+└── docs/                         # 실습 가이드 전체
+    ├── en/                       # 영문 가이드, 챕터별 폴더
+    │   ├── 00-setup/README.md
+    │   ├── 01-single-agent/README.md
+    │   └── ...
+    ├── ko/                       # 한글 가이드, 폴더 이름 동일
+    │   ├── 00-setup/README.md
+    │   ├── 01-single-agent/README.md
+    │   └── ...
+    └── images/                   # 가이드에서 참조하는 스크린샷
 ```
 
-모든 챕터 폴더는 동일한 구조를 따릅니다.
+모든 챕터는 동일한 구조를 따릅니다.
 
 ```
-NN-chapter/
-├── README.md        # 영문 실습 가이드
-├── README.ko.md     # 한글 실습 가이드
-├── labs/            # 빈 파일, 직접 코드를 작성합니다
-└── completed/       # 참고 답안, 막히면 실행해 보세요
+dev/NN-chapter/
+├── labs/                    # 빈 파일, 직접 코드를 작성합니다
+└── completed/               # 참고 답안, 막히면 실행해 보세요
+
+docs/en/NN-chapter/README.md # 영문 실습 가이드
+docs/ko/NN-chapter/README.md # 한글 실습 가이드
 ```
 
 ---
@@ -164,7 +179,7 @@ NN-chapter/
 
 ## 🐛 트러블슈팅
 
-여러 챕터에서 공통으로 겪는 문제들입니다. 챕터별 고유 문제는 각 챕터의 트러블슈팅 섹션을 참고하세요: [00](00-setup/README.ko.md#트러블슈팅), [01](01-single-agent/README.ko.md#트러블슈팅), [02](02-multi-agents/README.ko.md#트러블슈팅), [03](03-chatbot-app/README.ko.md#트러블슈팅), [04](04-observability/README.ko.md#트러블슈팅), [05](05-agent-memory/README.ko.md#트러블슈팅), [06](06-agentcore-runtime/README.ko.md#트러블슈팅).
+여러 챕터에서 공통으로 겪는 문제들입니다. 챕터별 고유 문제는 각 챕터의 트러블슈팅 섹션을 참고하세요: [00](docs/ko/00-setup/README.md#트러블슈팅), [01](docs/ko/01-single-agent/README.md#트러블슈팅), [02](docs/ko/02-multi-agents/README.md#트러블슈팅), [03](docs/ko/03-chatbot-app/README.md#트러블슈팅), [04](docs/ko/04-observability/README.md#트러블슈팅), [05](docs/ko/05-agent-memory/README.md#트러블슈팅), [06](docs/ko/06-agentcore-runtime/README.md#트러블슈팅).
 
 | 증상 | 원인과 해결 |
 |---|---|

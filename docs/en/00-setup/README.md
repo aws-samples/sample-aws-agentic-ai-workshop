@@ -1,12 +1,12 @@
 # 00. Setup
 
-<p align="center"><a href="README.ko.md">한국어</a> | <a href="README.md">English</a></p>
+<p align="center"><a href="../../ko/00-setup/README.md">한국어</a> | <a href="README.md">English</a></p>
 
 This chapter prepares the environment that every later chapter uses: a Python 3.12 project managed by [uv](https://docs.astral.sh/uv/), AWS credentials that can call Amazon Bedrock, and Bedrock model access in `us-west-2`.
 
 An AWS account is required for the workshop. There are two ways to get a working environment, and you only need one of them. Path A runs the labs on your own machine and is the shorter route if you are reading this repository on GitHub. Path B deploys an AWS-hosted VS Code Server with CloudFormation and is what the instructor-led workshop uses.
 
-![Getting started](../../docs/images/1-getting-start.svg)
+![Getting started](../../images/1-getting-start.svg)
 
 > [!NOTE]
 > **How the labs work**
@@ -179,27 +179,27 @@ Follow this only if you are running the workshop during an AWS event, using the 
 
 1. Get the login URL from the event organizer. When you open it, the page below appears. Click the **Email One-Time Password (OTP)** button.
 
-   <img src="../docs/images/b1-01-sign-with-email.png" alt="Sign in with email">
+   <img src="../../images/b1-01-sign-with-email.png" alt="Sign in with email">
 
 2. Enter your email address and click **Send passcode**.
 
-   <img src="../docs/images/b1-02-WSS-email.png" alt="Enter email address" width="1000">
+   <img src="../../images/b1-02-WSS-email.png" alt="Enter email address" width="1000">
 
 3. In your mailbox, open the "Your one-time passcode" email and copy the passcode. Paste it in, then click **Sign in**.
 
-   <img src="../docs/images/b1-03-WSS-passcode.png" alt="Enter the one-time passcode">
+   <img src="../../images/b1-03-WSS-passcode.png" alt="Enter the one-time passcode">
 
 4. Enter the access code the event organizer provided and click **Next**. It is usually prefilled or announced by the facilitator.
 
-   <img src="../docs/images/b1-04-enter-access-code.png" alt="Enter access code">
+   <img src="../../images/b1-04-enter-access-code.png" alt="Enter access code">
 
 5. Check **I agree with the Terms and Conditions** and click **Join event**.
 
-   <img src="../docs/images/b1-05-workshop-studio-tc.png" alt="Terms and conditions">
+   <img src="../../images/b1-05-workshop-studio-tc.png" alt="Terms and conditions">
 
 6. Click **Open AWS Console** in the left menu to open the AWS console in a new browser window.
 
-   <img src="../docs/images/b1-06-console_access.png" alt="Open AWS Console">
+   <img src="../../images/b1-06-console_access.png" alt="Open AWS Console">
 
 </details>
 
@@ -218,22 +218,22 @@ Once you have an AWS account, create an IAM user that can access it. Follow the 
 1. From the [sign-in page](https://console.aws.amazon.com/), sign in to the [IAM console](https://console.aws.amazon.com/iam/home#/home) as the **root user of your AWS account**, using the account email address and password.
 2. In the left sidebar of the IAM console, click **Users**, then click **Add user**.
 
-   ![Create IAM user](../../docs/images/iam-user-01.png)
+   ![Create IAM user](../../images/iam-user-01.png)
 
 3. Enter `Administrator` for **User name**.
 4. Select the **AWS Management Console access** checkbox and check **I want to create an IAM user**.
 5. Select **Custom password** and enter a password.
 6. Click **Next**.
 
-   ![Create IAM user](../../docs/images/iam-user-02.png)
+   ![Create IAM user](../../images/iam-user-02.png)
 
 7. Select **Attach existing policies directly**, check the **AdministratorAccess** policy, and click **Next**.
 
-   ![Attach AdministratorAccess](../../docs/images/iam-user-03.png)
+   ![Attach AdministratorAccess](../../images/iam-user-03.png)
 
 8. Confirm that the AdministratorAccess managed policy is attached to the Administrator user and click **Create user**.
 
-   ![Review and create](../../docs/images/iam-user-04.png)
+   ![Review and create](../../images/iam-user-04.png)
 
 9. Once the user is created, copy the **Console sign-in URL**. It has this shape:
 
@@ -244,7 +244,7 @@ Once you have an AWS account, create an IAM user that can access it. Follow the 
    > [!WARNING]
    > `<your_aws_account_id>` is your AWS account's own ID. Running this workshop as the root user is not recommended. Sign in as the Administrator user instead.
 
-   ![Console sign-in URL](../../docs/images/iam-user-05.png)
+   ![Console sign-in URL](../../images/iam-user-05.png)
 
 10. Sign out of the root user, open the URL you copied, and **sign in as the Administrator user you just created**.
 
@@ -259,11 +259,11 @@ With the template downloaded:
 
 1. In the AWS console, go to CloudFormation and click **Create stack** then **With new resources (standard)**.
 
-   <img src="../docs/images/b2-sagemaker-3.png" alt="Create stack with new resources">
+   <img src="../../images/b2-sagemaker-3.png" alt="Create stack with new resources">
 
 2. Click **Upload a template file** and upload the yaml file.
 
-   <img src="../docs/images/b3-sagemaker-4.png" alt="Upload a template file">
+   <img src="../../images/b3-sagemaker-4.png" alt="Upload a template file">
 
 3. Enter the stack name:
 
@@ -271,7 +271,7 @@ With the template downloaded:
    code-server-python
    ```
 
-   <img src="../docs/images/code-server-1.png" alt="Stack name">
+   <img src="../../images/code-server-1.png" alt="Stack name">
 
 4. Check the box acknowledging that the stack creates IAM resources.
 5. Leave everything else at its default, click **Next**, then **Submit**.
@@ -284,16 +284,16 @@ With the template downloaded:
 1. Go to [CloudFormation](https://us-east-1.console.aws.amazon.com/cloudformation/home) in the AWS console and confirm the `code-server-python` stack is deployed.
 2. Open the **Outputs** tab, copy the code-server password, then open the code-server URL from the same tab and paste the password in.
 
-   <img src="../docs/images/code-server-2.png" alt="Stack outputs with URL and password" width="1000">
-   <img src="../docs/images/b2-sagemaker-2.png" alt="code-server login" width="1000">
+   <img src="../../images/code-server-2.png" alt="Stack outputs with URL and password" width="1000">
+   <img src="../../images/b2-sagemaker-2.png" alt="code-server login" width="1000">
 
 3. You should see this screen.
 
-   <img src="../docs/images/b2-sagemaker-7.png" alt="code-server ready" width="800">
+   <img src="../../images/b2-sagemaker-7.png" alt="code-server ready" width="800">
 
 4. Open a terminal.
 
-   ![Open the terminal](../../docs/images/b2-2-terminal.png)
+   ![Open the terminal](../../images/b2-2-terminal.png)
 
 ### 3. Create the Python environment
 
@@ -306,8 +306,8 @@ chmod +x ./create-uv-env.sh
 cd ..
 ```
 
-![Running create-uv-env.sh](../../docs/images/codeserver-uv-1.png)
-![create-uv-env.sh finished](../../docs/images/codeserver-uv-2.png)
+![Running create-uv-env.sh](../../images/codeserver-uv-1.png)
+![create-uv-env.sh finished](../../images/codeserver-uv-2.png)
 
 > [!NOTE]
 > **Reading line 3**
@@ -396,4 +396,4 @@ You are running the system Python instead of the project environment. Use `uv ru
 See [Optional: Korean fonts for matplotlib](#6-optional-korean-fonts-for-matplotlib).
 
 ---
-Prev: [Agentic AI on AWS Workshop](../README.md) | Next: [01. Building a Basic Single Agent](../01-single-agent/README.md)
+Prev: [Agentic AI on AWS Workshop](../../../README.md) | Next: [01. Building a Basic Single Agent](../01-single-agent/README.md)

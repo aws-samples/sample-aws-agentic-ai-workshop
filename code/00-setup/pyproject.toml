@@ -23,7 +23,7 @@ dependencies = [
     "python-dotenv==1.1.1",
     "langchain==1.0.1",
     "lovelyplots==1.0.2",
-    "weasyprint==66.0",
+    "weasyprint==70.0",
     "scikit-learn==1.7.1",
     "numpy==1.26.4",
     "pandas==2.3.1",

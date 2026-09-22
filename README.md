@@ -17,17 +17,6 @@ Build an AI agent from scratch with the [Strands Agents SDK](https://strandsagen
 
 ---
 
-## 📚 What you will learn
-
-- **Strands Agents SDK**: build an agent from a prompt, a model, and tools, then extend it with custom tools and MCP servers
-- **Retrieval**: query an Amazon Bedrock Knowledge Base from an agent with the `retrieve` tool
-- **Multi-agent systems**: Agents-as-Tools, Swarm, and Graph, and when to reach for each
-- **Memory**: short-term and long-term memory with Amazon Bedrock AgentCore Memory
-- **Deployment**: turn a local agent into a serverless one on AgentCore Runtime with four added lines
-- **Observability**: agent metrics, logs, and OpenTelemetry traces, both self-managed and through CloudWatch GenAI Observability
-
----
-
 ## 🗂️ Chapters
 
 | # | Chapter | What you build | ⏱️ Time | 📊 Level | Track |
@@ -36,9 +25,9 @@ Build an AI agent from scratch with the [Strands Agents SDK](https://strandsagen
 | 01 | [Single agent](workshop/en/01-single-agent/README.md) | Agent with prompt, model, and tools. Bedrock Knowledge Base, MCP tools, self-improving agent | 30 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Required |
 | 02 | [Multi-agent patterns](workshop/en/02-multi-agents/README.md) | Agents-as-Tools, Swarm, and Graph | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
 | 03 | [Chatbot application](workshop/en/03-chatbot-app/README.md) | Streamlit chat UI with streaming and tool-call display | 10 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Optional |
-| 04 | [Observability with Strands](workshop/en/04-observability/README.md) | Metrics, logs, and OTLP traces to a local Jaeger | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Optional |
+| 04 | [Observability with Strands](workshop/en/04-observability/README.md) | Metrics, logs, and OTLP traces to a local Jaeger | 30 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Optional |
 | 05 | [Agent memory](workshop/en/05-agent-memory/README.md) | Short-term and long-term memory with AgentCore Memory | 30 min | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | Required |
-| 06 | [AgentCore Runtime](workshop/en/06-agentcore-runtime/README.md) | Serverless deployment of the agent | 20 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
+| 06 | [AgentCore Runtime](workshop/en/06-agentcore-runtime/README.md) | Serverless deployment of the agent | 20 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Required |
 | 07 | [AgentCore Observability](workshop/en/07-agentcore-observability/README.md) | CloudWatch GenAI Observability dashboard | 10 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Required |
 | 08 | [Developing with Kiro IDE](workshop/en/08-kiro-dev/README.md) | Steering, MCP config, and spec-driven development | 10 min | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | Optional |
 

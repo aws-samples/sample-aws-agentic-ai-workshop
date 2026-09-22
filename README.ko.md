@@ -17,17 +17,6 @@
 
 ---
 
-## 📚 학습 내용
-
-- **Strands Agents SDK**: Prompt, Model, Tools로 에이전트를 만들고 커스텀 도구와 MCP 서버로 확장합니다
-- **검색(RAG)**: Amazon Bedrock Knowledge Base를 `retrieve` 도구로 조회합니다
-- **멀티 에이전트**: Agents-as-Tools, Swarm, Graph 패턴과 각각의 선택 기준을 다룹니다
-- **메모리**: Amazon Bedrock AgentCore Memory로 단기·장기 메모리를 구성합니다
-- **배포**: 코드 4줄을 추가해 로컬 에이전트를 AgentCore Runtime의 서버리스 에이전트로 배포합니다
-- **관측(Observability)**: 에이전트 메트릭·로그·OpenTelemetry 트레이스를 직접 구성하는 방법과 CloudWatch GenAI Observability로 확인하는 방법을 모두 다룹니다
-
----
-
 ## 🗂️ 챕터 구성
 
 | # | 챕터 | 내용 | ⏱️ 소요 시간 | 📊 난이도 | 구분 |
@@ -36,9 +25,9 @@
 | 01 | [단일 에이전트](workshop/ko/01-single-agent/README.md) | Prompt·Model·Tools 기본 구성, Bedrock Knowledge Base, MCP 도구, 자가개선 에이전트 | 30분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
 | 02 | [멀티 에이전트 패턴](workshop/ko/02-multi-agents/README.md) | Agents-as-Tools, Swarm, Graph | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
 | 03 | [챗봇 애플리케이션](workshop/ko/03-chatbot-app/README.md) | Streamlit 채팅 UI, 스트리밍 응답, 도구 호출 시각화 | 10분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 선택 |
-| 04 | [Strands Observability](workshop/ko/04-observability/README.md) | 메트릭, 로그, OTLP 트레이스와 로컬 Jaeger | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 선택 |
+| 04 | [Strands Observability](workshop/ko/04-observability/README.md) | 메트릭, 로그, OTLP 트레이스와 로컬 Jaeger | 30분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 선택 |
 | 05 | [에이전트 메모리](workshop/ko/05-agent-memory/README.md) | AgentCore Memory 단기·장기 메모리 | 30분 | ![Intermediate](https://img.shields.io/badge/-Intermediate-yellow) | 필수 |
-| 06 | [AgentCore Runtime](workshop/ko/06-agentcore-runtime/README.md) | 에이전트 서버리스 배포 | 20분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
+| 06 | [AgentCore Runtime](workshop/ko/06-agentcore-runtime/README.md) | 에이전트 서버리스 배포 | 20분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
 | 07 | [AgentCore Observability](workshop/ko/07-agentcore-observability/README.md) | CloudWatch GenAI Observability 대시보드 | 10분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
 | 08 | [Kiro IDE로 개발하기](workshop/ko/08-kiro-dev/README.md) | Steering, MCP 설정, 스펙 기반 개발 | 10분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 선택 |
 

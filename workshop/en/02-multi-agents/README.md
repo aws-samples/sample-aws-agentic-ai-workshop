@@ -4,7 +4,7 @@
 
 In this chapter you will learn how to build systems where multiple agents collaborate, using the multi-agent patterns of the Strands Agents SDK. You will practice the following three patterns and create agent systems that solve tasks a single agent would struggle with.
 
-<img src="../../images/c2-diagram-en.png" alt="multi-agent patterns" width="600">
+<img src="../../images/c2-diagram-en.png" alt="multi-agent patterns" >
 
 > [!NOTE]
 > **Prerequisites**

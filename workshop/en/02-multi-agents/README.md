@@ -4,10 +4,11 @@
 
 In this chapter you will learn how to build systems where multiple agents collaborate, using the multi-agent patterns of the Strands Agents SDK. You will practice the following three patterns and create agent systems that solve tasks a single agent would struggle with.
 
-<img src="../../images/c2-diagram.png" alt="multi-agent patterns" width="600">
+<img src="../../images/c2-diagram-en.png" alt="multi-agent patterns" width="600">
 
 > [!NOTE]
 > **Prerequisites**
+>
 > - Environment set up per [00-setup](../00-setup/README.md)
 > - Amazon Bedrock model access in `us-west-2` for `us.anthropic.claude-sonnet-4-20250514-v1:0` (the SDK default) and `us.anthropic.claude-sonnet-4-6`
 > - [Chapter 01](../01-single-agent/README.md) is recommended first. This chapter assumes you already know how to create an `Agent` and pass it tools.

@@ -112,7 +112,8 @@ sample-aws-agentic-ai-workshop/
 │   ├── 00-setup/                 # 환경 설정, uv 프로젝트, 의존성
 │   │   ├── pyproject.toml
 │   │   ├── uv.lock
-│   │   └── create-uv-env.sh
+│   │   ├── create-uv-env.sh      # 영문 가이드용
+│   │   └── create-uv-env-ko.sh   # 한국어 가이드용
 │   ├── 01-single-agent/
 │   │   ├── labs/                 # 직접 작성하는 파일
 │   │   └── completed/            # 완성된 참고 코드

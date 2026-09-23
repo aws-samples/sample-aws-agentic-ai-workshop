@@ -201,7 +201,7 @@ from strands_tools import calculator
 
 **2-3.** Configure BedrockModel.
 - `BedrockModel` allows you to use multiple LLM models through [Amazon Bedrock](https://aws.amazon.com/bedrock/) with the same interface and fine-tune settings.
-- Specify the model as **Claude Sonnet 4** and enable the Extended Thinking feature. `interleaved-thinking` is an advanced reasoning mode that alternates between thinking and action during tool usage, making the agent think about why a tool is needed before using it. For more details, please refer to the [Claude Extended Thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) documentation.
+- Specify the model as **Claude Sonnet 4.6** and enable the Extended Thinking feature. `interleaved-thinking` is an advanced reasoning mode that alternates between thinking and action during tool usage, making the agent think about why a tool is needed before using it. For more details, please refer to the [Claude Extended Thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) documentation.
 
 ```py
 bedrock_model = BedrockModel(

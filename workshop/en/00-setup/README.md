@@ -9,9 +9,6 @@
 - [3. Enable Amazon Bedrock model access](#3-enable-amazon-bedrock-model-access)
 - [4. Open the environment](#4-open-the-environment)
 - [5. Create the Python environment](#5-create-the-python-environment)
-- [Required IAM permissions](#required-iam-permissions)
-- [Cost note](#cost-note)
-- [Appendix: running on your own machine](#appendix-running-on-your-own-machine)
 
 ---
 

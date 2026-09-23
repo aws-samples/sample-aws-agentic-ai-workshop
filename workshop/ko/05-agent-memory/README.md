@@ -2,6 +2,15 @@
 
 <p align="center"><a href="README.md">한국어</a> | <a href="../../en/05-agent-memory/README.md">English</a></p>
 
+## 목차
+
+- [AgentCore Memory 핵심 개념](#agentcore-memory-핵심-개념)
+- [단기 메모리 (STM)](#단기-메모리-stm)
+- [장기 메모리 (LTM)](#장기-메모리-ltm)
+- [Streamlit 앱에 메모리 통합](#streamlit-앱에-메모리-통합)
+
+---
+
 이번 실습에서는 Amazon Bedrock AgentCore Memory를 활용하여 에이전트가 대화를 기억하고 사용자에 대한 지식을 축적하는 방법을 학습합니다.
 
 지금까지 만든 에이전트는 매번 새로운 대화를 시작할 때마다 이전 대화 내용을 기억하지 못했습니다. AgentCore Memory를 사용하면 에이전트가 대화 히스토리를 저장하고, 사용자의 선호도를 학습하며, 중요한 정보를 장기적으로 기억할 수 있습니다.

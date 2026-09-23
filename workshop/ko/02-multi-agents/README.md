@@ -2,6 +2,16 @@
 
 <p align="center"><a href="README.md">한국어</a> | <a href="../../en/02-multi-agents/README.md">English</a></p>
 
+## 목차
+
+- [1. Agents-as-Tools 패턴](#1-agents-as-tools-패턴)
+- [2. Swarm 패턴](#2-swarm-패턴)
+- [3. Graph 패턴: 기본 및 병렬 실행](#3-graph-패턴-기본-및-병렬-실행)
+- [4. Graph 패턴: 조건부 라우팅](#4-graph-패턴-조건부-라우팅)
+- [패턴 선택 기준](#패턴-선택-기준)
+
+---
+
 이번 실습에서는 Strands Agents SDK의 멀티 에이전트 패턴을 사용하여 여러 에이전트가 협업하는 시스템을 구축하는 방법을 학습합니다. 아래 3가지의 멀티 에이전트 패턴을 실습하며, 단일 에이전트로는 해결하기 어려운 복잡한 태스크를 처리하는 에이전트 시스템을 만들어봅니다.
 
 <img src="../../images/c2-diagram.png" alt="멀티 에이전트 패턴" width="600">
@@ -9,7 +19,7 @@
 > [!NOTE]
 > **사전 준비 사항**
 > - [00-setup](../00-setup/README.md) 에 따라 환경 설정 완료
-> - `us-west-2` 리전에서 `us.anthropic.claude-sonnet-4-20250514-v1:0`(SDK 기본 모델)과 `us.anthropic.claude-sonnet-4-6` 에 대한 Amazon Bedrock 모델 액세스 활성화
+> - `us-west-2` 리전에서 `us.anthropic.claude-sonnet-4-6`(실습 코드에서 명시적으로 지정)과 `global.anthropic.claude-sonnet-4-6`(SDK 기본 모델, `model` 인자 없이 생성된 에이전트가 사용)에 대한 Amazon Bedrock 모델 액세스 활성화
 > - [01 챕터](../01-single-agent/README.md)를 먼저 진행하는 것을 권장합니다. 이번 챕터는 `Agent` 를 생성하고 도구를 전달하는 방법을 이미 알고 있다고 가정합니다.
 
 **이번 챕터에서 배우는 내용**

@@ -170,7 +170,7 @@ def main():
     # Create the Agent
     agent = Agent(
         name="hanoi_tower_solver",
-        model="us.anthropic.claude-sonnet-4-20250514-v1:0",
+        model="us.anthropic.claude-sonnet-4-6",
         system_prompt="""You are an expert AI assistant that solves the Tower of Hanoi puzzle.
 
 Tower of Hanoi rules:

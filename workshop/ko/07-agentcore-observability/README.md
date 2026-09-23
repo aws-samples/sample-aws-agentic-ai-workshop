@@ -2,6 +2,17 @@
 
 <p align="center"><a href="README.md">한국어</a> | <a href="../../en/07-agentcore-observability/README.md">English</a></p>
 
+## 목차
+
+- [AgentCore Observability란?](#agentcore-observability란)
+- [1. Transaction Search 활성화 확인](#1-transaction-search-활성화-확인)
+- [2. 에이전트 호출하여 텔레메트리 생성](#2-에이전트-호출하여-텔레메트리-생성)
+- [3. GenAI Observability 대시보드 확인](#3-genai-observability-대시보드-확인)
+- [4. CloudWatch 메트릭 확인](#4-cloudwatch-메트릭-확인)
+- [5. CloudWatch 로그 확인](#5-cloudwatch-로그-확인)
+
+---
+
 > [!WARNING]
 > 이 챕터를 진행하려면 먼저 [06. 에이전트 런타임 (AgentCore Runtime)](../06-agentcore-runtime/README.md) 실습을 완료해야 합니다. 이 챕터는 이전 챕터에서 배포한 에이전트가 생성한 텔레메트리를 확인합니다. 배포된 에이전트가 없으면 대시보드에는 아무 데이터도 표시되지 않습니다.
 

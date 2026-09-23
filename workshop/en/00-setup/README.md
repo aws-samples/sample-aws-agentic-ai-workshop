@@ -2,6 +2,16 @@
 
 <p align="center"><a href="../../ko/00-setup/README.md">한국어</a> | <a href="README.md">English</a></p>
 
+## Contents
+
+- [1. Prepare an AWS account](#1-prepare-an-aws-account)
+- [2. Deploy the code-server CloudFormation stack](#2-deploy-the-code-server-cloudformation-stack)
+- [3. Enable Amazon Bedrock model access](#3-enable-amazon-bedrock-model-access)
+- [4. Open the environment](#4-open-the-environment)
+- [5. Create the Python environment](#5-create-the-python-environment)
+
+---
+
 This chapter prepares the environment that every later chapter uses: a Python 3.12 project managed by [uv](https://docs.astral.sh/uv/), AWS credentials that can call Amazon Bedrock, and Bedrock model access in `us-west-2`.
 
 > [!IMPORTANT]
@@ -144,8 +154,7 @@ These are the model IDs the lab code actually uses:
 
 | Model ID | Used by |
 |---|---|
-| `us.anthropic.claude-sonnet-4-20250514-v1:0` | `01-single-agent/completed/models.py`, `04-observability/completed/traces_console.py`, `04-observability/completed/traces_otlp.py`, `08-kiro-dev/completed/hanoi_tower.py` |
-| `us.anthropic.claude-sonnet-4-6` | `01-single-agent/completed/self_extending.py`, `01-single-agent/completed/self_modifying.py`, `02-multi-agents/completed/agents_as_tools.py`, `02-multi-agents/completed/swarms.py` |
+| `us.anthropic.claude-sonnet-4-6` | `01-single-agent/completed/models.py`, `01-single-agent/completed/self_extending.py`, `01-single-agent/completed/self_modifying.py`, `02-multi-agents/completed/agents_as_tools.py`, `02-multi-agents/completed/swarms.py`, `04-observability/completed/traces_console.py`, `04-observability/completed/traces_otlp.py`, `08-kiro-dev/completed/hanoi_tower.py` |
 | `us.amazon.nova-pro-v1:0` | `04-observability/completed/metrics_basic.py` |
 
 The `us.` prefix means these are cross-region inference profiles. The console handles enabling access in the profile's destination regions for you.

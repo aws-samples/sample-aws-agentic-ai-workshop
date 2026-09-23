@@ -2,6 +2,13 @@
 
 <p align="center"><a href="../../ko/03-chatbot-app/README.md">한국어</a> | <a href="README.md">English</a></p>
 
+## Contents
+
+- [Terminal Execution vs Web Application](#terminal-execution-vs-web-application)
+- [1-9. Building the Streamlit Chatbot](#1-streamlit-basic-configuration)
+
+---
+
 In this chapter you will convert a Strands agent that was running in the terminal into a Streamlit web application.
 
 Beyond simply adding a UI, you will implement core features needed for real applications such as session management, asynchronous processing, and streaming responses.
@@ -9,7 +16,7 @@ Beyond simply adding a UI, you will implement core features needed for real appl
 > [!NOTE]
 > **This chapter is optional.** Chapters 1, 2, 5, 6, and 7 are the required labs. Chapters 3, 4, and 8 are optional, so complete them as time allows.
 
-<img src="../../images/c3-streamlit-1.png" alt="Streamlit chatbot" width="800">
+<img src="../../images/en/c3-streamlit-1.png" alt="Streamlit chatbot" width="800">
 
 > [!NOTE]
 > **Prerequisites**
@@ -743,7 +750,7 @@ Streamlit prints a Local URL in the terminal (`http://localhost:8501` by default
 
 If you are working on a remote machine such as an AWS-hosted VS Code Server, port 8501 is not reachable from your laptop directly. Forward or proxy the port to your local machine first (for example, using your IDE's port forwarding feature), then open the forwarded URL.
 
-<img src="../../images/c3-streamlit-2.png" alt="Streamlit chatbot running" width="800">
+<img src="../../images/en/c3-streamlit-2.png" alt="Streamlit chatbot running" width="800">
 
 **9-3.** Test the chatbot:
 

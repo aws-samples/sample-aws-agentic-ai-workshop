@@ -2,6 +2,15 @@
 
 <p align="center"><a href="../../ko/01-single-agent/README.md">한국어</a> | <a href="README.md">English</a></p>
 
+## Contents
+
+- [1. Building a Basic Agent](#1-building-a-basic-agent)
+- [2. Knowledge Base Integration](#2-knowledge-base-integration)
+- [3. MCP Tool Integration](#3-mcp-tool-integration)
+- [4. (Optional) Self-Improving Agent](#4-optional-self-improving-agent)
+
+---
+
 In this chapter, we will learn how to create a basic agent by working with the core components of the Strands SDK: Prompt, Model, and Tools.
 
 ![Strands SDK components](../../images/c1-strands-diagram.png)
@@ -12,8 +21,7 @@ The agent we build first has 1) mathematical calculation, 2) time checking, and 
 > **Prerequisites**
 > - Environment set up per [00-setup](../00-setup/README.md), with the uv environment available from the repo root
 > - Amazon Bedrock model access enabled in **us-west-2** for:
->   - `us.anthropic.claude-sonnet-4-20250514-v1:0` (used in `models.py`)
->   - `us.anthropic.claude-sonnet-4-6` (used in `self_extending.py`, `self_modifying.py`)
+>   - `us.anthropic.claude-sonnet-4-6` (used in `models.py`, `self_extending.py`, `self_modifying.py`)
 >   - `amazon.titan-embed-text-v2:0` (Titan Text Embeddings V2, used by the Knowledge Base)
 > - An AWS identity with permission to create an S3 bucket, a Bedrock Knowledge Base, and an OpenSearch Serverless collection (section 2)
 > - Node.js / `npx` available if you want to run the Playwright MCP part of section 3
@@ -112,7 +120,7 @@ uv run python 01-single-agent/labs/basic.py
 
 You can confirm that the agent automatically selects the `calculator` tool to calculate the square root of 80/4*5 and returns an answer containing the result **10**.
 
-![calculator result](../../images/c1-calculator.png)
+![calculator result](../../images/en/c1-calculator.png)
 
 <details>
 <summary>Getting an error? (⚠️ How to fix a model access error)</summary>
@@ -197,7 +205,7 @@ from strands_tools import calculator
 
 ```py
 bedrock_model = BedrockModel(
-    model_id="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model_id="us.anthropic.claude-sonnet-4-6",
     additional_request_fields={
         "anthropic_beta": [ "interleaved-thinking-2025-05-14" ],
         "thinking": { "type": "enabled", "budget_tokens": 8000 },
@@ -232,7 +240,7 @@ if __name__ == "__main__":
 uv run python 01-single-agent/labs/models.py
 ```
 
-![BedrockModel result](../../images/c1-bedrockmodel.png)
+![BedrockModel result](../../images/en/c1-bedrockmodel.png)
 
 **2-7.** ***(Optional)*** To output the agent's reasoning content and final response separately, add the following code at the bottom of models.py.
 
@@ -258,7 +266,7 @@ uv run python 01-single-agent/labs/models.py
 uv run python 01-single-agent/labs/models.py
 ```
 
-![reasoning and response separated](../../images/c1-reasoning.png)
+![reasoning and response separated](../../images/en/c1-reasoning.png)
 
 ---
 
@@ -334,7 +342,7 @@ uv run python 01-single-agent/labs/custom_tool1.py
 
 You can confirm that the agent analyzes the question, calls the `weather_forecast` tool, and returns weather information for Seoul.
 
-![custom tool result](../../images/c1-customtool1.png)
+![custom tool result](../../images/en/c1-customtool1.png)
 
 ---
 
@@ -392,102 +400,15 @@ uv run python 01-single-agent/labs/custom_tool2.py
 
 You can confirm the process where the agent generates Python code and executes it through `python_repl_tool`.
 
-![python repl tool result](../../images/c1-customtool-py.png)
+![python repl tool result](../../images/en/c1-customtool-py.png)
 
 Try the other commented user_input as well. It will call the tool that executes bash commands, displaying results like below.
 
-![bash tool result](../../images/c1-customtool-bash.png)
+![bash tool result](../../images/en/c1-customtool-bash.png)
 
 > [!NOTE]
 > **Congratulations!**
 > We have practiced various ways to create agents using the Strands SDK. From basic agent creation to custom tool development, and advanced model configuration, we have experienced the core features of Strands.
-
-<details>
-<summary>Review of Key Concepts from This Section</summary>
-
-### 1. Basic Pattern of Agent Creation
-
-```py
-# Most basic form
-agent = Agent(tools=[...])
-
-# Using custom model
-agent = Agent(model=custom_model, tools=[...])
-```
-
-The agent analyzes user questions, automatically selects and executes provided tools when necessary, and generates final answers.
-
-### 2. Three Types of Tools
-
-**Built-in Tools**
-
-```py
-from strands_tools import calculator, current_time
-agent = Agent(tools=[calculator, current_time])
-```
-
-**Custom Tools**
-
-```py
-from strands import tool
-
-@tool
-def my_custom_tool(param: str) -> str:
-    return f"Processing result: {param}"
-
-agent = Agent(tools=[my_custom_tool])
-```
-
-**MCP Tools**
-
-```py
-from strands.tools.mcp import MCPClient
-
-with mcp_client:
-    tools = mcp_client.list_tools_sync()
-    agent = Agent(tools=tools)
-```
-
-### 3. Model Configuration
-
-**Using Default Model**
-
-```py
-agent = Agent(tools=[...])  # Using Strands default model
-```
-
-**Custom Model Configuration**
-
-```py
-from strands.models import BedrockModel
-
-bedrock_model = BedrockModel(
-    model="us.anthropic.claude-sonnet-4-20250514-v1:0",
-    additional_request_fields={
-        "thinking": { "type": "enabled", "budget_tokens": 8000 }
-    }
-)
-agent = Agent(model=bedrock_model, tools=[...])
-```
-
-### 4. Execution Patterns
-
-**Synchronous Execution**
-
-```py
-response = agent("User question")
-```
-
-**When Using MCP Tools**
-
-```py
-with mcp_client:
-    tools = mcp_client.list_tools_sync()
-    agent = Agent(tools=tools)
-    response = agent("User question")
-```
-
-</details>
 
 ---
 
@@ -739,7 +660,7 @@ uv run python 01-single-agent/labs/mcp_tool.py
 
 You can confirm that the agent connects to the AWS documentation MCP server to search for the latest information in real-time and provide answers.
 
-![MCP tool result](../../images/c1-mcptool.png)
+![MCP tool result](../../images/en/c1-mcptool.png)
 
 ---
 
@@ -747,20 +668,22 @@ You can confirm that the agent connects to the AWS documentation MCP server to s
 
 Now let's add **Playwright MCP**. Playwright is a tool for automating web browsers, capable of visiting web pages, taking screenshots, filling out forms, and more.
 
-> [!WARNING]
-> Playwright MCP needs a GUI browser. If your environment has no browser installed (for example a bare workshop or SageMaker Studio environment), Playwright MCP will not work properly. Test this part in a local environment where a browser is installed.
+> [!NOTE]
+> Playwright MCP needs a browser. The workshop environment deployed from `code-server.yaml` ships with one preinstalled (Chrome for Testing), so the configuration below works as-is. In other environments without a browser (for example SageMaker Studio), Playwright MCP will not work properly — test that case in a local environment instead.
 
-#### 2-1. Finding MCP Servers on mcp.so
+#### 2-1. Finding MCP Servers on mcpservers.org
 
-[mcp.so](https://mcp.so) is a hub that aggregates various MCP servers. You can search for MCP servers with desired functionality and get their configuration information.
+[mcpservers.org](https://mcpservers.org) is a hub that aggregates various MCP servers. You can search for MCP servers with desired functionality and get their configuration information.
 
-![mcp.so](../../images/mcp-so.png)
+**2-1-1.** Visit [mcpservers.org](https://mcpservers.org) and search for "playwright" in the search box.
 
-**2-1-1.** Visit [mcp.so](https://mcp.so).
+![mcpservers.org](../../images/mcporg1.png)
 
-**2-1-2.** Search for "playwright" to find the [Playwright MCP Server](https://mcp.so/server/playwright-mcp/microsoft).
+**2-1-2.** In the search results, find **Playwright MCP** — the one marked `official`, provided by Microsoft — and open the [Playwright MCP Server](https://mcpservers.org/servers/playwright-mcp-server) page.
 
-**2-1-3.** Check the configuration information provided on the page. You'll see information like below:
+![playwright search results](../../images/mcporg2.png)
+
+**2-1-3.** Scroll down to **Getting started** and check the configuration information provided on the page. You'll see information like below:
 
 ```json
 {
@@ -775,27 +698,46 @@ Now let's add **Playwright MCP**. Playwright is a tool for automating web browse
 }
 ```
 
-![mcp config](../../images/mcp-config.png)
+![mcp config](../../images/mcporg3.png)
 
 #### 2-2. Integrating Playwright MCP
 
-**2-2-1.** Add the Playwright MCP client in the `01-single-agent/labs/mcp_tool.py` file:
+**2-2-1.** Go back to the `01-single-agent/labs/mcp_tool.py` file and decide where the screenshot will be saved. Saving it next to the script means the output lands in the same place no matter which directory you run the command from.
+
+```py
+import os
+
+# Add at the top of the file, below the imports
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts-mcp")
+
+```
+
+**2-2-2.** Add the Playwright MCP client:
+
+- `--headless`: the workshop environment is a remote EC2 instance with no display, so the browser runs without a visible window. The screenshot is still saved to disk.
+- `--output-dir`: the directory where Playwright MCP writes the files it creates. Without it, the file may end up somewhere you did not expect.
 
 ```py
 # Add below the existing AWS Documentation MCP
 playwright_mcp_client = MCPClient(lambda: stdio_client(
     StdioServerParameters(command="npx",
-                          args=["@playwright/mcp@latest"]
+                          args=["@playwright/mcp@latest",
+                                "--headless",
+                                "--output-dir", OUTPUT_DIR]
                           )
 ))
 
 ```
 
-**2-2-2.** Connect both MCP tools to the agent:
+**2-2-3.** Connect both MCP tools to the agent. The prompt spells out the file name and path to save to, and asks the agent to **report the full path of the saved file**.
 
 ```py
 if __name__ == "__main__":
-    user_input = "Visit https://aws.amazon.com and take a screenshot"
+    user_input = (
+        f"Visit https://aws.amazon.com and take a screenshot. "
+        f"Save it as a file named aws-homepage.png under {OUTPUT_DIR} "
+        f"and then tell me the full path of the file you saved."
+    )
 
     agent = Agent(tools=[stdio_mcp_client, playwright_mcp_client])
     response = agent(user_input)
@@ -806,9 +748,13 @@ if __name__ == "__main__":
 <summary>View Full Code (mcp_tool.py)</summary>
 
 ```py
+import os
+
 from mcp import stdio_client, StdioServerParameters
 from strands import Agent
 from strands.tools.mcp import MCPClient
+
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts-mcp")
 
 stdio_mcp_client = MCPClient(lambda: stdio_client(
     StdioServerParameters(command="uvx",
@@ -818,12 +764,18 @@ stdio_mcp_client = MCPClient(lambda: stdio_client(
 
 playwright_mcp_client = MCPClient(lambda: stdio_client(
     StdioServerParameters(command="npx",
-                          args=["@playwright/mcp@latest"]
+                          args=["@playwright/mcp@latest",
+                                "--headless",
+                                "--output-dir", OUTPUT_DIR]
                           )
 ))
 
 if __name__ == "__main__":
-    user_input = "Visit https://aws.amazon.com and take a screenshot"
+    user_input = (
+        f"Visit https://aws.amazon.com and take a screenshot. "
+        f"Save it as a file named aws-homepage.png under {OUTPUT_DIR} "
+        f"and then tell me the full path of the file you saved."
+    )
 
     agent = Agent(tools=[stdio_mcp_client, playwright_mcp_client])
     response = agent(user_input)
@@ -833,13 +785,23 @@ The reference answer in `01-single-agent/completed/mcp_tool.py` is the same code
 
 </details>
 
-**2-2-3.** Run in the terminal to check the result:
+**2-2-4.** Run in the terminal to check the result:
 
 ```bash
 uv run python 01-single-agent/labs/mcp_tool.py
 ```
 
-You can confirm that the agent uses Playwright to visit the web page and save a screenshot.
+You can confirm that the agent uses Playwright to visit the web page, saves a screenshot, and then reports the full path of the file it saved.
+
+![Playwright MCP result](../../images/c1-playwright.png)
+
+Check that the file really exists at the path the agent reported.
+
+![Generated screenshot file](../../images/c1-playwright-screenshot.png)
+
+```bash
+ls -l 01-single-agent/labs/artifacts-mcp/
+```
 
 > [!NOTE]
 > **Congratulations!**
@@ -979,13 +941,13 @@ uv run python self_extending.py
 
 You can see that the agent 1) **writes a tool file** such as `qr_generator.py` into the `tools/` directory, 2) the SDK **loads it instantly**, and 3) within the same run it **calls** that tool to print the QR code in the terminal.
 
-![agent writes its own tool](../../images/c1-4-self-extending-1.png)
+![agent writes its own tool](../../images/en/c1-4-self-extending-1.png)
 
-![agent calls the tool it just wrote](../../images/c1-4-self-extending-2.png)
+![agent calls the tool it just wrote](../../images/en/c1-4-self-extending-2.png)
 
 **1-7.** Open the `tools/` folder in the lab directory and you will see that the **tool file the agent just wrote** is actually saved there. This file will be reloaded as-is on the next run.
 
-![generated tool file](../../images/c1-4-generated-tool.png)
+![generated tool file](../../images/en/c1-4-generated-tool.png)
 
 <details>
 <summary>View the full code</summary>
@@ -1194,11 +1156,11 @@ From now on, append "🐿️" to the end of every sentence. Example: I'm a resea
 
 You can see the agent call the `system_prompt` tool with `action="update"` to rewrite its own prompt.
 
-![agent updates its own system prompt](../../images/c1-4-self-modifying.png)
+![agent updates its own system prompt](../../images/en/c1-4-self-modifying.png)
 
 **2-9.** Now ask any question. From this turn on, the agent follows the changed instruction (e.g. appending "🐿️" to every sentence). If you open the `.prompt` file created in the lab directory, you will see the changed instruction is actually saved. Even if you **quit and rerun the program**, the setting persists.
 
-![persisted prompt file](../../images/c1-4-persisted-prompt.png)
+![persisted prompt file](../../images/en/c1-4-persisted-prompt.png)
 
 <details>
 <summary>View the full code</summary>
@@ -1316,8 +1278,7 @@ Also delete any `01-single-agent/labs/tools/*.py` file that the agent generated 
 
 The model is not enabled for your account. Open the Amazon Bedrock console > **Model access** and request/enable access for the Anthropic Claude models. This chapter uses:
 
-- `us.anthropic.claude-sonnet-4-20250514-v1:0` (`models.py`)
-- `us.anthropic.claude-sonnet-4-6` (`self_extending.py`, `self_modifying.py`)
+- `us.anthropic.claude-sonnet-4-6` (`models.py`, `self_extending.py`, `self_modifying.py`)
 - `amazon.titan-embed-text-v2:0` (Titan Text Embeddings V2, used by the Knowledge Base)
 
 `basic.py`, `custom_tool1.py`, `custom_tool2.py`, `knowledge_base.py`, and `mcp_tool.py` do not set a model, so they use the Strands default Bedrock model, which also has to be enabled. The same error can also come from a missing IAM permission (`bedrock:InvokeModel`, `bedrock:InvokeModelWithResponseStream`) on the identity you are using.
@@ -1356,7 +1317,11 @@ That is the `strands_tools` consent prompt. Either answer `y`, or set `os.enviro
 
 **Playwright MCP fails to start**
 
-`npx` must be on your PATH and a browser must be installed. Run `node --version` to confirm Node.js is present. In a headless environment, skip this part.
+`npx` must be on your PATH and a browser must be installed. Check with `node --version; npx --version; ls /opt/google/chrome/chrome`. An environment with no display is fine as long as you pass `--headless`. Skip this part only if no browser is available at all (for example SageMaker Studio).
+
+**The screenshot file is nowhere to be found**
+
+Without `--output-dir`, the file may be written somewhere unexpected, or the agent may report a path that does not exist. Pass `--output-dir` as shown above, and spell out the target path and file name in the prompt as well.
 
 ---
 Prev: [00. Setup](../00-setup/README.md) | Next: [02. Multi-Agent Systems](../02-multi-agents/README.md)

@@ -2,6 +2,17 @@
 
 <p align="center"><a href="../../ko/06-agentcore-runtime/README.md">한국어</a> | <a href="README.md">English</a></p>
 
+## Contents
+
+- [What is AgentCore Runtime?](#what-is-agentcore-runtime)
+- [0. (Prerequisite) Enable CloudWatch Transaction Search](#0-prerequisite-enable-cloudwatch-transaction-search)
+- [1. Review Existing Local Agent](#1-review-existing-local-agent)
+- [2. Converting Code for Cloud Deployment](#2-converting-code-for-cloud-deployment)
+- [3-4. Deploy to AgentCore Runtime and Invoke the Agent](#3-deploy-to-agentcore-runtime)
+- [(Optional) 5. Verify Agent Deployment Process in Console](#optional-5-verify-agent-deployment-process-in-console)
+
+---
+
 In this lab, you'll learn how to deploy Strands agents that have been running locally to [Amazon Bedrock AgentCore Runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html).
 
 Without complex infrastructure setup or code rewriting, you can deploy to production with **just 4 lines of code** and gain the benefits of serverless auto-scaling and monitoring.

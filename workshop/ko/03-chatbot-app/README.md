@@ -2,6 +2,13 @@
 
 <p align="center"><a href="README.md">한국어</a> | <a href="../../en/03-chatbot-app/README.md">English</a></p>
 
+## 목차
+
+- [터미널 실행 vs 웹 애플리케이션](#터미널-실행-vs-웹-애플리케이션)
+- [1-9. Streamlit 챗봇 만들기](#1-streamlit-기본-설정)
+
+---
+
 이번 실습에서는 터미널에서 실행하던 Strands 에이전트를 Streamlit 웹 애플리케이션으로 변환하는 방법을 학습합니다.
 
 단순히 UI를 추가하는 것을 넘어, 세션 관리, 비동기 처리, 스트리밍 응답 등 실제 애플리케이션에 필요한 핵심 기능들을 구현합니다.

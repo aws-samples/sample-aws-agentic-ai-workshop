@@ -2,6 +2,17 @@
 
 <p align="center"><a href="../../ko/07-agentcore-observability/README.md">한국어</a> | <a href="README.md">English</a></p>
 
+## Contents
+
+- [What is AgentCore Observability?](#what-is-agentcore-observability)
+- [1. Verify Transaction Search is enabled](#1-verify-transaction-search-is-enabled)
+- [2. Invoke the agent to generate telemetry](#2-invoke-the-agent-to-generate-telemetry)
+- [3. View the GenAI Observability dashboard](#3-view-the-genai-observability-dashboard)
+- [4. View CloudWatch metrics](#4-view-cloudwatch-metrics)
+- [5. View CloudWatch logs](#5-view-cloudwatch-logs)
+
+---
+
 > [!WARNING]
 > You must complete [06. AgentCore Runtime](../06-agentcore-runtime/README.md) before starting this chapter. This chapter inspects telemetry produced by the agent you deployed there. Without a deployed agent, the dashboards will be empty.
 

@@ -2,6 +2,15 @@
 
 <p align="center"><a href="../../ko/08-kiro-dev/README.md">한국어</a> | <a href="README.md">English</a></p>
 
+## Contents
+
+- [What is Kiro?](#what-is-kiro)
+- [Environment: workshop-hosted vs. your own machine](#environment-workshop-hosted-vs-your-own-machine)
+- [Set up the development environment](#set-up-the-development-environment)
+- [Vibe coding lab](#vibe-coding-lab)
+
+---
+
 > [!NOTE]
 > This chapter is **optional**. It does not build on chapters 01 to 07 and nothing later depends on it. Skip it if you only want the Strands Agents and AgentCore path.
 
@@ -299,7 +308,7 @@ This repository already ships the Steering file for the lab at [`.kiro/steering/
 
 **Model configuration**
 
-> - Default model: `us.anthropic.claude-sonnet-4-20250514-v1:0`
+> - Default model: `us.anthropic.claude-sonnet-4-6`
 > - Region: `us-west-2`
 
 **Error handling**
@@ -331,7 +340,7 @@ def my_tool(param: str) -> str:
     return result
 
 agent = Agent(
-    model="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model="us.anthropic.claude-sonnet-4-6",
     system_prompt="You are a helpful AI assistant.",
     name="<adequate name>",
     tools=[my_tool]

@@ -2,6 +2,16 @@
 
 <p align="center"><a href="README.md">한국어</a> | <a href="../../en/00-setup/README.md">English</a></p>
 
+## 목차
+
+- [1. AWS 계정 준비](#1-aws-계정-준비)
+- [2. code-server CloudFormation 스택 배포](#2-code-server-cloudformation-스택-배포)
+- [3. Amazon Bedrock 모델 액세스 활성화](#3-amazon-bedrock-모델-액세스-활성화)
+- [4. 환경 접속](#4-환경-접속)
+- [5. Python 환경 생성](#5-python-환경-생성)
+
+---
+
 이 챕터에서는 이후 모든 챕터에서 사용할 환경을 준비합니다. [uv](https://docs.astral.sh/uv/)로 관리되는 Python 3.12 프로젝트, Amazon Bedrock을 호출할 수 있는 AWS 자격 증명, 그리고 `us-west-2` 리전의 Bedrock 모델 액세스가 필요합니다.
 
 > [!IMPORTANT]
@@ -144,8 +154,7 @@ CloudFormation 템플릿 **`code-server.yaml`은 이 리포지토리 루트에 �
 
 | 모델 ID | 사용하는 파일 |
 |---|---|
-| `us.anthropic.claude-sonnet-4-20250514-v1:0` | `01-single-agent/completed/models.py`, `04-observability/completed/traces_console.py`, `04-observability/completed/traces_otlp.py`, `08-kiro-dev/completed/hanoi_tower.py` |
-| `us.anthropic.claude-sonnet-4-6` | `01-single-agent/completed/self_extending.py`, `01-single-agent/completed/self_modifying.py`, `02-multi-agents/completed/agents_as_tools.py`, `02-multi-agents/completed/swarms.py` |
+| `us.anthropic.claude-sonnet-4-6` | `01-single-agent/completed/models.py`, `01-single-agent/completed/self_extending.py`, `01-single-agent/completed/self_modifying.py`, `02-multi-agents/completed/agents_as_tools.py`, `02-multi-agents/completed/swarms.py`, `04-observability/completed/traces_console.py`, `04-observability/completed/traces_otlp.py`, `08-kiro-dev/completed/hanoi_tower.py` |
 | `us.amazon.nova-pro-v1:0` | `04-observability/completed/metrics_basic.py` |
 
 `us.` 접두사는 교차 리전 추론 프로파일을 의미합니다. 프로파일의 대상 리전에 대한 액세스 활성화는 콘솔이 함께 처리해 줍니다.

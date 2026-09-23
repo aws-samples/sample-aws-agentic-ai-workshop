@@ -2,6 +2,15 @@
 
 <p align="center"><a href="README.md">한국어</a> | <a href="../../en/08-kiro-dev/README.md">English</a></p>
 
+## 목차
+
+- [Kiro란?](#kiro란)
+- [실습 환경: 워크샵 제공 환경과 개인 환경](#실습-환경-워크샵-제공-환경과-개인-환경)
+- [개발 환경 구성](#개발-환경-구성)
+- [Vibe Coding 실습](#vibe-coding-실습)
+
+---
+
 > [!NOTE]
 > 이 챕터는 **선택 사항**입니다. C1부터 C7까지의 내용을 전제로 하지 않으며, 이후 챕터가 이 챕터에 의존하지도 않습니다. Strands Agents와 AgentCore 경로만 진행하려면 건너뛰어도 됩니다.
 
@@ -301,7 +310,7 @@ Steering은 Kiro AI가 코드를 생성할 때 따라야 할 규칙과 컨텍스
 
 **모델 설정**
 
-> - 기본 모델: `us.anthropic.claude-sonnet-4-20250514-v1:0`
+> - 기본 모델: `us.anthropic.claude-sonnet-4-6`
 > - 리전: `us-west-2`
 
 **에러 처리**
@@ -333,7 +342,7 @@ def my_tool(param: str) -> str:
     return result
 
 agent = Agent(
-    model="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model="us.anthropic.claude-sonnet-4-6",
     system_prompt="You are a helpful AI assistant.",
     name="<adequate name>",
     tools=[my_tool]

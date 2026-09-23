@@ -18,7 +18,7 @@ strands_telemetry.setup_meter(
 
 # Create agent (with custom attributes)
 agent = Agent(
-    model="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model="us.anthropic.claude-sonnet-4-6",
     system_prompt="You are a helpful AI assistant.",
     tools=[calculator],
     trace_attributes={

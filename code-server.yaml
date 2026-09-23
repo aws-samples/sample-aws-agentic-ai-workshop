@@ -754,6 +754,106 @@ Resources:
                 - echo "Python and Pip installed. Checking configuration"
                 - python3 --version
                 - pip3 --version
+          - name: InstallNodeJsDnf
+            action: aws:runShellScript
+            precondition:
+              StringEquals:
+                - '{{ LinuxFlavor }}'
+                - al2023
+            inputs:
+              timeoutSeconds: 300
+              runCommand:
+                # Node.js is required for `npx`, used by MCP servers such as @playwright/mcp
+                - '#!/bin/bash'
+                - dnf install -y nodejs20 nodejs20-npm
+                - alternatives --install /usr/bin/node node /usr/bin/node-20 90 || true
+                - alternatives --install /usr/bin/npm npm /usr/bin/npm-20 90 || true
+                - alternatives --install /usr/bin/npx npx /usr/bin/npx-20 90 || true
+                - echo "Node.js installed. Checking configuration"
+                - node --version
+                - npm --version
+                - npx --version
+          - name: InstallNodeJsApt
+            action: aws:runShellScript
+            precondition:
+              StringEquals:
+                - '{{ LinuxFlavor }}'
+                - ubuntu
+            inputs:
+              timeoutSeconds: 300
+              runCommand:
+                # Node.js is required for `npx`, used by MCP servers such as @playwright/mcp
+                - '#!/bin/bash'
+                - dpkg --configure -a
+                - mkdir -p /usr/share/keyrings
+                - curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor --yes -o /usr/share/keyrings/nodesource.gpg
+                - echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" > /etc/apt/sources.list.d/nodesource.list
+                - apt-get -q update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q nodejs
+                - echo "Node.js installed. Checking configuration"
+                - node --version
+                - npm --version
+                - npx --version
+# Chromium browser for Playwright MCP (chapter 01). @playwright/mcp launches the
+# 'chrome' channel by default and looks for it at /opt/google/chrome/chrome. Google does
+# not publish a Chrome build for arm64/Graviton, so install the Playwright-managed
+# Chrome-for-Testing build (available for both arm64 and x86_64) into a shared system
+# location and symlink it to the path the MCP server expects. This keeps the stock
+# mcp.so config (`npx @playwright/mcp@latest`, no extra flags) working as documented.
+          - name: InstallBrowserDepsDnf
+            action: aws:runShellScript
+            precondition:
+              StringEquals:
+                - '{{ LinuxFlavor }}'
+                - al2023
+            inputs:
+              timeoutSeconds: 600
+              runCommand:
+                - '#!/bin/bash'
+                - dnf install -y nss atk at-spi2-atk at-spi2-core cups-libs libdrm libxkbcommon libXcomposite libXdamage libXfixes libXrandr libXext libXi libX11 mesa-libgbm alsa-lib pango cairo expat
+                - echo "Browser shared libraries installed"
+          - name: InstallBrowserDepsApt
+            action: aws:runShellScript
+            precondition:
+              StringEquals:
+                - '{{ LinuxFlavor }}'
+                - ubuntu
+            inputs:
+              timeoutSeconds: 600
+              runCommand:
+                - '#!/bin/bash'
+                - dpkg --configure -a
+                # Lets Playwright resolve the exact shared-library set for the current Ubuntu release
+                - npx --yes playwright@latest install-deps chromium
+                - echo "Browser shared libraries installed"
+          - name: InstallBrowser
+            action: aws:runShellScript
+            inputs:
+              timeoutSeconds: 900
+              runCommand:
+                - '#!/bin/bash'
+                - set -e
+                - export PLAYWRIGHT_BROWSERS_PATH=/opt/ms-playwright
+                - mkdir -p /opt/ms-playwright
+                # Downloads the Chrome-for-Testing revision that @playwright/mcp pins
+                - npx --yes @playwright/mcp@latest install-browser chrome-for-testing
+                - chmod -R a+rX /opt/ms-playwright
+                - |
+                  CHROME_BIN=$(find /opt/ms-playwright -maxdepth 3 -type f -name chrome | grep -v headless | head -1)
+                  if [[ -z "$CHROME_BIN" ]]
+                  then
+                    echo "Chrome-for-Testing binary not found under /opt/ms-playwright"
+                    exit 1
+                  fi
+                  mkdir -p /opt/google/chrome
+                  ln -sf "$CHROME_BIN" /opt/google/chrome/chrome
+                  echo "Linked /opt/google/chrome/chrome -> $CHROME_BIN"
+                # Make PLAYWRIGHT_BROWSERS_PATH the default for the participant so the
+                # Python/Node Playwright clients resolve the same shared install
+                - !Sub echo 'export PLAYWRIGHT_BROWSERS_PATH=/opt/ms-playwright' >> /home/${VSCodeUser}/.bashrc
+                - echo 'PLAYWRIGHT_BROWSERS_PATH=/opt/ms-playwright' >> /etc/environment
+                - echo "Browser installed. Checking configuration"
+                - /opt/google/chrome/chrome --version
+                - ldd /opt/google/chrome/chrome | grep "not found" && exit 1 || echo "All shared libraries resolved"
 # Install Workshop specific packages here
           # - name: GitClone
           #   action: aws:runShellScript

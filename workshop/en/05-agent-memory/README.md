@@ -8,8 +8,6 @@
 - [Short-term memory (STM)](#short-term-memory-stm)
 - [Long-term memory (LTM)](#long-term-memory-ltm)
 - [Streamlit integration](#streamlit-integration)
-- [Cleanup](#cleanup)
-- [Troubleshooting](#troubleshooting)
 
 ---
 

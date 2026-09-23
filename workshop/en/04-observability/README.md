@@ -8,8 +8,6 @@
 - [Metrics](#metrics)
 - [Logs](#logs)
 - [Traces](#traces)
-- [Cleanup](#cleanup)
-- [Troubleshooting](#troubleshooting)
 
 ---
 

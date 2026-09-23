@@ -14,7 +14,6 @@
 - [7. Error Handling](#7-error-handling)
 - [8. Add Sidebar](#8-add-sidebar)
 - [9. Running](#9-running)
-- [Troubleshooting](#troubleshooting)
 - [Stopping the app](#stopping-the-app)
 
 ---

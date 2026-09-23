@@ -9,8 +9,6 @@
 - [3. Graph Pattern: Basic and Parallel Execution](#3-graph-pattern-basic-and-parallel-execution)
 - [4. Graph Pattern: Conditional Routing](#4-graph-pattern-conditional-routing)
 - [Choosing a pattern](#choosing-a-pattern)
-- [Troubleshooting](#troubleshooting)
-- [Cleanup](#cleanup)
 
 ---
 

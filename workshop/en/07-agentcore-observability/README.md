@@ -11,7 +11,6 @@
 - [4. View CloudWatch metrics](#4-view-cloudwatch-metrics)
 - [5. View CloudWatch logs](#5-view-cloudwatch-logs)
 - [Managed vs. self-managed observability](#managed-vs-self-managed-observability)
-- [Cleanup](#cleanup)
 - [References](#references)
 
 ---

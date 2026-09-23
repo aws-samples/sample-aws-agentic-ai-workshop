@@ -8,8 +8,6 @@
 - [2. Knowledge Base Integration](#2-knowledge-base-integration)
 - [3. MCP Tool Integration](#3-mcp-tool-integration)
 - [4. (Optional) Self-Improving Agent](#4-optional-self-improving-agent)
-- [Cleanup](#cleanup)
-- [Troubleshooting](#troubleshooting)
 
 ---
 

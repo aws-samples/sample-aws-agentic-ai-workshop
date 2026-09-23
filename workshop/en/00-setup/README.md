@@ -12,7 +12,6 @@
 - [Required IAM permissions](#required-iam-permissions)
 - [Cost note](#cost-note)
 - [Appendix: running on your own machine](#appendix-running-on-your-own-machine)
-- [Troubleshooting](#troubleshooting)
 
 ---
 

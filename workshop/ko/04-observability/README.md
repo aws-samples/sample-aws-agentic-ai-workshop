@@ -8,8 +8,6 @@
 - [Metrics](#metrics)
 - [Logs](#logs)
 - [Traces](#traces)
-- [정리하기](#정리하기)
-- [트러블슈팅](#트러블슈팅)
 
 ---
 

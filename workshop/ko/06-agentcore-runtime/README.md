@@ -8,8 +8,7 @@
 - [0. (사전 준비) CloudWatch Transaction Search 활성화](#0-사전-준비-cloudwatch-transaction-search-활성화)
 - [1. 기존 로컬 에이전트 확인](#1-기존-로컬-에이전트-확인)
 - [2. 클라우드 배포를 위한 코드 변환](#2-클라우드-배포를-위한-코드-변환)
-- [3. AgentCore Runtime에 배포](#3-agentcore-runtime에-배포)
-- [4. 배포된 에이전트 테스트](#4-배포된-에이전트-테스트)
+- [3-4. AgentCore Runtime에 배포 및 에이전트 호출](#3-agentcore-runtime에-배포)
 - [(선택) 5. 에이전트 배포 과정을 Console에서 직접 확인하기](#선택-5-에이전트-배포-과정을-console에서-직접-확인하기)
 
 ---

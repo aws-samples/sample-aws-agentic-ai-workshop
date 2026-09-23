@@ -8,8 +8,7 @@
 - [0. (Prerequisite) Enable CloudWatch Transaction Search](#0-prerequisite-enable-cloudwatch-transaction-search)
 - [1. Review Existing Local Agent](#1-review-existing-local-agent)
 - [2. Converting Code for Cloud Deployment](#2-converting-code-for-cloud-deployment)
-- [3. Deploy to AgentCore Runtime](#3-deploy-to-agentcore-runtime)
-- [4. Test Deployed Agent](#4-test-deployed-agent)
+- [3-4. Deploy to AgentCore Runtime and Invoke the Agent](#3-deploy-to-agentcore-runtime)
 - [(Optional) 5. Verify Agent Deployment Process in Console](#optional-5-verify-agent-deployment-process-in-console)
 
 ---

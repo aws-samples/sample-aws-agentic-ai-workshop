@@ -886,6 +886,8 @@ uv run python 01-single-agent/labs/mcp_tool.py
 
 에이전트가 알려준 경로에 파일이 실제로 생성되었는지 확인해보세요.
 
+![생성된 스크린샷 파일](../../images/c1-playwright-screenshot.png)
+
 ```bash
 ls -l 01-single-agent/labs/artifacts-mcp/
 ```

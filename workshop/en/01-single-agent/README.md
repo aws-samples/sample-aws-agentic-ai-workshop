@@ -884,7 +884,9 @@ You can confirm that the agent uses Playwright to visit the web page, saves a sc
 
 ![Playwright MCP result](../../images/c1-playwright.png)
 
-Check that the file really exists at the path the agent reported:
+Check that the file really exists at the path the agent reported.
+
+![Generated screenshot file](../../images/c1-playwright-screenshot.png)
 
 ```bash
 ls -l 01-single-agent/labs/artifacts-mcp/

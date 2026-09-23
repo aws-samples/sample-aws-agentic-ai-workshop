@@ -299,7 +299,7 @@ This repository already ships the Steering file for the lab at [`.kiro/steering/
 
 **Model configuration**
 
-> - Default model: `us.anthropic.claude-sonnet-4-20250514-v1:0`
+> - Default model: `us.anthropic.claude-sonnet-4-6`
 > - Region: `us-west-2`
 
 **Error handling**
@@ -331,7 +331,7 @@ def my_tool(param: str) -> str:
     return result
 
 agent = Agent(
-    model="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model="us.anthropic.claude-sonnet-4-6",
     system_prompt="You are a helpful AI assistant.",
     name="<adequate name>",
     tools=[my_tool]

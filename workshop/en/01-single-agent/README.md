@@ -12,8 +12,7 @@ The agent we build first has 1) mathematical calculation, 2) time checking, and 
 > **Prerequisites**
 > - Environment set up per [00-setup](../00-setup/README.md), with the uv environment available from the repo root
 > - Amazon Bedrock model access enabled in **us-west-2** for:
->   - `us.anthropic.claude-sonnet-4-20250514-v1:0` (used in `models.py`)
->   - `us.anthropic.claude-sonnet-4-6` (used in `self_extending.py`, `self_modifying.py`)
+>   - `us.anthropic.claude-sonnet-4-6` (used in `models.py`, `self_extending.py`, `self_modifying.py`)
 >   - `amazon.titan-embed-text-v2:0` (Titan Text Embeddings V2, used by the Knowledge Base)
 > - An AWS identity with permission to create an S3 bucket, a Bedrock Knowledge Base, and an OpenSearch Serverless collection (section 2)
 > - Node.js / `npx` available if you want to run the Playwright MCP part of section 3
@@ -197,7 +196,7 @@ from strands_tools import calculator
 
 ```py
 bedrock_model = BedrockModel(
-    model_id="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model_id="us.anthropic.claude-sonnet-4-6",
     additional_request_fields={
         "anthropic_beta": [ "interleaved-thinking-2025-05-14" ],
         "thinking": { "type": "enabled", "budget_tokens": 8000 },
@@ -462,7 +461,7 @@ agent = Agent(tools=[...])  # Using Strands default model
 from strands.models import BedrockModel
 
 bedrock_model = BedrockModel(
-    model="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model="us.anthropic.claude-sonnet-4-6",
     additional_request_fields={
         "thinking": { "type": "enabled", "budget_tokens": 8000 }
     }
@@ -1316,8 +1315,7 @@ Also delete any `01-single-agent/labs/tools/*.py` file that the agent generated 
 
 The model is not enabled for your account. Open the Amazon Bedrock console > **Model access** and request/enable access for the Anthropic Claude models. This chapter uses:
 
-- `us.anthropic.claude-sonnet-4-20250514-v1:0` (`models.py`)
-- `us.anthropic.claude-sonnet-4-6` (`self_extending.py`, `self_modifying.py`)
+- `us.anthropic.claude-sonnet-4-6` (`models.py`, `self_extending.py`, `self_modifying.py`)
 - `amazon.titan-embed-text-v2:0` (Titan Text Embeddings V2, used by the Knowledge Base)
 
 `basic.py`, `custom_tool1.py`, `custom_tool2.py`, `knowledge_base.py`, and `mcp_tool.py` do not set a model, so they use the Strands default Bedrock model, which also has to be enabled. The same error can also come from a missing IAM permission (`bedrock:InvokeModel`, `bedrock:InvokeModelWithResponseStream`) on the identity you are using.

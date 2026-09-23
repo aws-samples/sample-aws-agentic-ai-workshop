@@ -10,7 +10,7 @@ In this chapter you will learn how to build systems where multiple agents collab
 > **Prerequisites**
 >
 > - Environment set up per [00-setup](../00-setup/README.md)
-> - Amazon Bedrock model access in `us-west-2` for `us.anthropic.claude-sonnet-4-20250514-v1:0` (the SDK default) and `us.anthropic.claude-sonnet-4-6`
+> - Amazon Bedrock model access in `us-west-2` for `us.anthropic.claude-sonnet-4-6` (set explicitly in the lab code) and `global.anthropic.claude-sonnet-4-6` (the SDK default, used by agents created without a `model` argument)
 > - [Chapter 01](../01-single-agent/README.md) is recommended first. This chapter assumes you already know how to create an `Agent` and pass it tools.
 
 **What you will learn**

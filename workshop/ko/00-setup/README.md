@@ -144,8 +144,7 @@ CloudFormation 템플릿 **`code-server.yaml`은 이 리포지토리 루트에 �
 
 | 모델 ID | 사용하는 파일 |
 |---|---|
-| `us.anthropic.claude-sonnet-4-20250514-v1:0` | `01-single-agent/completed/models.py`, `04-observability/completed/traces_console.py`, `04-observability/completed/traces_otlp.py`, `08-kiro-dev/completed/hanoi_tower.py` |
-| `us.anthropic.claude-sonnet-4-6` | `01-single-agent/completed/self_extending.py`, `01-single-agent/completed/self_modifying.py`, `02-multi-agents/completed/agents_as_tools.py`, `02-multi-agents/completed/swarms.py` |
+| `us.anthropic.claude-sonnet-4-6` | `01-single-agent/completed/models.py`, `01-single-agent/completed/self_extending.py`, `01-single-agent/completed/self_modifying.py`, `02-multi-agents/completed/agents_as_tools.py`, `02-multi-agents/completed/swarms.py`, `04-observability/completed/traces_console.py`, `04-observability/completed/traces_otlp.py`, `08-kiro-dev/completed/hanoi_tower.py` |
 | `us.amazon.nova-pro-v1:0` | `04-observability/completed/metrics_basic.py` |
 
 `us.` 접두사는 교차 리전 추론 프로파일을 의미합니다. 프로파일의 대상 리전에 대한 액세스 활성화는 콘솔이 함께 처리해 줍니다.

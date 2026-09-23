@@ -144,8 +144,7 @@ These are the model IDs the lab code actually uses:
 
 | Model ID | Used by |
 |---|---|
-| `us.anthropic.claude-sonnet-4-20250514-v1:0` | `01-single-agent/completed/models.py`, `04-observability/completed/traces_console.py`, `04-observability/completed/traces_otlp.py`, `08-kiro-dev/completed/hanoi_tower.py` |
-| `us.anthropic.claude-sonnet-4-6` | `01-single-agent/completed/self_extending.py`, `01-single-agent/completed/self_modifying.py`, `02-multi-agents/completed/agents_as_tools.py`, `02-multi-agents/completed/swarms.py` |
+| `us.anthropic.claude-sonnet-4-6` | `01-single-agent/completed/models.py`, `01-single-agent/completed/self_extending.py`, `01-single-agent/completed/self_modifying.py`, `02-multi-agents/completed/agents_as_tools.py`, `02-multi-agents/completed/swarms.py`, `04-observability/completed/traces_console.py`, `04-observability/completed/traces_otlp.py`, `08-kiro-dev/completed/hanoi_tower.py` |
 | `us.amazon.nova-pro-v1:0` | `04-observability/completed/metrics_basic.py` |
 
 The `us.` prefix means these are cross-region inference profiles. The console handles enabling access in the profile's destination regions for you.

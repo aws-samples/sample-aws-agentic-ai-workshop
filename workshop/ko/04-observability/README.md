@@ -15,7 +15,7 @@
 > [!NOTE]
 > **사전 준비 사항**
 > - [00-setup](../00-setup/README.md)에 따라 실습 환경을 구성합니다. 트레이스 전송에 필요한 `strands-agents[otel]` 추가 의존성은 `00-setup/pyproject.toml`에 이미 포함되어 있습니다.
-> - Amazon Bedrock 모델 액세스: `us.amazon.nova-pro-v1:0` (Metrics 실습), `us.anthropic.claude-sonnet-4-20250514-v1:0` (Traces 실습)
+> - Amazon Bedrock 모델 액세스: `us.amazon.nova-pro-v1:0` (Metrics 실습), `us.anthropic.claude-sonnet-4-6` (Traces 실습)
 > - **로컬에서 실행 중인 Docker**. OTLP 구간(Traces 실습 2, 실습 3)에만 필요합니다. 워크샵에서 사용하는 AWS 호스팅 VS Code Server에는 Docker가 미리 설치되어 실행 중입니다. 개인 노트북에서 진행하는 경우 Docker Desktop을 먼저 설치해야 할 수 있습니다. Metrics, Logs, 콘솔 익스포터를 사용하는 Traces 실습 1은 Docker가 필요하지 않습니다.
 
 **학습 내용**
@@ -559,7 +559,7 @@ strands_telemetry.setup_console_exporter()
 
 ```python
 agent = Agent(
-    model="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model="us.anthropic.claude-sonnet-4-6",
     system_prompt="You are a helpful AI assistant.",
     tools=[calculator]
 )
@@ -691,7 +691,7 @@ strands_telemetry.setup_meter(
 
 # Create agent (with custom attributes)
 agent = Agent(
-    model="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model="us.anthropic.claude-sonnet-4-6",
     system_prompt="You are a helpful AI assistant.",
     tools=[calculator],
     trace_attributes={

@@ -3,7 +3,7 @@ from strands.models import BedrockModel
 from strands_tools import calculator
 
 bedrock_model = BedrockModel(
-    model_id="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model_id="us.anthropic.claude-sonnet-4-6",
     additional_request_fields={
         "anthropic_beta": [ "interleaved-thinking-2025-05-14" ],
         "thinking": { "type": "enabled", "budget_tokens": 8000 },

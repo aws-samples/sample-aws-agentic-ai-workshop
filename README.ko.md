@@ -75,8 +75,7 @@ uv run --project 00-setup python 01-single-agent/completed/basic.py
 
 | 모델 ID | 사용 위치 |
 |---|---|
-| `us.anthropic.claude-sonnet-4-20250514-v1:0` | 01~06 챕터 |
-| `us.anthropic.claude-sonnet-4-6` | 01 챕터 자가개선 에이전트 실습, 02 챕터 |
+| `us.anthropic.claude-sonnet-4-6` | 01~06 챕터 |
 | `us.amazon.nova-pro-v1:0` | 04 챕터 메트릭 실습 |
 
 [Bedrock 콘솔](https://us-west-2.console.aws.amazon.com/bedrock/home?region=us-west-2#/modelaccess)의 **Model access**에서 활성화합니다. `us.` 접두사가 붙은 모델 ID는 교차 리전 추론 프로파일이며, 프로파일 대상 리전의 액세스는 콘솔에서 함께 처리됩니다.

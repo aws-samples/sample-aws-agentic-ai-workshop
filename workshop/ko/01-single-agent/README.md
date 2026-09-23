@@ -12,8 +12,7 @@
 > **사전 준비**
 > - [00-setup](../00-setup/README.md)에 따라 환경을 구성하고, 레포지토리 루트에서 uv 환경을 사용할 수 있어야 합니다.
 > - **us-west-2** 리전에서 다음 Amazon Bedrock 모델 액세스가 활성화되어 있어야 합니다.
->   - `us.anthropic.claude-sonnet-4-20250514-v1:0` (`models.py`에서 사용)
->   - `us.anthropic.claude-sonnet-4-6` (`self_extending.py`, `self_modifying.py`에서 사용)
+>   - `us.anthropic.claude-sonnet-4-6` (`models.py`, `self_extending.py`, `self_modifying.py`에서 사용)
 >   - `amazon.titan-embed-text-v2:0` (Titan Text Embeddings V2, Knowledge Base에서 사용)
 > - S3 버킷, Bedrock Knowledge Base, OpenSearch Serverless 컬렉션을 생성할 수 있는 권한이 필요합니다 (2번 섹션).
 > - 3번 섹션의 Playwright MCP 실습을 진행하려면 Node.js / `npx`가 설치되어 있어야 합니다.
@@ -197,7 +196,7 @@ from strands_tools import calculator
 
 ```py
 bedrock_model = BedrockModel(
-    model_id="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model_id="us.anthropic.claude-sonnet-4-6",
     additional_request_fields={
         "anthropic_beta": [ "interleaved-thinking-2025-05-14" ],
         "thinking": { "type": "enabled", "budget_tokens": 8000 },
@@ -462,7 +461,7 @@ agent = Agent(tools=[...])  # Strands 기본 모델 사용
 from strands.models import BedrockModel
 
 bedrock_model = BedrockModel(
-    model="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model="us.anthropic.claude-sonnet-4-6",
     additional_request_fields={
         "thinking": { "type": "enabled", "budget_tokens": 8000 }
     }
@@ -1316,8 +1315,7 @@ rm -f 01-single-agent/labs/.prompt
 
 해당 모델이 계정에서 활성화되지 않은 경우입니다. Amazon Bedrock 콘솔 > **Model access**에서 Anthropic Claude 모델 액세스를 요청/활성화하세요. 이번 챕터에서 사용하는 모델은 다음과 같습니다.
 
-- `us.anthropic.claude-sonnet-4-20250514-v1:0` (`models.py`)
-- `us.anthropic.claude-sonnet-4-6` (`self_extending.py`, `self_modifying.py`)
+- `us.anthropic.claude-sonnet-4-6` (`models.py`, `self_extending.py`, `self_modifying.py`)
 - `amazon.titan-embed-text-v2:0` (Titan Text Embeddings V2, Knowledge Base에서 사용)
 
 `basic.py`, `custom_tool1.py`, `custom_tool2.py`, `knowledge_base.py`, `mcp_tool.py`는 모델을 지정하지 않으므로 Strands 기본 Bedrock 모델을 사용하며, 이 모델도 활성화되어 있어야 합니다. 사용 중인 IAM 자격 증명에 `bedrock:InvokeModel`, `bedrock:InvokeModelWithResponseStream` 권한이 없을 때도 같은 오류가 발생합니다.

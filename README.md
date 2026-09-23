@@ -75,8 +75,7 @@ The labs run against Amazon Bedrock in **`us-west-2`**. Enable model access for 
 
 | Model ID | Used in |
 |---|---|
-| `us.anthropic.claude-sonnet-4-20250514-v1:0` | Chapters 01 to 06 |
-| `us.anthropic.claude-sonnet-4-6` | Chapter 01 self-improving agent labs, chapter 02 |
+| `us.anthropic.claude-sonnet-4-6` | Chapters 01 to 06 |
 | `us.amazon.nova-pro-v1:0` | Chapter 04, metrics lab |
 
 Enable them in the [Bedrock console](https://us-west-2.console.aws.amazon.com/bedrock/home?region=us-west-2#/modelaccess) under **Model access**. Cross-region inference profiles (the `us.` prefix) require access in the destination regions of the profile, which the console handles for you.

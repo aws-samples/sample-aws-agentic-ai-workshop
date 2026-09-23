@@ -15,7 +15,7 @@ In this chapter, you will learn about the Agent Observability features provided 
 > [!NOTE]
 > **Prerequisites**
 > - Environment set up per [00-setup](../00-setup/README.md). The `strands-agents[otel]` extra needed for trace export is already included in `00-setup/pyproject.toml`.
-> - Amazon Bedrock model access for `us.amazon.nova-pro-v1:0` (Metrics lab) and `us.anthropic.claude-sonnet-4-20250514-v1:0` (Traces labs)
+> - Amazon Bedrock model access for `us.amazon.nova-pro-v1:0` (Metrics lab) and `us.anthropic.claude-sonnet-4-6` (Traces labs)
 > - **Docker running locally**, for the OTLP section only (Traces Lab 2 and Lab 3). The AWS-hosted VS Code Server used in the workshop has Docker preinstalled and running. On your own laptop you may need to install Docker Desktop first. The Metrics, Logs, and console-exporter Traces labs do not need Docker.
 
 **What you will learn**
@@ -560,7 +560,7 @@ strands_telemetry.setup_console_exporter()
 
 ```python
 agent = Agent(
-    model="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model="us.anthropic.claude-sonnet-4-6",
     system_prompt="You are a helpful AI assistant.",
     tools=[calculator]
 )
@@ -692,7 +692,7 @@ strands_telemetry.setup_meter(
 
 # Create agent (with custom attributes)
 agent = Agent(
-    model="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model="us.anthropic.claude-sonnet-4-6",
     system_prompt="You are a helpful AI assistant.",
     tools=[calculator],
     trace_attributes={

@@ -9,7 +9,7 @@
 > [!NOTE]
 > **사전 준비 사항**
 > - [00-setup](../00-setup/README.md) 에 따라 환경 설정 완료
-> - `us-west-2` 리전에서 `us.anthropic.claude-sonnet-4-20250514-v1:0`(SDK 기본 모델)과 `us.anthropic.claude-sonnet-4-6` 에 대한 Amazon Bedrock 모델 액세스 활성화
+> - `us-west-2` 리전에서 `us.anthropic.claude-sonnet-4-6`(실습 코드에서 명시적으로 지정)과 `global.anthropic.claude-sonnet-4-6`(SDK 기본 모델, `model` 인자 없이 생성된 에이전트가 사용)에 대한 Amazon Bedrock 모델 액세스 활성화
 > - [01 챕터](../01-single-agent/README.md)를 먼저 진행하는 것을 권장합니다. 이번 챕터는 `Agent` 를 생성하고 도구를 전달하는 방법을 이미 알고 있다고 가정합니다.
 
 **이번 챕터에서 배우는 내용**

@@ -301,7 +301,7 @@ Steering은 Kiro AI가 코드를 생성할 때 따라야 할 규칙과 컨텍스
 
 **모델 설정**
 
-> - 기본 모델: `us.anthropic.claude-sonnet-4-20250514-v1:0`
+> - 기본 모델: `us.anthropic.claude-sonnet-4-6`
 > - 리전: `us-west-2`
 
 **에러 처리**
@@ -333,7 +333,7 @@ def my_tool(param: str) -> str:
     return result
 
 agent = Agent(
-    model="us.anthropic.claude-sonnet-4-20250514-v1:0",
+    model="us.anthropic.claude-sonnet-4-6",
     system_prompt="You are a helpful AI assistant.",
     name="<adequate name>",
     tools=[my_tool]

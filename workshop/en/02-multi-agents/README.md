@@ -2,6 +2,19 @@
 
 <p align="center"><a href="../../ko/02-multi-agents/README.md">한국어</a> | <a href="README.md">English</a></p>
 
+## Contents
+
+- [Files in this chapter](#files-in-this-chapter)
+- [1. Agents-as-Tools Pattern](#1-agents-as-tools-pattern)
+- [2. Swarm Pattern](#2-swarm-pattern)
+- [3. Graph Pattern: Basic and Parallel Execution](#3-graph-pattern-basic-and-parallel-execution)
+- [4. Graph Pattern: Conditional Routing](#4-graph-pattern-conditional-routing)
+- [Choosing a pattern](#choosing-a-pattern)
+- [Troubleshooting](#troubleshooting)
+- [Cleanup](#cleanup)
+
+---
+
 In this chapter you will learn how to build systems where multiple agents collaborate, using the multi-agent patterns of the Strands Agents SDK. You will practice the following three patterns and create agent systems that solve tasks a single agent would struggle with.
 
 <img src="../../images/c2-diagram-en.png" alt="multi-agent patterns" >
@@ -22,19 +35,6 @@ In this chapter you will learn how to build systems where multiple agents collab
 - Choosing between the three patterns for a given task
 
 **Estimated time:** ~30 minutes
-
-## Contents
-
-- [Files in this chapter](#files-in-this-chapter)
-- [1. Agents-as-Tools Pattern](#1-agents-as-tools-pattern)
-- [2. Swarm Pattern](#2-swarm-pattern)
-- [3. Graph Pattern: Basic and Parallel Execution](#3-graph-pattern-basic-and-parallel-execution)
-- [4. Graph Pattern: Conditional Routing](#4-graph-pattern-conditional-routing)
-- [Choosing a pattern](#choosing-a-pattern)
-- [Troubleshooting](#troubleshooting)
-- [Cleanup](#cleanup)
-
----
 
 ## Files in this chapter
 

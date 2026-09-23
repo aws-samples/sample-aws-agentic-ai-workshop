@@ -2,6 +2,22 @@
 
 <p align="center"><a href="README.md">한국어</a> | <a href="../../en/06-agentcore-runtime/README.md">English</a></p>
 
+## 목차
+
+- [이번 챕터의 파일](#이번-챕터의-파일)
+- [AgentCore Runtime이란?](#agentcore-runtime이란)
+- [0. (사전 준비) CloudWatch Transaction Search 활성화](#0-사전-준비-cloudwatch-transaction-search-활성화)
+- [1. 기존 로컬 에이전트 확인](#1-기존-로컬-에이전트-확인)
+- [2. 클라우드 배포를 위한 코드 변환](#2-클라우드-배포를-위한-코드-변환)
+- [3. AgentCore Runtime에 배포](#3-agentcore-runtime에-배포)
+- [4. 배포된 에이전트 테스트](#4-배포된-에이전트-테스트)
+- [(선택) 5. 에이전트 배포 과정을 Console에서 직접 확인하기](#선택-5-에이전트-배포-과정을-console에서-직접-확인하기)
+- [리소스 정리](#리소스-정리)
+- [트러블슈팅](#트러블슈팅)
+- [참고 자료](#참고-자료)
+
+---
+
 이번 실습에서는 지금까지 로컬에서 실행하던 Strands 에이전트를 [Amazon Bedrock AgentCore Runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html)에 배포하는 방법을 학습합니다.
 
 복잡한 인프라 설정이나 코드 재작성 없이, **4줄의 코드만 추가**하면 프로덕션 환경에 배포하여 서버리스 기반 자동 확장과 모니터링의 장점을 가져갈 수 있습니다.
@@ -29,22 +45,6 @@
 - (선택) 멀티 에이전트 시스템을 배포하고 콘솔에서 세션 확장을 확인하는 방법
 
 **예상 소요 시간:** 약 20분 (선택 실습인 5단계 포함 시 약 10분 추가)
-
-## 목차
-
-- [이번 챕터의 파일](#이번-챕터의-파일)
-- [AgentCore Runtime이란?](#agentcore-runtime이란)
-- [0. (사전 준비) CloudWatch Transaction Search 활성화](#0-사전-준비-cloudwatch-transaction-search-활성화)
-- [1. 기존 로컬 에이전트 확인](#1-기존-로컬-에이전트-확인)
-- [2. 클라우드 배포를 위한 코드 변환](#2-클라우드-배포를-위한-코드-변환)
-- [3. AgentCore Runtime에 배포](#3-agentcore-runtime에-배포)
-- [4. 배포된 에이전트 테스트](#4-배포된-에이전트-테스트)
-- [(선택) 5. 에이전트 배포 과정을 Console에서 직접 확인하기](#선택-5-에이전트-배포-과정을-console에서-직접-확인하기)
-- [리소스 정리](#리소스-정리)
-- [트러블슈팅](#트러블슈팅)
-- [참고 자료](#참고-자료)
-
----
 
 ## 이번 챕터의 파일
 

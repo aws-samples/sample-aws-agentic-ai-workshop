@@ -2,6 +2,18 @@
 
 <p align="center"><a href="README.md">한국어</a> | <a href="../../en/04-observability/README.md">English</a></p>
 
+## 목차
+
+- [이 챕터의 파일](#이-챕터의-파일)
+- [왜 에이전트 가시성이 필요한가?](#왜-에이전트-가시성이-필요한가)
+- [Metrics](#metrics)
+- [Logs](#logs)
+- [Traces](#traces)
+- [정리하기](#정리하기)
+- [트러블슈팅](#트러블슈팅)
+
+---
+
 이번 챕터에서는 Strands SDK가 제공하는 에이전트 가시성(Observability) 기능을 학습합니다. 에이전트의 동작을 모니터링하고 디버깅하는 데 필수적인 **Metrics**, **Logs**, **Traces**를 다룹니다.
 
 > [!NOTE]
@@ -25,18 +37,6 @@
 - Docker로 ADOT Collector와 Jaeger를 실행하고 Jaeger UI에서 트레이스를 확인하는 방법
 
 **예상 소요 시간:** 약 30분
-
-## 목차
-
-- [이 챕터의 파일](#이-챕터의-파일)
-- [왜 에이전트 가시성이 필요한가?](#왜-에이전트-가시성이-필요한가)
-- [Metrics](#metrics)
-- [Logs](#logs)
-- [Traces](#traces)
-- [정리하기](#정리하기)
-- [트러블슈팅](#트러블슈팅)
-
----
 
 ## 이 챕터의 파일
 

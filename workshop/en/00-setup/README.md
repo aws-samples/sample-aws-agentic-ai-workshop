@@ -2,6 +2,20 @@
 
 <p align="center"><a href="../../ko/00-setup/README.md">한국어</a> | <a href="README.md">English</a></p>
 
+## Contents
+
+- [1. Prepare an AWS account](#1-prepare-an-aws-account)
+- [2. Deploy the code-server CloudFormation stack](#2-deploy-the-code-server-cloudformation-stack)
+- [3. Enable Amazon Bedrock model access](#3-enable-amazon-bedrock-model-access)
+- [4. Open the environment](#4-open-the-environment)
+- [5. Create the Python environment](#5-create-the-python-environment)
+- [Required IAM permissions](#required-iam-permissions)
+- [Cost note](#cost-note)
+- [Appendix: running on your own machine](#appendix-running-on-your-own-machine)
+- [Troubleshooting](#troubleshooting)
+
+---
+
 This chapter prepares the environment that every later chapter uses: a Python 3.12 project managed by [uv](https://docs.astral.sh/uv/), AWS credentials that can call Amazon Bedrock, and Bedrock model access in `us-west-2`.
 
 > [!IMPORTANT]
@@ -45,20 +59,6 @@ This chapter prepares the environment that every later chapter uses: a Python 3.
 
 > [!TIP]
 > If you use a modern browser you will have no trouble, but the workshop screenshots and the code-server UI are verified against **Mozilla Firefox** and **Google Chrome**.
-
-## Contents
-
-- [1. Prepare an AWS account](#1-prepare-an-aws-account)
-- [2. Deploy the code-server CloudFormation stack](#2-deploy-the-code-server-cloudformation-stack)
-- [3. Enable Amazon Bedrock model access](#3-enable-amazon-bedrock-model-access)
-- [4. Open the environment](#4-open-the-environment)
-- [5. Create the Python environment](#5-create-the-python-environment)
-- [Required IAM permissions](#required-iam-permissions)
-- [Cost note](#cost-note)
-- [Appendix: running on your own machine](#appendix-running-on-your-own-machine)
-- [Troubleshooting](#troubleshooting)
-
----
 
 ## 1. Prepare an AWS account
 

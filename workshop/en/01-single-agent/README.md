@@ -2,6 +2,19 @@
 
 <p align="center"><a href="../../ko/01-single-agent/README.md">한국어</a> | <a href="README.md">English</a></p>
 
+## Contents
+
+- [How the labs work](#how-the-labs-work)
+- [Files in this chapter](#files-in-this-chapter)
+- [1. Building a Basic Agent](#1-building-a-basic-agent)
+- [2. Knowledge Base Integration](#2-knowledge-base-integration)
+- [3. MCP Tool Integration](#3-mcp-tool-integration)
+- [4. (Optional) Self-Improving Agent](#4-optional-self-improving-agent)
+- [Cleanup](#cleanup)
+- [Troubleshooting](#troubleshooting)
+
+---
+
 In this chapter, we will learn how to create a basic agent by working with the core components of the Strands SDK: Prompt, Model, and Tools.
 
 ![Strands SDK components](../../images/c1-strands-diagram.png)
@@ -27,19 +40,6 @@ The agent we build first has 1) mathematical calculation, 2) time checking, and 
 - Two self-improving patterns: an agent that writes its own tools, and an agent that rewrites its own system prompt
 
 **Estimated time:** ~30 minutes for sections 1 and 3 (section 2 adds ~30 minutes of console work; section 4 is optional)
-
-## Contents
-
-- [How the labs work](#how-the-labs-work)
-- [Files in this chapter](#files-in-this-chapter)
-- [1. Building a Basic Agent](#1-building-a-basic-agent)
-- [2. Knowledge Base Integration](#2-knowledge-base-integration)
-- [3. MCP Tool Integration](#3-mcp-tool-integration)
-- [4. (Optional) Self-Improving Agent](#4-optional-self-improving-agent)
-- [Cleanup](#cleanup)
-- [Troubleshooting](#troubleshooting)
-
----
 
 ## How the labs work
 

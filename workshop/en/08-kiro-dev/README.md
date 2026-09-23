@@ -2,11 +2,6 @@
 
 <p align="center"><a href="../../ko/08-kiro-dev/README.md">한국어</a> | <a href="README.md">English</a></p>
 
-> [!NOTE]
-> This chapter is **optional**. It does not build on chapters 01 to 07 and nothing later depends on it. Skip it if you only want the Strands Agents and AgentCore path.
-
-In this chapter you will set up a Strands Agents development environment using **Kiro**, AWS's AI-powered IDE, and experience the development workflow: install a Power, define Steering rules, wire up an MCP server, then have Kiro write a Strands agent for you.
-
 ## Contents
 
 - [What is Kiro?](#what-is-kiro)
@@ -18,6 +13,11 @@ In this chapter you will set up a Strands Agents development environment using *
 - [References](#references)
 
 ---
+
+> [!NOTE]
+> This chapter is **optional**. It does not build on chapters 01 to 07 and nothing later depends on it. Skip it if you only want the Strands Agents and AgentCore path.
+
+In this chapter you will set up a Strands Agents development environment using **Kiro**, AWS's AI-powered IDE, and experience the development workflow: install a Power, define Steering rules, wire up an MCP server, then have Kiro write a Strands agent for you.
 
 ## What is Kiro?
 

@@ -2,6 +2,19 @@
 
 <p align="center"><a href="../../ko/05-agent-memory/README.md">한국어</a> | <a href="README.md">English</a></p>
 
+## Contents
+
+- [How this lab works](#how-this-lab-works)
+- [Files in this chapter](#files-in-this-chapter)
+- [AgentCore Memory concepts](#agentcore-memory-concepts)
+- [Short-term memory (STM)](#short-term-memory-stm)
+- [Long-term memory (LTM)](#long-term-memory-ltm)
+- [Streamlit integration](#streamlit-integration)
+- [Cleanup](#cleanup)
+- [Troubleshooting](#troubleshooting)
+
+---
+
 In this lab, you will learn how to use Amazon Bedrock AgentCore Memory to enable agents to remember conversations and accumulate knowledge about users.
 
 The agents we've built so far couldn't remember previous conversations when starting a new chat. With AgentCore Memory, agents can store conversation history, learn user preferences, and retain important information long-term.
@@ -24,19 +37,6 @@ The agents we've built so far couldn't remember previous conversations when star
 - Integrate memory with Strands agents and a Streamlit app
 
 **Estimated time:** ~30 minutes
-
-## Contents
-
-- [How this lab works](#how-this-lab-works)
-- [Files in this chapter](#files-in-this-chapter)
-- [AgentCore Memory concepts](#agentcore-memory-concepts)
-- [Short-term memory (STM)](#short-term-memory-stm)
-- [Long-term memory (LTM)](#long-term-memory-ltm)
-- [Streamlit integration](#streamlit-integration)
-- [Cleanup](#cleanup)
-- [Troubleshooting](#troubleshooting)
-
----
 
 ## How this lab works
 

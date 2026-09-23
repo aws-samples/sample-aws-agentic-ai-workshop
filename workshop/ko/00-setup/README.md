@@ -2,6 +2,20 @@
 
 <p align="center"><a href="README.md">한국어</a> | <a href="../../en/00-setup/README.md">English</a></p>
 
+## 목차
+
+- [1. AWS 계정 준비](#1-aws-계정-준비)
+- [2. code-server CloudFormation 스택 배포](#2-code-server-cloudformation-스택-배포)
+- [3. Amazon Bedrock 모델 액세스 활성화](#3-amazon-bedrock-모델-액세스-활성화)
+- [4. 환경 접속](#4-환경-접속)
+- [5. Python 환경 생성](#5-python-환경-생성)
+- [필요한 IAM 권한](#필요한-iam-권한)
+- [비용 안내](#비용-안내)
+- [부록: 본인 컴퓨터에서 진행하기](#부록-본인-컴퓨터에서-진행하기)
+- [트러블슈팅](#트러블슈팅)
+
+---
+
 이 챕터에서는 이후 모든 챕터에서 사용할 환경을 준비합니다. [uv](https://docs.astral.sh/uv/)로 관리되는 Python 3.12 프로젝트, Amazon Bedrock을 호출할 수 있는 AWS 자격 증명, 그리고 `us-west-2` 리전의 Bedrock 모델 액세스가 필요합니다.
 
 > [!IMPORTANT]
@@ -45,20 +59,6 @@
 
 > [!TIP]
 > 최신 브라우저라면 문제없이 진행할 수 있으나, 워크샵 스크린샷과 code-server UI는 **Mozilla Firefox** 및 **Google Chrome**에서 호환성이 검증되었습니다.
-
-## 목차
-
-- [1. AWS 계정 준비](#1-aws-계정-준비)
-- [2. code-server CloudFormation 스택 배포](#2-code-server-cloudformation-스택-배포)
-- [3. Amazon Bedrock 모델 액세스 활성화](#3-amazon-bedrock-모델-액세스-활성화)
-- [4. 환경 접속](#4-환경-접속)
-- [5. Python 환경 생성](#5-python-환경-생성)
-- [필요한 IAM 권한](#필요한-iam-권한)
-- [비용 안내](#비용-안내)
-- [부록: 본인 컴퓨터에서 진행하기](#부록-본인-컴퓨터에서-진행하기)
-- [트러블슈팅](#트러블슈팅)
-
----
 
 ## 1. AWS 계정 준비
 

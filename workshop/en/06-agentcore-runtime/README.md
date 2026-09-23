@@ -2,6 +2,22 @@
 
 <p align="center"><a href="../../ko/06-agentcore-runtime/README.md">한국어</a> | <a href="README.md">English</a></p>
 
+## Contents
+
+- [Files in this chapter](#files-in-this-chapter)
+- [What is AgentCore Runtime?](#what-is-agentcore-runtime)
+- [0. (Prerequisite) Enable CloudWatch Transaction Search](#0-prerequisite-enable-cloudwatch-transaction-search)
+- [1. Review Existing Local Agent](#1-review-existing-local-agent)
+- [2. Converting Code for Cloud Deployment](#2-converting-code-for-cloud-deployment)
+- [3. Deploy to AgentCore Runtime](#3-deploy-to-agentcore-runtime)
+- [4. Test Deployed Agent](#4-test-deployed-agent)
+- [(Optional) 5. Verify Agent Deployment Process in Console](#optional-5-verify-agent-deployment-process-in-console)
+- [Cleanup](#cleanup)
+- [Troubleshooting](#troubleshooting)
+- [References](#references)
+
+---
+
 In this lab, you'll learn how to deploy Strands agents that have been running locally to [Amazon Bedrock AgentCore Runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html).
 
 Without complex infrastructure setup or code rewriting, you can deploy to production with **just 4 lines of code** and gain the benefits of serverless auto-scaling and monitoring.
@@ -29,22 +45,6 @@ The lab pattern is the same as the other chapters: you write the code into the e
 - (Optional) How to deploy a multi-agent system and watch sessions scale in the console
 
 **Estimated time:** ~20 minutes (the optional section 5 adds ~10 minutes)
-
-## Contents
-
-- [Files in this chapter](#files-in-this-chapter)
-- [What is AgentCore Runtime?](#what-is-agentcore-runtime)
-- [0. (Prerequisite) Enable CloudWatch Transaction Search](#0-prerequisite-enable-cloudwatch-transaction-search)
-- [1. Review Existing Local Agent](#1-review-existing-local-agent)
-- [2. Converting Code for Cloud Deployment](#2-converting-code-for-cloud-deployment)
-- [3. Deploy to AgentCore Runtime](#3-deploy-to-agentcore-runtime)
-- [4. Test Deployed Agent](#4-test-deployed-agent)
-- [(Optional) 5. Verify Agent Deployment Process in Console](#optional-5-verify-agent-deployment-process-in-console)
-- [Cleanup](#cleanup)
-- [Troubleshooting](#troubleshooting)
-- [References](#references)
-
----
 
 ## Files in this chapter
 

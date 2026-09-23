@@ -2,6 +2,18 @@
 
 <p align="center"><a href="../../ko/04-observability/README.md">한국어</a> | <a href="README.md">English</a></p>
 
+## Contents
+
+- [Files in this chapter](#files-in-this-chapter)
+- [Why Agent Observability?](#why-agent-observability)
+- [Metrics](#metrics)
+- [Logs](#logs)
+- [Traces](#traces)
+- [Cleanup](#cleanup)
+- [Troubleshooting](#troubleshooting)
+
+---
+
 In this chapter, you will learn about the Agent Observability features provided by the Strands SDK. We'll cover Metrics, Logs, and Traces, which are essential for monitoring and debugging agent behavior.
 
 > [!NOTE]
@@ -25,18 +37,6 @@ In this chapter, you will learn about the Agent Observability features provided 
 - How to run an ADOT Collector plus Jaeger with Docker and view traces in the Jaeger UI
 
 **Estimated time:** ~30 minutes
-
-## Contents
-
-- [Files in this chapter](#files-in-this-chapter)
-- [Why Agent Observability?](#why-agent-observability)
-- [Metrics](#metrics)
-- [Logs](#logs)
-- [Traces](#traces)
-- [Cleanup](#cleanup)
-- [Troubleshooting](#troubleshooting)
-
----
 
 ## Files in this chapter
 

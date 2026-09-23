@@ -2,11 +2,6 @@
 
 <p align="center"><a href="README.md">한국어</a> | <a href="../../en/08-kiro-dev/README.md">English</a></p>
 
-> [!NOTE]
-> 이 챕터는 **선택 사항**입니다. C1부터 C7까지의 내용을 전제로 하지 않으며, 이후 챕터가 이 챕터에 의존하지도 않습니다. Strands Agents와 AgentCore 경로만 진행하려면 건너뛰어도 됩니다.
-
-이번 챕터에서는 AWS의 AI 기반 IDE인 **Kiro**를 활용하여 Strands Agents 개발 환경을 구성하고, 실제 개발 워크플로우를 체험합니다. Power 설치, Steering 규칙 정의, MCP 서버 연결을 거친 뒤 Kiro가 Strands 에이전트를 직접 작성하게 합니다.
-
 ## 목차
 
 - [Kiro란?](#kiro란)
@@ -18,6 +13,11 @@
 - [참고 자료](#참고-자료)
 
 ---
+
+> [!NOTE]
+> 이 챕터는 **선택 사항**입니다. C1부터 C7까지의 내용을 전제로 하지 않으며, 이후 챕터가 이 챕터에 의존하지도 않습니다. Strands Agents와 AgentCore 경로만 진행하려면 건너뛰어도 됩니다.
+
+이번 챕터에서는 AWS의 AI 기반 IDE인 **Kiro**를 활용하여 Strands Agents 개발 환경을 구성하고, 실제 개발 워크플로우를 체험합니다. Power 설치, Steering 규칙 정의, MCP 서버 연결을 거친 뒤 Kiro가 Strands 에이전트를 직접 작성하게 합니다.
 
 ## Kiro란?
 

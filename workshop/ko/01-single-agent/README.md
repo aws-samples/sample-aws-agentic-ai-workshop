@@ -749,17 +749,19 @@ uv run python 01-single-agent/labs/mcp_tool.py
 > [!NOTE]
 > Playwright MCP는 브라우저를 필요로 합니다. `code-server.yaml`로 배포한 워크샵 환경에는 브라우저(Chrome for Testing)가 미리 설치되어 있으므로 아래 설정을 그대로 사용하실 수 있습니다. 브라우저가 없는 다른 환경(예: SageMaker Studio)에서는 정상적으로 동작하지 않으니, 그 경우에는 로컬 환경에서 테스트하시기 바랍니다.
 
-#### 2-1. mcp.so에서 MCP 서버 찾기
+#### 2-1. mcpservers.org에서 MCP 서버 찾기
 
-[mcp.so](https://mcp.so)는 다양한 MCP 서버를 모아놓은 허브입니다. 여기서 원하는 기능의 MCP 서버를 검색하고 설정 정보를 가져올 수 있습니다.
+[mcpservers.org](https://mcpservers.org)는 다양한 MCP 서버를 모아놓은 허브입니다. 여기서 원하는 기능의 MCP 서버를 검색하고 설정 정보를 가져올 수 있습니다.
 
-![mcp.so](../../images/mcp-so.png)
+**2-1-1.** [mcpservers.org](https://mcpservers.org)에 접속하여 검색창에 "playwright"를 입력합니다.
 
-**2-1-1.** [mcp.so](https://mcp.so)에 접속합니다.
+![mcpservers.org](../../images/mcporg1.png)
 
-**2-1-2.** 검색창에 "playwright"를 입력하여 [Playwright MCP Server](https://mcp.so/server/playwright-mcp/microsoft)를 찾습니다.
+**2-1-2.** 검색 결과에서 `official` 로 표시된 Microsoft 제공 **Playwright MCP** 를 찾아 [Playwright MCP Server](https://mcpservers.org/servers/playwright-mcp-server) 페이지로 이동합니다.
 
-**2-1-3.** 페이지에서 제공하는 설정 정보를 확인해봅니다. 아래와 같은 정보를 보실 수 있습니다.
+![playwright 검색 결과](../../images/mcporg2.png)
+
+**2-1-3.** 아래로 스크롤하여 **Getting started** 에서 페이지가 제공하는 설정 정보를 확인해봅니다. 아래와 같은 정보를 보실 수 있습니다.
 
 ```json
 {
@@ -774,27 +776,46 @@ uv run python 01-single-agent/labs/mcp_tool.py
 }
 ```
 
-![mcp 설정 정보](../../images/mcp-config.png)
+![mcp 설정 정보](../../images/mcporg3.png)
 
 #### 2-2. Playwright MCP 연동하기
 
-**2-2-1.** `01-single-agent/labs/mcp_tool.py` 파일로 돌아가서, Playwright MCP 클라이언트를 추가합니다.
+**2-2-1.** `01-single-agent/labs/mcp_tool.py` 파일로 돌아가서, 스크린샷을 저장할 경로를 정합니다. 스크립트와 같은 위치에 저장하므로, 어느 디렉터리에서 실행해도 결과 파일 위치가 동일합니다.
+
+```py
+import os
+
+# 파일 맨 위, import 구문 아래에 추가합니다
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts-mcp")
+
+```
+
+**2-2-2.** Playwright MCP 클라이언트를 추가합니다.
+
+- `--headless`: 워크샵 환경은 화면(디스플레이)이 없는 원격 EC2 인스턴스이므로 브라우저 창 없이 실행합니다. 스크린샷은 그대로 파일로 저장됩니다.
+- `--output-dir`: Playwright MCP가 생성한 파일을 저장할 디렉터리입니다. 지정하지 않으면 파일이 예상과 다른 곳에 저장될 수 있습니다.
 
 ```py
 # Add below the existing AWS Documentation MCP
 playwright_mcp_client = MCPClient(lambda: stdio_client(
     StdioServerParameters(command="npx",
-                          args=["@playwright/mcp@latest"]
+                          args=["@playwright/mcp@latest",
+                                "--headless",
+                                "--output-dir", OUTPUT_DIR]
                           )
 ))
 
 ```
 
-**2-2-2.** 에이전트에 두 MCP 도구를 모두 연결합니다.
+**2-2-3.** 에이전트에 두 MCP 도구를 모두 연결합니다. 프롬프트에 저장할 파일명과 경로를 명시하고, **저장된 파일의 전체 경로를 알려달라고** 요청합니다.
 
 ```py
 if __name__ == "__main__":
-    user_input = "Visit https://aws.amazon.com and take a screenshot"
+    user_input = (
+        f"Visit https://aws.amazon.com and take a screenshot. "
+        f"Save it as a file named aws-homepage.png under {OUTPUT_DIR} "
+        f"and then tell me the full path of the file you saved."
+    )
 
     agent = Agent(tools=[stdio_mcp_client, playwright_mcp_client])
     response = agent(user_input)
@@ -805,9 +826,13 @@ if __name__ == "__main__":
 <summary>전체 코드 확인하기 (mcp_tool.py)</summary>
 
 ```py
+import os
+
 from mcp import stdio_client, StdioServerParameters
 from strands import Agent
 from strands.tools.mcp import MCPClient
+
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts-mcp")
 
 stdio_mcp_client = MCPClient(lambda: stdio_client(
     StdioServerParameters(command="uvx",
@@ -817,12 +842,18 @@ stdio_mcp_client = MCPClient(lambda: stdio_client(
 
 playwright_mcp_client = MCPClient(lambda: stdio_client(
     StdioServerParameters(command="npx",
-                          args=["@playwright/mcp@latest"]
+                          args=["@playwright/mcp@latest",
+                                "--headless",
+                                "--output-dir", OUTPUT_DIR]
                           )
 ))
 
 if __name__ == "__main__":
-    user_input = "Visit https://aws.amazon.com and take a screenshot"
+    user_input = (
+        f"Visit https://aws.amazon.com and take a screenshot. "
+        f"Save it as a file named aws-homepage.png under {OUTPUT_DIR} "
+        f"and then tell me the full path of the file you saved."
+    )
 
     agent = Agent(tools=[stdio_mcp_client, playwright_mcp_client])
     response = agent(user_input)
@@ -832,13 +863,21 @@ if __name__ == "__main__":
 
 </details>
 
-**2-2-3.** 터미널에서 실행하여 결과를 확인합니다:
+**2-2-4.** 터미널에서 실행하여 결과를 확인합니다:
 
 ```bash
 uv run python 01-single-agent/labs/mcp_tool.py
 ```
 
-에이전트가 Playwright를 사용하여 웹 페이지를 방문하고 스크린샷을 저장하는 것을 확인할 수 있습니다.
+에이전트가 Playwright를 사용하여 웹 페이지를 방문하고 스크린샷을 저장한 뒤, 저장한 파일의 전체 경로를 알려주는 것을 확인할 수 있습니다.
+
+![Playwright MCP 실행 결과](../../images/c1-playwright.png)
+
+에이전트가 알려준 경로에 파일이 실제로 생성되었는지 확인해보세요.
+
+```bash
+ls -l 01-single-agent/labs/artifacts-mcp/
+```
 
 > [!NOTE]
 > **축하드립니다!**
@@ -1354,7 +1393,11 @@ aws bedrock list-foundation-models --region us-west-2 --by-provider anthropic \
 
 **Playwright MCP가 실행되지 않는 경우**
 
-`npx`가 PATH에 있어야 하고 브라우저가 설치되어 있어야 합니다. `node --version`으로 Node.js 설치 여부를 확인하세요. 헤드리스 환경에서는 이 부분을 건너뛰면 됩니다.
+`npx`가 PATH에 있어야 하고 브라우저가 설치되어 있어야 합니다. `node --version; npx --version; ls /opt/google/chrome/chrome`으로 확인하세요. 화면이 없는 환경이어도 `--headless` 옵션을 주면 정상적으로 동작합니다. 다만 브라우저가 아예 없는 환경(예: SageMaker Studio)에서는 이 부분을 건너뛰면 됩니다.
+
+**스크린샷 파일이 보이지 않는 경우**
+
+`--output-dir` 옵션이 빠져 있으면 파일이 예상과 다른 위치에 저장되거나, 에이전트가 존재하지 않는 경로를 알려줄 수 있습니다. 위 코드처럼 `--output-dir`를 지정하고, 프롬프트에도 저장할 경로와 파일명을 명시하세요.
 
 ---
 Prev: [00. 실습 환경 설정](../00-setup/README.md) | Next: [02. 멀티 에이전트](../02-multi-agents/README.md)

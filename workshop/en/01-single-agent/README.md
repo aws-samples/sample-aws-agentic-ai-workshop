@@ -749,17 +749,19 @@ Now let's add **Playwright MCP**. Playwright is a tool for automating web browse
 > [!NOTE]
 > Playwright MCP needs a browser. The workshop environment deployed from `code-server.yaml` ships with one preinstalled (Chrome for Testing), so the configuration below works as-is. In other environments without a browser (for example SageMaker Studio), Playwright MCP will not work properly — test that case in a local environment instead.
 
-#### 2-1. Finding MCP Servers on mcp.so
+#### 2-1. Finding MCP Servers on mcpservers.org
 
-[mcp.so](https://mcp.so) is a hub that aggregates various MCP servers. You can search for MCP servers with desired functionality and get their configuration information.
+[mcpservers.org](https://mcpservers.org) is a hub that aggregates various MCP servers. You can search for MCP servers with desired functionality and get their configuration information.
 
-![mcp.so](../../images/mcp-so.png)
+**2-1-1.** Visit [mcpservers.org](https://mcpservers.org) and search for "playwright" in the search box.
 
-**2-1-1.** Visit [mcp.so](https://mcp.so).
+![mcpservers.org](../../images/mcporg1.png)
 
-**2-1-2.** Search for "playwright" to find the [Playwright MCP Server](https://mcp.so/server/playwright-mcp/microsoft).
+**2-1-2.** In the search results, find **Playwright MCP** — the one marked `official`, provided by Microsoft — and open the [Playwright MCP Server](https://mcpservers.org/servers/playwright-mcp-server) page.
 
-**2-1-3.** Check the configuration information provided on the page. You'll see information like below:
+![playwright search results](../../images/mcporg2.png)
+
+**2-1-3.** Scroll down to **Getting started** and check the configuration information provided on the page. You'll see information like below:
 
 ```json
 {
@@ -774,27 +776,46 @@ Now let's add **Playwright MCP**. Playwright is a tool for automating web browse
 }
 ```
 
-![mcp config](../../images/mcp-config.png)
+![mcp config](../../images/mcporg3.png)
 
 #### 2-2. Integrating Playwright MCP
 
-**2-2-1.** Add the Playwright MCP client in the `01-single-agent/labs/mcp_tool.py` file:
+**2-2-1.** Go back to the `01-single-agent/labs/mcp_tool.py` file and decide where the screenshot will be saved. Saving it next to the script means the output lands in the same place no matter which directory you run the command from.
+
+```py
+import os
+
+# Add at the top of the file, below the imports
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts-mcp")
+
+```
+
+**2-2-2.** Add the Playwright MCP client:
+
+- `--headless`: the workshop environment is a remote EC2 instance with no display, so the browser runs without a visible window. The screenshot is still saved to disk.
+- `--output-dir`: the directory where Playwright MCP writes the files it creates. Without it, the file may end up somewhere you did not expect.
 
 ```py
 # Add below the existing AWS Documentation MCP
 playwright_mcp_client = MCPClient(lambda: stdio_client(
     StdioServerParameters(command="npx",
-                          args=["@playwright/mcp@latest"]
+                          args=["@playwright/mcp@latest",
+                                "--headless",
+                                "--output-dir", OUTPUT_DIR]
                           )
 ))
 
 ```
 
-**2-2-2.** Connect both MCP tools to the agent:
+**2-2-3.** Connect both MCP tools to the agent. The prompt spells out the file name and path to save to, and asks the agent to **report the full path of the saved file**.
 
 ```py
 if __name__ == "__main__":
-    user_input = "Visit https://aws.amazon.com and take a screenshot"
+    user_input = (
+        f"Visit https://aws.amazon.com and take a screenshot. "
+        f"Save it as a file named aws-homepage.png under {OUTPUT_DIR} "
+        f"and then tell me the full path of the file you saved."
+    )
 
     agent = Agent(tools=[stdio_mcp_client, playwright_mcp_client])
     response = agent(user_input)
@@ -805,9 +826,13 @@ if __name__ == "__main__":
 <summary>View Full Code (mcp_tool.py)</summary>
 
 ```py
+import os
+
 from mcp import stdio_client, StdioServerParameters
 from strands import Agent
 from strands.tools.mcp import MCPClient
+
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts-mcp")
 
 stdio_mcp_client = MCPClient(lambda: stdio_client(
     StdioServerParameters(command="uvx",
@@ -817,12 +842,18 @@ stdio_mcp_client = MCPClient(lambda: stdio_client(
 
 playwright_mcp_client = MCPClient(lambda: stdio_client(
     StdioServerParameters(command="npx",
-                          args=["@playwright/mcp@latest"]
+                          args=["@playwright/mcp@latest",
+                                "--headless",
+                                "--output-dir", OUTPUT_DIR]
                           )
 ))
 
 if __name__ == "__main__":
-    user_input = "Visit https://aws.amazon.com and take a screenshot"
+    user_input = (
+        f"Visit https://aws.amazon.com and take a screenshot. "
+        f"Save it as a file named aws-homepage.png under {OUTPUT_DIR} "
+        f"and then tell me the full path of the file you saved."
+    )
 
     agent = Agent(tools=[stdio_mcp_client, playwright_mcp_client])
     response = agent(user_input)
@@ -832,13 +863,21 @@ The reference answer in `01-single-agent/completed/mcp_tool.py` is the same code
 
 </details>
 
-**2-2-3.** Run in the terminal to check the result:
+**2-2-4.** Run in the terminal to check the result:
 
 ```bash
 uv run python 01-single-agent/labs/mcp_tool.py
 ```
 
-You can confirm that the agent uses Playwright to visit the web page and save a screenshot.
+You can confirm that the agent uses Playwright to visit the web page, saves a screenshot, and then reports the full path of the file it saved.
+
+![Playwright MCP result](../../images/c1-playwright.png)
+
+Check that the file really exists at the path the agent reported:
+
+```bash
+ls -l 01-single-agent/labs/artifacts-mcp/
+```
 
 > [!NOTE]
 > **Congratulations!**
@@ -1354,7 +1393,11 @@ That is the `strands_tools` consent prompt. Either answer `y`, or set `os.enviro
 
 **Playwright MCP fails to start**
 
-`npx` must be on your PATH and a browser must be installed. Run `node --version` to confirm Node.js is present. In a headless environment, skip this part.
+`npx` must be on your PATH and a browser must be installed. Check with `node --version; npx --version; ls /opt/google/chrome/chrome`. An environment with no display is fine as long as you pass `--headless`. Skip this part only if no browser is available at all (for example SageMaker Studio).
+
+**The screenshot file is nowhere to be found**
+
+Without `--output-dir`, the file may be written somewhere unexpected, or the agent may report a path that does not exist. Pass `--output-dir` as shown above, and spell out the target path and file name in the prompt as well.
 
 ---
 Prev: [00. Setup](../00-setup/README.md) | Next: [02. Multi-Agent Systems](../02-multi-agents/README.md)

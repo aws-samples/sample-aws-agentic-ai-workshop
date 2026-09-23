@@ -11,7 +11,6 @@
 - [3. Deploy to AgentCore Runtime](#3-deploy-to-agentcore-runtime)
 - [4. Test Deployed Agent](#4-test-deployed-agent)
 - [(Optional) 5. Verify Agent Deployment Process in Console](#optional-5-verify-agent-deployment-process-in-console)
-- [References](#references)
 
 ---
 

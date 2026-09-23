@@ -8,7 +8,6 @@
 - [Environment: workshop-hosted vs. your own machine](#environment-workshop-hosted-vs-your-own-machine)
 - [Set up the development environment](#set-up-the-development-environment)
 - [Vibe coding lab](#vibe-coding-lab)
-- [References](#references)
 
 ---
 

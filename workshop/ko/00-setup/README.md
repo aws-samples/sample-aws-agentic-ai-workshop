@@ -36,7 +36,7 @@
 - CloudFormation으로 워크샵용 VS Code Server(code-server) 환경을 배포하고 접속하는 방법
 - `uv`로 워크샵 Python 환경을 설치하고 리포지토리 루트에서 실습 파일을 실행하는 방법
 - `us-west-2` 리전에서 Amazon Bedrock 모델 액세스를 활성화하는 방법
-- 워크샵 스크립트 `create-uv-env.sh`가 수행하는 작업
+- 워크샵 스크립트 `create-uv-env-ko.sh`가 수행하는 작업
 - 워크샵 전체에서 사용하는 AWS 서비스와, 실습이 끝난 뒤에도 계속 과금되는 리소스
 
 **이 챕터의 파일**
@@ -47,7 +47,8 @@
 | `pyproject.toml` | uv 프로젝트 정의. Python `>=3.12`와 실습에 필요한 모든 의존성 |
 | `uv.lock` | `pyproject.toml`의 고정된 해석 결과. `uv sync`가 실습 제작 시점과 동일한 버전을 설치합니다 |
 | `.python-version` | uv가 사용할 Python 버전을 `3.12`로 고정 |
-| `create-uv-env.sh` | 워크샵 환경 설정 스크립트. AWS에 배포한 VS Code Server를 기준으로 작성되었습니다 |
+| `create-uv-env-ko.sh` | 워크샵 환경 설정 스크립트. AWS에 배포한 VS Code Server를 기준으로 작성되었습니다 |
+| `create-uv-env.sh` | 위 스크립트의 영문 출력 버전. 영문 가이드에서 사용하며, 한글 폰트 설치 단계가 없습니다 |
 | `install_korean_font.sh` | 나눔 폰트를 설치하고 matplotlib이 이를 사용하도록 설정합니다. 선택 사항이며 Linux 기준입니다 |
 | `test_korean_font.py` | 한글 라벨이 포함된 차트를 그려 폰트 설정을 확인하고 `korean_font_test.png`를 저장합니다 |
 
@@ -186,20 +187,20 @@ CloudFormation 템플릿 **`code-server.yaml`은 이 리포지토리 루트에 �
 
 ```bash
 cd /workshop/code/00-setup
-chmod +x ./create-uv-env.sh
-./create-uv-env.sh myenv 3.12
+chmod +x ./create-uv-env-ko.sh
+./create-uv-env-ko.sh myenv 3.12
 cd ..
 ```
 
 마지막 `cd ..`으로 `/workshop/code`에 위치하게 됩니다. 이후 모든 챕터의 명령어는 이 폴더를 기준으로 합니다.
 
-![create-uv-env.sh 실행](../../images/codeserver-uv-1.png)
-![create-uv-env.sh 실행 완료](../../images/codeserver-uv-2.png)
+![create-uv-env-ko.sh 실행](../../images/codeserver-uv-1.png)
+![create-uv-env-ko.sh 실행 완료](../../images/codeserver-uv-2.png)
 
 > [!NOTE]
 > **코드 이해하기**
 > 3번째 줄의 코드는 다음 인자들로 구성되어 있습니다.
-> - 실행할 파일 위치: `./create-uv-env.sh`
+> - 실행할 파일 위치: `./create-uv-env-ko.sh`
 > - 가상환경 이름: `myenv`
 > - 가상환경에 설치할 Python의 버전: `3.12`
 >
@@ -214,7 +215,7 @@ uv run --project 00-setup python 01-single-agent/completed/basic.py
 에이전트 응답이 출력되면 환경과 Bedrock 액세스가 모두 정상입니다. 이제 [01 챕터](../01-single-agent/README.md)로 넘어가세요.
 
 <details>
-<summary>create-uv-env.sh가 수행하는 작업</summary>
+<summary>create-uv-env-ko.sh가 수행하는 작업</summary>
 
 스크립트는 다음 순서로 동작합니다.
 
@@ -323,7 +324,7 @@ cd ..
 `uv sync`는 `pyproject.toml`과 `uv.lock`을 읽어 필요하면 Python 3.12를 내려받고 `00-setup/.venv`에 가상 환경을 만듭니다. `00-setup` 밖의 파일은 건드리지 않습니다.
 
 > [!TIP]
-> 본인 컴퓨터에서는 `create-uv-env.sh`를 사용할 필요가 없습니다. 이 스크립트는 워크샵의 VS Code Server 환경을 기준으로 작성되어 `.venv`를 삭제하고, uv와 Node.js를 설치할 수 있으며, `sudo`로 Linux 시스템 폰트를 설치하고, 상위 디렉터리에 심링크를 만듭니다.
+> 본인 컴퓨터에서는 `create-uv-env-ko.sh`를 사용할 필요가 없습니다. 이 스크립트는 워크샵의 VS Code Server 환경을 기준으로 작성되어 `.venv`를 삭제하고, uv와 Node.js를 설치할 수 있으며, `sudo`로 Linux 시스템 폰트를 설치하고, 상위 디렉터리에 심링크를 만듭니다.
 
 ### 4. 실습 실행
 
@@ -362,7 +363,7 @@ uv pip list            # 설치된 패키지 확인
 
 ### 5. (선택) matplotlib 한글 폰트 설정
 
-일부 실습은 한글 라벨이 포함된 차트를 그립니다. 라벨이 빈 사각형으로 표시된다면 한글 폰트를 설치합니다. `install_korean_font.sh`가 이 작업을 수행합니다. (CloudFormation 환경에서는 `create-uv-env.sh`가 이미 실행해 줍니다.)
+일부 실습은 한글 라벨이 포함된 차트를 그립니다. 라벨이 빈 사각형으로 표시된다면 한글 폰트를 설치합니다. `install_korean_font.sh`가 이 작업을 수행합니다. (CloudFormation 환경에서는 `create-uv-env-ko.sh`가 이미 실행해 줍니다.)
 
 ```bash
 cd 00-setup

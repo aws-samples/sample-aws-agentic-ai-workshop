@@ -111,7 +111,8 @@ sample-aws-agentic-ai-workshop/
 │   ├── 00-setup/                 # environment setup, uv project, dependencies
 │   │   ├── pyproject.toml
 │   │   ├── uv.lock
-│   │   └── create-uv-env.sh
+│   │   ├── create-uv-env.sh      # English guide
+│   │   └── create-uv-env-ko.sh   # Korean guide
 │   ├── 01-single-agent/
 │   │   ├── labs/                 # you write these
 │   │   └── completed/            # reference implementation

@@ -48,6 +48,7 @@ This chapter prepares the environment that every later chapter uses: a Python 3.
 | `uv.lock` | pinned resolution of `pyproject.toml`, so `uv sync` installs the exact versions used to build the labs |
 | `.python-version` | pins Python `3.12` for uv |
 | `create-uv-env.sh` | the workshop setup script, written for the AWS-hosted VS Code Server |
+| `create-uv-env-ko.sh` | the same script with Korean output, used by the Korean guide. You do not need it |
 | `install_korean_font.sh` | installs Nanum fonts and points matplotlib at them. Optional, Linux-oriented |
 | `test_korean_font.py` | draws a chart with Korean labels to check the font setup, and writes `korean_font_test.png` |
 
@@ -193,8 +194,8 @@ cd ..
 
 That last `cd ..` leaves you in `/workshop/code`, which is the directory every later chapter's commands assume.
 
-![Running create-uv-env.sh](../../images/codeserver-uv-1.png)
-![create-uv-env.sh finished](../../images/codeserver-uv-2.png)
+![Running create-uv-env.sh](../../images/en/codeserver-uv-1.png)
+![create-uv-env.sh finished](../../images/en/codeserver-uv-2.png)
 
 > [!NOTE]
 > **Reading line 3**
@@ -221,13 +222,12 @@ In order, the script:
 1. Deletes any existing `.venv` in the current directory with `rm -rf .venv`.
 2. Checks for `uv`, and if it is missing asks interactively whether to install it with `curl -LsSf https://astral.sh/uv/install.sh | sh`. Because it prompts, it cannot run unattended.
 3. Runs `uv python pin <version>`, then `uv init` only if no `pyproject.toml` exists (this repository has one, so it is left alone), then `uv add ipykernel jupyter` and `uv sync`.
-4. Runs `install_korean_font.sh`, which uses `sudo` to install system fonts.
-5. Installs Node.js if it is missing (Homebrew on macOS, NodeSource plus `dnf` on Linux).
-6. Registers a Jupyter kernel named after the first argument, displayed as `myenv (UV)`.
-7. Prints the Python version, the installed packages, and the registered kernels.
-8. Moves up to the parent directory and creates symlinks there for `pyproject.toml`, `.venv`, and `uv.lock`, so that `uv run` also works from the repository root. Any existing non-symlink file with those names is renamed to `<name>.backup` first.
+4. Installs Node.js if it is missing (Homebrew on macOS, NodeSource plus `dnf` on Linux).
+5. Registers a Jupyter kernel named after the first argument, displayed as `myenv (UV)`.
+6. Prints the Python version, the installed packages, and the registered kernels.
+7. Moves up to the parent directory and creates symlinks there for `pyproject.toml`, `.venv`, and `uv.lock`, so that `uv run` also works from the repository root. Any existing non-symlink file with those names is renamed to `<name>.backup` first.
 
-Step 8 leaves three symlinks at the repository root pointing into `00-setup`, which is what makes a bare `uv run` work from the root. If you would rather not have them, delete them and pass `--project` instead:
+Step 7 leaves three symlinks at the repository root pointing into `00-setup`, which is what makes a bare `uv run` work from the root. If you would rather not have them, delete them and pass `--project` instead:
 
 ```bash
 rm -f pyproject.toml .venv uv.lock
@@ -323,7 +323,7 @@ cd ..
 `uv sync` reads `pyproject.toml` and `uv.lock`, downloads Python 3.12 if needed, and creates the virtual environment at `00-setup/.venv`. It does not touch anything outside `00-setup`.
 
 > [!TIP]
-> You do not need `create-uv-env.sh` on your own machine. That script is written for the workshop's VS Code Server box: it deletes `.venv`, may install uv and Node.js, installs Linux system fonts with `sudo`, and creates symlinks in the parent directory.
+> You do not need `create-uv-env.sh` on your own machine. That script is written for the workshop's VS Code Server box: it deletes `.venv`, may install uv and Node.js, and creates symlinks in the parent directory.
 
 ### 4. Run a lab
 
@@ -362,7 +362,7 @@ uv pip list            # list what is installed
 
 ### 5. Optional: Korean fonts for matplotlib
 
-Some labs plot charts with Korean labels. If the labels render as empty boxes, install a Korean font. `install_korean_font.sh` does this. (In the CloudFormation environment, `create-uv-env.sh` already ran it for you.)
+No lab in this guide plots Korean labels, so you can skip this. If you run the Korean version of a lab and matplotlib renders its labels as empty boxes, `install_korean_font.sh` installs a Korean font. `create-uv-env.sh` does not run it for you; `create-uv-env-ko.sh`, used by the Korean guide, does.
 
 ```bash
 cd 00-setup

@@ -112,7 +112,7 @@ uv run python 01-single-agent/labs/basic.py
 
 You can confirm that the agent automatically selects the `calculator` tool to calculate the square root of 80/4*5 and returns an answer containing the result **10**.
 
-![calculator result](../../images/c1-calculator.png)
+![calculator result](../../images/en/c1-calculator.png)
 
 <details>
 <summary>Getting an error? (⚠️ How to fix a model access error)</summary>
@@ -232,7 +232,7 @@ if __name__ == "__main__":
 uv run python 01-single-agent/labs/models.py
 ```
 
-![BedrockModel result](../../images/c1-bedrockmodel.png)
+![BedrockModel result](../../images/en/c1-bedrockmodel.png)
 
 **2-7.** ***(Optional)*** To output the agent's reasoning content and final response separately, add the following code at the bottom of models.py.
 
@@ -258,7 +258,7 @@ uv run python 01-single-agent/labs/models.py
 uv run python 01-single-agent/labs/models.py
 ```
 
-![reasoning and response separated](../../images/c1-reasoning.png)
+![reasoning and response separated](../../images/en/c1-reasoning.png)
 
 ---
 
@@ -334,7 +334,7 @@ uv run python 01-single-agent/labs/custom_tool1.py
 
 You can confirm that the agent analyzes the question, calls the `weather_forecast` tool, and returns weather information for Seoul.
 
-![custom tool result](../../images/c1-customtool1.png)
+![custom tool result](../../images/en/c1-customtool1.png)
 
 ---
 
@@ -392,11 +392,11 @@ uv run python 01-single-agent/labs/custom_tool2.py
 
 You can confirm the process where the agent generates Python code and executes it through `python_repl_tool`.
 
-![python repl tool result](../../images/c1-customtool-py.png)
+![python repl tool result](../../images/en/c1-customtool-py.png)
 
 Try the other commented user_input as well. It will call the tool that executes bash commands, displaying results like below.
 
-![bash tool result](../../images/c1-customtool-bash.png)
+![bash tool result](../../images/en/c1-customtool-bash.png)
 
 > [!NOTE]
 > **Congratulations!**
@@ -739,7 +739,7 @@ uv run python 01-single-agent/labs/mcp_tool.py
 
 You can confirm that the agent connects to the AWS documentation MCP server to search for the latest information in real-time and provide answers.
 
-![MCP tool result](../../images/c1-mcptool.png)
+![MCP tool result](../../images/en/c1-mcptool.png)
 
 ---
 
@@ -979,13 +979,13 @@ uv run python self_extending.py
 
 You can see that the agent 1) **writes a tool file** such as `qr_generator.py` into the `tools/` directory, 2) the SDK **loads it instantly**, and 3) within the same run it **calls** that tool to print the QR code in the terminal.
 
-![agent writes its own tool](../../images/c1-4-self-extending-1.png)
+![agent writes its own tool](../../images/en/c1-4-self-extending-1.png)
 
-![agent calls the tool it just wrote](../../images/c1-4-self-extending-2.png)
+![agent calls the tool it just wrote](../../images/en/c1-4-self-extending-2.png)
 
 **1-7.** Open the `tools/` folder in the lab directory and you will see that the **tool file the agent just wrote** is actually saved there. This file will be reloaded as-is on the next run.
 
-![generated tool file](../../images/c1-4-generated-tool.png)
+![generated tool file](../../images/en/c1-4-generated-tool.png)
 
 <details>
 <summary>View the full code</summary>
@@ -1194,11 +1194,11 @@ From now on, append "🐿️" to the end of every sentence. Example: I'm a resea
 
 You can see the agent call the `system_prompt` tool with `action="update"` to rewrite its own prompt.
 
-![agent updates its own system prompt](../../images/c1-4-self-modifying.png)
+![agent updates its own system prompt](../../images/en/c1-4-self-modifying.png)
 
 **2-9.** Now ask any question. From this turn on, the agent follows the changed instruction (e.g. appending "🐿️" to every sentence). If you open the `.prompt` file created in the lab directory, you will see the changed instruction is actually saved. Even if you **quit and rerun the program**, the setting persists.
 
-![persisted prompt file](../../images/c1-4-persisted-prompt.png)
+![persisted prompt file](../../images/en/c1-4-persisted-prompt.png)
 
 <details>
 <summary>View the full code</summary>

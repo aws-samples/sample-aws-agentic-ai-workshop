@@ -214,11 +214,11 @@ You can confirm that the orchestrator analyzes the question and first calls `res
 
 | Calling `research_assistant` as tool | Calling `trip_planning_assistant` as tool | Calling `file_write` tool |
 |----------|---------|----------|
-| ![result1](../../images/c2-aat-1.png) | ![result2](../../images/c2-aat-2.png) | ![result3](../../images/c2-aat-3.png) |
+| ![result1](../../images/en/c2-aat-1.png) | ![result2](../../images/en/c2-aat-2.png) | ![result3](../../images/en/c2-aat-3.png) |
 
 *Final Result:*
 
-<img src="../../images/c2-aat-4.png" alt="result4" width="600">
+<img src="../../images/en/c2-aat-4.png" alt="result4" width="600">
 
 <details>
 <summary>Understanding the Agents-as-Tools Pattern</summary>
@@ -409,7 +409,7 @@ You can confirm the process where agents autonomously transfer work to each othe
 
 | **Final Result** | `creative_agent` Result | `critical_agent` Result | `summarizer_agent` Result |
 |----------|---------|----------|----------|
-| ![result4](../../images/c2-swarm-result4.png) | ![result1](../../images/c2-swarm-result1.png) | ![result2](../../images/c2-swarm-result2.png) | ![result3](../../images/c2-swarm-result3.png) |
+| ![result4](../../images/en/c2-swarm-result4.png) | ![result1](../../images/en/c2-swarm-result1.png) | ![result2](../../images/en/c2-swarm-result2.png) | ![result3](../../images/en/c2-swarm-result3.png) |
 
 This run produces up to five markdown files (`research.md`, `creative.md`, `critical.md`, `summarizer.md`, `travel_plan.md`). See `completed/artifacts-swarms/` for an example set.
 
@@ -726,7 +726,7 @@ uv run --project 00-setup python 02-multi-agents/labs/graph_condition.py \
 
 | Calling business_report node | Summarizing results and saving to business_report.md file |
 |----------|------|
-| ![lab-result1](../../images/c2-condition-business-1.png) | ![lab-result2](../../images/c2-condition-business-2.png) |
+| ![lab-result1](../../images/en/c2-condition-business-1.png) | ![lab-result2](../../images/en/c2-condition-business-2.png) |
 
 **4-7.** Now run the following query in the terminal and check if the request was properly routed to the technical_report node:
 
@@ -739,7 +739,7 @@ uv run --project 00-setup python 02-multi-agents/labs/graph_condition.py \
 
 | Calling technical_report node | Summarizing results and saving to technical_report.md file |
 |----------|------|
-| ![lab-result1](../../images/c2-condition-technical-1.png) | ![lab-result2](../../images/c2-condition-technical-2.png) |
+| ![lab-result1](../../images/en/c2-condition-technical-1.png) | ![lab-result2](../../images/en/c2-condition-technical-2.png) |
 
 You can confirm that the test in **4-6** executes via the classifier → business_report path, while the test in **4-7** executes via the classifier → technical_report path. Both runs write their report next to where you ran the command; `completed/artifacts-graph/` holds an example of each.
 

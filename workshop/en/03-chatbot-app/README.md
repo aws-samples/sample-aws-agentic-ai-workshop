@@ -9,7 +9,7 @@ Beyond simply adding a UI, you will implement core features needed for real appl
 > [!NOTE]
 > **This chapter is optional.** Chapters 1, 2, 5, 6, and 7 are the required labs. Chapters 3, 4, and 8 are optional, so complete them as time allows.
 
-<img src="../../images/c3-streamlit-1.png" alt="Streamlit chatbot" width="800">
+<img src="../../images/en/c3-streamlit-1.png" alt="Streamlit chatbot" width="800">
 
 > [!NOTE]
 > **Prerequisites**
@@ -743,7 +743,7 @@ Streamlit prints a Local URL in the terminal (`http://localhost:8501` by default
 
 If you are working on a remote machine such as an AWS-hosted VS Code Server, port 8501 is not reachable from your laptop directly. Forward or proxy the port to your local machine first (for example, using your IDE's port forwarding feature), then open the forwarded URL.
 
-<img src="../../images/c3-streamlit-2.png" alt="Streamlit chatbot running" width="800">
+<img src="../../images/en/c3-streamlit-2.png" alt="Streamlit chatbot running" width="800">
 
 **9-3.** Test the chatbot:
 

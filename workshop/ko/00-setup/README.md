@@ -46,6 +46,20 @@
 > [!TIP]
 > 최신 브라우저라면 문제없이 진행할 수 있으나, 워크샵 스크린샷과 code-server UI는 **Mozilla Firefox** 및 **Google Chrome**에서 호환성이 검증되었습니다.
 
+## 목차
+
+- [1. AWS 계정 준비](#1-aws-계정-준비)
+- [2. code-server CloudFormation 스택 배포](#2-code-server-cloudformation-스택-배포)
+- [3. Amazon Bedrock 모델 액세스 활성화](#3-amazon-bedrock-모델-액세스-활성화)
+- [4. 환경 접속](#4-환경-접속)
+- [5. Python 환경 생성](#5-python-환경-생성)
+- [필요한 IAM 권한](#필요한-iam-권한)
+- [비용 안내](#비용-안내)
+- [부록: 본인 컴퓨터에서 진행하기](#부록-본인-컴퓨터에서-진행하기)
+- [트러블슈팅](#트러블슈팅)
+
+---
+
 ## 1. AWS 계정 준비
 
 Administrator 권한을 가진 IAM 사용자로 AWS 콘솔에 로그인합니다. 이미 관리자 권한 사용자가 있다면 그대로 사용하고 [2단계](#2-code-server-cloudformation-스택-배포)로 넘어가세요.

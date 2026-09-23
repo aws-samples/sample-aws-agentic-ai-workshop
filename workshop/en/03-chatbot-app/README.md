@@ -25,6 +25,24 @@ Beyond simply adding a UI, you will implement core features needed for real appl
 
 **Estimated time:** ~10 minutes
 
+## Contents
+
+- [Files in this chapter](#files-in-this-chapter)
+- [Terminal Execution vs Web Application](#terminal-execution-vs-web-application)
+- [1. Streamlit Basic Configuration](#1-streamlit-basic-configuration)
+- [2. Session State Management](#2-session-state-management)
+- [3. Display Conversation History](#3-display-conversation-history)
+- [4. Receiving User Input](#4-receiving-user-input)
+- [5. Asynchronous Streaming Response Processing](#5-asynchronous-streaming-response-processing)
+- [6. Display and Save Results](#6-display-and-save-results)
+- [7. Error Handling](#7-error-handling)
+- [8. Add Sidebar](#8-add-sidebar)
+- [9. Running](#9-running)
+- [Troubleshooting](#troubleshooting)
+- [Stopping the app](#stopping-the-app)
+
+---
+
 ## Files in this chapter
 
 | File | Purpose |

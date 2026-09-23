@@ -23,6 +23,21 @@
 
 **예상 소요 시간:** 약 10분
 
+## 목차
+
+- [이 챕터의 파일](#이-챕터의-파일)
+- [AgentCore Observability란?](#agentcore-observability란)
+- [1. Transaction Search 활성화 확인](#1-transaction-search-활성화-확인)
+- [2. 에이전트 호출하여 텔레메트리 생성](#2-에이전트-호출하여-텔레메트리-생성)
+- [3. GenAI Observability 대시보드 확인](#3-genai-observability-대시보드-확인)
+- [4. CloudWatch 메트릭 확인](#4-cloudwatch-메트릭-확인)
+- [5. CloudWatch 로그 확인](#5-cloudwatch-로그-확인)
+- [관리형 가시성과 직접 구성하는 가시성](#관리형-가시성과-직접-구성하는-가시성)
+- [리소스 정리](#리소스-정리)
+- [참고 자료](#참고-자료)
+
+---
+
 ## 이 챕터의 파일
 
 이 챕터에는 별도의 코드가 없습니다. 모든 작업은 C6에서 배포한 에이전트를 대상으로 AWS Management Console에서 진행합니다. 실행하는 명령은 이전 챕터의 호출 스크립트 하나뿐입니다.

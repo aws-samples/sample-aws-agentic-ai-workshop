@@ -28,6 +28,19 @@ The agent we build first has 1) mathematical calculation, 2) time checking, and 
 
 **Estimated time:** ~30 minutes for sections 1 and 3 (section 2 adds ~30 minutes of console work; section 4 is optional)
 
+## Contents
+
+- [How the labs work](#how-the-labs-work)
+- [Files in this chapter](#files-in-this-chapter)
+- [1. Building a Basic Agent](#1-building-a-basic-agent)
+- [2. Knowledge Base Integration](#2-knowledge-base-integration)
+- [3. MCP Tool Integration](#3-mcp-tool-integration)
+- [4. (Optional) Self-Improving Agent](#4-optional-self-improving-agent)
+- [Cleanup](#cleanup)
+- [Troubleshooting](#troubleshooting)
+
+---
+
 ## How the labs work
 
 Each lab file exists twice:

@@ -26,6 +26,18 @@ In this chapter, you will learn about the Agent Observability features provided 
 
 **Estimated time:** ~30 minutes
 
+## Contents
+
+- [Files in this chapter](#files-in-this-chapter)
+- [Why Agent Observability?](#why-agent-observability)
+- [Metrics](#metrics)
+- [Logs](#logs)
+- [Traces](#traces)
+- [Cleanup](#cleanup)
+- [Troubleshooting](#troubleshooting)
+
+---
+
 ## Files in this chapter
 
 The lab pattern in this repo: you write code into the empty file under `labs/`, and `completed/` holds the reference answer to compare against.

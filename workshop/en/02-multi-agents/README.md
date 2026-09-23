@@ -23,6 +23,19 @@ In this chapter you will learn how to build systems where multiple agents collab
 
 **Estimated time:** ~30 minutes
 
+## Contents
+
+- [Files in this chapter](#files-in-this-chapter)
+- [1. Agents-as-Tools Pattern](#1-agents-as-tools-pattern)
+- [2. Swarm Pattern](#2-swarm-pattern)
+- [3. Graph Pattern: Basic and Parallel Execution](#3-graph-pattern-basic-and-parallel-execution)
+- [4. Graph Pattern: Conditional Routing](#4-graph-pattern-conditional-routing)
+- [Choosing a pattern](#choosing-a-pattern)
+- [Troubleshooting](#troubleshooting)
+- [Cleanup](#cleanup)
+
+---
+
 ## Files in this chapter
 
 | File | Purpose |

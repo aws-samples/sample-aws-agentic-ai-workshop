@@ -23,6 +23,21 @@ In this lab you will view traces, metrics, and logs for the agent deployed to Ag
 
 **Estimated time:** ~10 minutes
 
+## Contents
+
+- [Files in this chapter](#files-in-this-chapter)
+- [What is AgentCore Observability?](#what-is-agentcore-observability)
+- [1. Verify Transaction Search is enabled](#1-verify-transaction-search-is-enabled)
+- [2. Invoke the agent to generate telemetry](#2-invoke-the-agent-to-generate-telemetry)
+- [3. View the GenAI Observability dashboard](#3-view-the-genai-observability-dashboard)
+- [4. View CloudWatch metrics](#4-view-cloudwatch-metrics)
+- [5. View CloudWatch logs](#5-view-cloudwatch-logs)
+- [Managed vs. self-managed observability](#managed-vs-self-managed-observability)
+- [Cleanup](#cleanup)
+- [References](#references)
+
+---
+
 ## Files in this chapter
 
 This chapter has no code of its own. Everything is done in the AWS Management Console, on top of the agent you deployed in chapter 06. The only command you run is the invocation script from the previous chapter:

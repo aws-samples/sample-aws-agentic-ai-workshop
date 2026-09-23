@@ -7,6 +7,18 @@
 
 In this chapter you will set up a Strands Agents development environment using **Kiro**, AWS's AI-powered IDE, and experience the development workflow: install a Power, define Steering rules, wire up an MCP server, then have Kiro write a Strands agent for you.
 
+## Contents
+
+- [What is Kiro?](#what-is-kiro)
+- [Files in this chapter](#files-in-this-chapter)
+- [Environment: workshop-hosted vs. your own machine](#environment-workshop-hosted-vs-your-own-machine)
+- [Set up the development environment](#set-up-the-development-environment)
+- [Vibe coding lab](#vibe-coding-lab)
+- [Cleanup](#cleanup)
+- [References](#references)
+
+---
+
 ## What is Kiro?
 
 [Kiro](https://kiro.dev/) is an AI-powered integrated development environment (IDE) provided by AWS. Built on VS Code, it offers a familiar development experience while AI agents support the entire development process.

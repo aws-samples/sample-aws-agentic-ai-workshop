@@ -25,6 +25,19 @@ The agents we've built so far couldn't remember previous conversations when star
 
 **Estimated time:** ~30 minutes
 
+## Contents
+
+- [How this lab works](#how-this-lab-works)
+- [Files in this chapter](#files-in-this-chapter)
+- [AgentCore Memory concepts](#agentcore-memory-concepts)
+- [Short-term memory (STM)](#short-term-memory-stm)
+- [Long-term memory (LTM)](#long-term-memory-ltm)
+- [Streamlit integration](#streamlit-integration)
+- [Cleanup](#cleanup)
+- [Troubleshooting](#troubleshooting)
+
+---
+
 ## How this lab works
 
 The lab pattern is the same as the previous chapters: the files in `labs/` are empty and you type the code into them, while `completed/` holds the reference answer. Write the code from `05-agent-memory/completed/` into the empty files in `05-agent-memory/labs/` to understand how AgentCore Memory works.

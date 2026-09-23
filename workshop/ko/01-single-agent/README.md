@@ -747,8 +747,8 @@ uv run python 01-single-agent/labs/mcp_tool.py
 
 이번에는 **Playwright MCP**를 추가해보겠습니다. Playwright는 웹 브라우저를 자동화하는 도구로, 웹 페이지를 방문하고, 스크린샷을 찍고, 폼을 작성하는 등의 작업을 수행할 수 있습니다.
 
-> [!WARNING]
-> Playwright MCP는 GUI 브라우저를 필요로 합니다. 브라우저가 설치되지 않은 환경(예: 워크샵 환경, SageMaker Studio)에서는 정상적으로 동작하지 않습니다. 이 부분은 로컬 환경(브라우저가 설치된 환경)에서 테스트하시기 바랍니다.
+> [!NOTE]
+> Playwright MCP는 브라우저를 필요로 합니다. `code-server.yaml`로 배포한 워크샵 환경에는 브라우저(Chrome for Testing)가 미리 설치되어 있으므로 아래 설정을 그대로 사용하실 수 있습니다. 브라우저가 없는 다른 환경(예: SageMaker Studio)에서는 정상적으로 동작하지 않으니, 그 경우에는 로컬 환경에서 테스트하시기 바랍니다.
 
 #### 2-1. mcp.so에서 MCP 서버 찾기
 

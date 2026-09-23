@@ -747,8 +747,8 @@ You can confirm that the agent connects to the AWS documentation MCP server to s
 
 Now let's add **Playwright MCP**. Playwright is a tool for automating web browsers, capable of visiting web pages, taking screenshots, filling out forms, and more.
 
-> [!WARNING]
-> Playwright MCP needs a GUI browser. If your environment has no browser installed (for example a bare workshop or SageMaker Studio environment), Playwright MCP will not work properly. Test this part in a local environment where a browser is installed.
+> [!NOTE]
+> Playwright MCP needs a browser. The workshop environment deployed from `code-server.yaml` ships with one preinstalled (Chrome for Testing), so the configuration below works as-is. In other environments without a browser (for example SageMaker Studio), Playwright MCP will not work properly — test that case in a local environment instead.
 
 #### 2-1. Finding MCP Servers on mcp.so
 

@@ -4,7 +4,6 @@
 
 ## Contents
 
-- [Files in this chapter](#files-in-this-chapter)
 - [Why Agent Observability?](#why-agent-observability)
 - [Metrics](#metrics)
 - [Logs](#logs)

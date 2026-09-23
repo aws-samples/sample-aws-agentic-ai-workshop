@@ -4,7 +4,6 @@
 
 ## Contents
 
-- [Files in this chapter](#files-in-this-chapter)
 - [1. Agents-as-Tools Pattern](#1-agents-as-tools-pattern)
 - [2. Swarm Pattern](#2-swarm-pattern)
 - [3. Graph Pattern: Basic and Parallel Execution](#3-graph-pattern-basic-and-parallel-execution)

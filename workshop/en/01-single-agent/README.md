@@ -4,8 +4,6 @@
 
 ## Contents
 
-- [How the labs work](#how-the-labs-work)
-- [Files in this chapter](#files-in-this-chapter)
 - [1. Building a Basic Agent](#1-building-a-basic-agent)
 - [2. Knowledge Base Integration](#2-knowledge-base-integration)
 - [3. MCP Tool Integration](#3-mcp-tool-integration)

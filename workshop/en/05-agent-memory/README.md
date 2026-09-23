@@ -4,8 +4,6 @@
 
 ## Contents
 
-- [How this lab works](#how-this-lab-works)
-- [Files in this chapter](#files-in-this-chapter)
 - [AgentCore Memory concepts](#agentcore-memory-concepts)
 - [Short-term memory (STM)](#short-term-memory-stm)
 - [Long-term memory (LTM)](#long-term-memory-ltm)

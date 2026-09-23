@@ -4,7 +4,6 @@
 
 ## 목차
 
-- [이 챕터의 파일](#이-챕터의-파일)
 - [AgentCore Observability란?](#agentcore-observability란)
 - [1. Transaction Search 활성화 확인](#1-transaction-search-활성화-확인)
 - [2. 에이전트 호출하여 텔레메트리 생성](#2-에이전트-호출하여-텔레메트리-생성)

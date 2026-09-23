@@ -4,7 +4,6 @@
 
 ## Contents
 
-- [Files in this chapter](#files-in-this-chapter)
 - [Terminal Execution vs Web Application](#terminal-execution-vs-web-application)
 - [1. Streamlit Basic Configuration](#1-streamlit-basic-configuration)
 - [2. Session State Management](#2-session-state-management)

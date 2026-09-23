@@ -4,7 +4,6 @@
 
 ## Contents
 
-- [Files in this chapter](#files-in-this-chapter)
 - [What is AgentCore Observability?](#what-is-agentcore-observability)
 - [1. Verify Transaction Search is enabled](#1-verify-transaction-search-is-enabled)
 - [2. Invoke the agent to generate telemetry](#2-invoke-the-agent-to-generate-telemetry)

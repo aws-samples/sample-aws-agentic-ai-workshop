@@ -4,7 +4,6 @@
 
 ## 목차
 
-- [이번 챕터의 파일](#이번-챕터의-파일)
 - [AgentCore Runtime이란?](#agentcore-runtime이란)
 - [0. (사전 준비) CloudWatch Transaction Search 활성화](#0-사전-준비-cloudwatch-transaction-search-활성화)
 - [1. 기존 로컬 에이전트 확인](#1-기존-로컬-에이전트-확인)

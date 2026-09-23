@@ -4,7 +4,6 @@
 
 ## Contents
 
-- [Files in this chapter](#files-in-this-chapter)
 - [What is AgentCore Runtime?](#what-is-agentcore-runtime)
 - [0. (Prerequisite) Enable CloudWatch Transaction Search](#0-prerequisite-enable-cloudwatch-transaction-search)
 - [1. Review Existing Local Agent](#1-review-existing-local-agent)

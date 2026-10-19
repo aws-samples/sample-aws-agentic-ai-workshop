@@ -30,6 +30,7 @@
 | 06 | [AgentCore Runtime](workshop/ko/06-agentcore-runtime/README.md) | 에이전트 서버리스 배포 | 20분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 필수 |
 | 07 | [AgentCore Observability](workshop/ko/07-agentcore-observability/README.md) | CloudWatch GenAI Observability 대시보드 | 10분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 필수 |
 | 08 | [Kiro IDE로 개발하기](workshop/ko/08-kiro-dev/README.md) | Steering, MCP 설정, 스펙 기반 개발 | 10분 | ![Beginner](https://img.shields.io/badge/-Beginner-brightgreen) | 선택 |
+| 09 | [Gateway & Identity](workshop/ko/09-agentcore-gateway-identity/README.md) | OpenAPI를 MCP 도구로 노출(Gateway), Cognito 기반 접근 제어(Identity) | 25분 | ![Advanced](https://img.shields.io/badge/-Advanced-red) | 선택 |
 
 > [!IMPORTANT]
 > 01, 02, 05, 06, 07 챕터가 핵심 경로입니다. 03, 04, 08 챕터는 독립적으로 구성되어 있어 건너뛸 수 있습니다. 챕터 간 의존성은 하나뿐입니다. 07 챕터는 06 챕터에서 배포한 에이전트의 텔레메트리를 확인하는 실습입니다.

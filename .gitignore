@@ -36,6 +36,10 @@ htmlcov/
 .bedrock_agentcore.yaml
 .agentcore.yaml
 
+# Chapter 09 runtime state: gateway_config.json holds the Cognito client secret, .agentcore.json the workload identity
+gateway_config.json
+.agentcore.json
+
 # Lab output generated at runtime, except the sample outputs shipped with chapter 02
 artifacts-*/
 !02-multi-agents/completed/artifacts-*/

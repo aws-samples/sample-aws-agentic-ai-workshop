@@ -23,7 +23,7 @@
 > **사전 준비**
 > - [00-setup](../00-setup/README.md)에 따라 환경 구성 및 uv 환경 활성화
 > - 이전 챕터와 동일하게 `us-west-2` 리전의 Amazon Bedrock 모델(Claude) 액세스
-> - IAM(역할 생성), Cognito(사용자 풀 생성), Bedrock AgentCore(Gateway 생성)에 대한 권한
+> - IAM(역할 생성), Cognito(사용자 풀 생성), Bedrock AgentCore(Gateway 생성)에 대한 권한. 선택 실습인 3단계를 진행한다면 Secrets Manager 권한도 필요합니다(Identity가 자격 증명을 여기에 저장합니다)
 > - 이 챕터는 **과금되는 AWS 리소스**(AgentCore Gateway, Cognito User Pool)를 생성합니다. 둘 다 소액이지만, 실습 후 [리소스 정리](#리소스-정리)를 반드시 수행하세요.
 
 **이번 챕터에서 배우는 내용**
@@ -393,8 +393,10 @@ gateway_mcp_client = MCPClient(lambda: streamablehttp_client(
 ))
 
 if __name__ == "__main__":
+    # 특정 ID 대신 상태로 조회합니다. 공개 Petstore는 누구나 데이터를 지울 수 있는
+    # 공용 샌드박스라, ID를 고정해두면 그 데이터가 사라져 404가 날 수 있습니다.
     user_input = (
-        "강아지(dog) 카테고리의 반려동물 중 ID가 1인 데이터를 조회해줘. "
+        "지금 입양 가능한(available) 상태인 반려동물을 찾아서 몇 마리만 알려줘. "
         "어떤 도구를 썼는지도 말해줘."
     )
 
@@ -412,7 +414,10 @@ uv run gateway_agent.py
 cd -
 ```
 
-에이전트가 Gateway에서 받아온 도구 목록 중 하나를 선택해서 호출하고, 그 결과를 바탕으로 답변하는 것을 확인할 수 있습니다. 도구 이름은 `petstore-target___getPetById`처럼 `<Target 이름>___<operationId>` 형태로 자동 생성됩니다. Target을 여러 개 등록해도 이 접두사로 어느 백엔드의 도구인지 구분할 수 있습니다.
+에이전트가 Gateway에서 받아온 도구 목록 중 하나를 선택해서 호출하고, 그 결과를 바탕으로 답변하는 것을 확인할 수 있습니다. 도구 이름은 `petstore-target___findPetsByStatus`처럼 `<Target 이름>___<operationId>` 형태로 자동 생성됩니다. Target을 여러 개 등록해도 이 접두사로 어느 백엔드의 도구인지 구분할 수 있습니다.
+
+> [!TIP]
+> Petstore는 누구나 데이터를 추가하고 지울 수 있는 공용 샌드박스입니다. 그래서 이 실습은 특정 ID를 조회하는 대신 `findPetsByStatus`로 상태를 조회합니다. 특정 ID(예: `getPetById(1)`)를 지정하면 그 데이터가 이미 삭제된 상태일 수 있고, 그때 Gateway는 업스트림의 404를 `An internal error occurred` 형태로 전달하기 때문에 설정 오류처럼 보입니다.
 
 <details>
 <summary>토큰 없이 호출하면 어떻게 되나요?</summary>
@@ -585,11 +590,27 @@ import os
 import time
 
 import boto3
+from botocore.exceptions import ClientError
 
 CONFIG_FILE = "gateway_config.json"
 OUTBOUND_AUTH_REGION = "us-west-2"
 OUTBOUND_AUTH_PROVIDER_NAME = "workshop-weather-api-key-provider"
 OUTBOUND_AUTH_WORKLOAD_IDENTITY_NAME = "workshop-outbound-auth-identity"
+
+# 아래 AWS API들이 리소스가 이미 삭제됐을 때 돌려주는 에러 코드입니다.
+ALREADY_GONE = ("ResourceNotFoundException", "NoSuchEntity", "NotFoundException")
+
+
+def delete_quietly(label: str, delete_fn) -> None:
+    """삭제 호출 하나를 실행하고, 이미 지워진 리소스는 성공으로 취급합니다."""
+    print(f"Deleting {label}...")
+    try:
+        delete_fn()
+    except ClientError as e:
+        if e.response["Error"]["Code"] in ALREADY_GONE:
+            print("   Already gone, skipping.")
+            return
+        raise
 
 
 def cleanup_gateway_resources() -> None:
@@ -605,43 +626,44 @@ def cleanup_gateway_resources() -> None:
     iam = boto3.client("iam", region_name=config["region"])
 
     if "target_id" in config:
-        print("Deleting Gateway Target...")
-        agentcore.delete_gateway_target(
+        delete_quietly("Gateway Target", lambda: agentcore.delete_gateway_target(
             gatewayIdentifier=config["gateway_id"], targetId=config["target_id"]
-        )
+        ))
         time.sleep(5)
 
     if "gateway_id" in config:
-        print("Deleting Gateway...")
-        agentcore.delete_gateway(gatewayIdentifier=config["gateway_id"])
+        delete_quietly("Gateway", lambda: agentcore.delete_gateway(
+            gatewayIdentifier=config["gateway_id"]
+        ))
 
     print("Deleting Cognito resources (deleting the User Pool also removes the App Client/Resource Server)...")
-    cognito.delete_user_pool_domain(Domain=config["domain"], UserPoolId=config["user_pool_id"])
-    cognito.delete_user_pool(UserPoolId=config["user_pool_id"])
+    delete_quietly("Cognito domain", lambda: cognito.delete_user_pool_domain(
+        Domain=config["domain"], UserPoolId=config["user_pool_id"]
+    ))
+    delete_quietly("Cognito User Pool", lambda: cognito.delete_user_pool(
+        UserPoolId=config["user_pool_id"]
+    ))
 
-    print("Deleting IAM role...")
     role_name = config["role_arn"].split("/")[-1]
-    try:
-        iam.delete_role_policy(RoleName=role_name, PolicyName="agentcore-workshop-gateway-policy")
-    except iam.exceptions.NoSuchEntityException:
-        pass
-    iam.delete_role(RoleName=role_name)
+    delete_quietly("IAM role policy", lambda: iam.delete_role_policy(
+        RoleName=role_name, PolicyName="agentcore-workshop-gateway-policy"
+    ))
+    delete_quietly("IAM role", lambda: iam.delete_role(RoleName=role_name))
+
+    # 이제 config가 삭제된 리소스를 가리키므로 파일도 지웁니다.
+    os.remove(CONFIG_FILE)
 
 
 def cleanup_outbound_auth_demo() -> None:
     client = boto3.client("bedrock-agentcore-control", region_name=OUTBOUND_AUTH_REGION)
 
-    print("Deleting Outbound Auth demo credential provider...")
-    try:
-        client.delete_api_key_credential_provider(name=OUTBOUND_AUTH_PROVIDER_NAME)
-    except client.exceptions.ResourceNotFoundException:
-        pass
+    delete_quietly("Outbound Auth demo credential provider",
+                   lambda: client.delete_api_key_credential_provider(
+                       name=OUTBOUND_AUTH_PROVIDER_NAME))
 
-    print("Deleting Outbound Auth demo workload identity...")
-    try:
-        client.delete_workload_identity(name=OUTBOUND_AUTH_WORKLOAD_IDENTITY_NAME)
-    except client.exceptions.ResourceNotFoundException:
-        pass
+    delete_quietly("Outbound Auth demo workload identity",
+                   lambda: client.delete_workload_identity(
+                       name=OUTBOUND_AUTH_WORKLOAD_IDENTITY_NAME))
 
     if os.path.exists(".agentcore.json"):
         os.remove(".agentcore.json")
@@ -663,7 +685,7 @@ uv run cleanup.py
 cd -
 ```
 
-삭제 전에 `gateway_config.json`이 이번 실습에서 만든 리소스를 가리키는 게 맞는지 한 번 확인하세요. 3단계를 건너뛰었다면 `gateway_config.json`이 없어도, Outbound Auth 쪽 삭제는 리소스가 없으면 조용히 넘어가므로 그냥 실행해도 안전합니다.
+삭제 전에 `gateway_config.json`이 이번 실습에서 만든 리소스를 가리키는 게 맞는지 한 번 확인하세요. 선택 실습인 3단계를 건너뛰었다면 Outbound Auth 쪽에는 지울 리소스가 없는데, 그 경우에도 삭제는 조용히 넘어가므로 그냥 실행하면 됩니다. 정리가 끝나면 `gateway_config.json`도 함께 삭제되고, 이미 지워진 리소스를 다시 지우려 해도 건너뛰므로 스크립트를 두 번 실행해도 안전합니다.
 
 ## 트러블슈팅
 

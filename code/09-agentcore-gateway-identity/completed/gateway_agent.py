@@ -44,9 +44,11 @@ gateway_mcp_client = MCPClient(lambda: streamablehttp_client(
 ))
 
 if __name__ == "__main__":
+    # Ask by status rather than by a specific pet ID: the public Petstore is a
+    # shared sandbox whose records anyone can delete, so a hardcoded ID may 404.
     user_input = (
-        "Look up the pet with ID 1 in the dog category. "
-        "Tell me which tool you used."
+        "Find the pets that are currently available in the store. "
+        "List a couple of them and tell me which tool you used."
     )
 
     bedrock_model = BedrockModel(model_id="us.anthropic.claude-sonnet-4-6")

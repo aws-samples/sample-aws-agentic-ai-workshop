@@ -33,7 +33,7 @@ Build an AI agent from scratch with the [Strands Agents SDK](https://strandsagen
 | 09 | [Gateway & Identity](workshop/en/09-agentcore-gateway-identity/README.md) | Expose an OpenAPI as MCP tools (Gateway), control access with Cognito (Identity) | 25 min | ![Advanced](https://img.shields.io/badge/-Advanced-red) | Optional |
 
 > [!IMPORTANT]
-> Chapters 01, 02, 05, 06, and 07 form the core path. Chapters 03, 04, and 08 are self-contained and can be skipped. Chapter 07 is the one dependency worth noting: it reads telemetry from the agent you deploy in chapter 06.
+> Chapters 01, 02, 05, 06, and 07 form the core path. Chapters 03, 04, 08, and 09 are self-contained and can be skipped. Chapter 07 is the one dependency worth noting: it reads telemetry from the agent you deploy in chapter 06.
 
 ---
 

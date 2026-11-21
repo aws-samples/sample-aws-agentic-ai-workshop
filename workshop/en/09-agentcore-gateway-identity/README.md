@@ -23,7 +23,7 @@ The lab format is the same as other chapters: write code directly into the empty
 > **Prerequisites**
 > - Environment set up and the uv environment activated, following [00-setup](../00-setup/README.md)
 > - As in previous chapters, Amazon Bedrock model (Claude) access enabled in the `us-west-2` region
-> - Permissions for IAM (create role), Cognito (create user pool), and Bedrock AgentCore (create Gateway)
+> - Permissions for IAM (create role), Cognito (create user pool), and Bedrock AgentCore (create Gateway). Step 3, the optional section, also needs Secrets Manager permissions (Identity stores credentials there)
 > - This chapter creates **billable AWS resources** (an AgentCore Gateway, a Cognito User Pool). Both are low-cost, but make sure to run [cleanup](#cleanup) when you're done.
 
 **What you'll learn in this chapter**
@@ -393,9 +393,11 @@ gateway_mcp_client = MCPClient(lambda: streamablehttp_client(
 ))
 
 if __name__ == "__main__":
+    # Ask by status rather than by a specific pet ID: the public Petstore is a
+    # shared sandbox whose records anyone can delete, so a hardcoded ID may 404.
     user_input = (
-        "Look up the pet with ID 1 in the dog category. "
-        "Tell me which tool you used."
+        "Find the pets that are currently available in the store. "
+        "List a couple of them and tell me which tool you used."
     )
 
     bedrock_model = BedrockModel(model_id="us.anthropic.claude-sonnet-4-6")
@@ -412,7 +414,10 @@ uv run gateway_agent.py
 cd -
 ```
 
-You should see the agent pick one of the tools the Gateway returned, call it, and answer based on the result. Tool names are auto-generated as `<Target name>___<operationId>`, for example `petstore-target___getPetById`.
+You should see the agent pick one of the tools the Gateway returned, call it, and answer based on the result. Tool names are auto-generated as `<Target name>___<operationId>`, for example `petstore-target___findPetsByStatus`.
+
+> [!TIP]
+> The Petstore is a shared sandbox that anyone can add to or delete from. That is why this lab queries by status with `findPetsByStatus` instead of looking up a fixed ID. If you ask for a specific ID (say `getPetById(1)`), that record may already have been deleted, and the Gateway relays the upstream 404 as `An internal error occurred` -- which looks like a misconfiguration on your side.
 
 <details>
 <summary>What happens if you call it without a token?</summary>
@@ -439,9 +444,9 @@ So far, `GATEWAY_IAM_ROLE` was enough because Petstore is a public API that need
 
 Steps 1-2 handled "who can call the Gateway" (Inbound Auth) through Gateway settings. This step works directly with "how the agent authenticates to external services" (Outbound Auth) using the `bedrock_agentcore.identity` library.
 
-**4-1.** Open `labs/outbound_auth_demo.py`.
+**3-1.** Open `labs/outbound_auth_demo.py`.
 
-**4-2.** Import the libraries and define constants. Explicitly set the `AWS_REGION` environment variable that `requires_api_key` reads internally, to match the region you've been creating resources in.
+**3-2.** Import the libraries and define constants. Explicitly set the `AWS_REGION` environment variable that `requires_api_key` reads internally, to match the region you've been creating resources in.
 
 ```py
 import json
@@ -460,7 +465,7 @@ WORKLOAD_IDENTITY_NAME = "workshop-outbound-auth-identity"
 os.environ["AWS_REGION"] = REGION
 ```
 
-**4-3.** Write a function that registers an API key with Identity, and pre-provisions the Workload Identity used to retrieve it. Both names must be unique within the account, so a re-run raises an `already exists` error; in that case we simply reuse the existing ones.
+**3-3.** Write a function that registers an API key with Identity, and pre-provisions the Workload Identity used to retrieve it. Both names must be unique within the account, so a re-run raises an `already exists` error; in that case we simply reuse the existing ones.
 
 > **Why pre-provision the Workload Identity?**
 > The `requires_api_key` decorator can create a Workload Identity automatically if one doesn't exist. That auto-create path isn't supported yet outside of AgentCore Runtime (like running locally, as we're doing here). So we create it ahead of time through the control plane API, save its name to `.agentcore.json`, and the decorator picks up that config instead.
@@ -494,7 +499,7 @@ def register_demo_credential() -> None:
     print("Done.")
 ```
 
-**4-4.** Write a function that uses the `requires_api_key` decorator to retrieve that key. Notice that the actual key value doesn't appear anywhere in this function's code.
+**3-4.** Write a function that uses the `requires_api_key` decorator to retrieve that key. Notice that the actual key value doesn't appear anywhere in this function's code.
 
 ```py
 @requires_api_key(provider_name=PROVIDER_NAME)
@@ -511,7 +516,7 @@ if __name__ == "__main__":
     call_weather_api()
 ```
 
-**4-5.** Run it.
+**3-5.** Run it.
 
 ```bash
 cd 09-agentcore-gateway-identity/labs
@@ -585,11 +590,27 @@ import os
 import time
 
 import boto3
+from botocore.exceptions import ClientError
 
 CONFIG_FILE = "gateway_config.json"
 OUTBOUND_AUTH_REGION = "us-west-2"
 OUTBOUND_AUTH_PROVIDER_NAME = "workshop-weather-api-key-provider"
 OUTBOUND_AUTH_WORKLOAD_IDENTITY_NAME = "workshop-outbound-auth-identity"
+
+# Error codes the AWS APIs below return when the resource is already deleted.
+ALREADY_GONE = ("ResourceNotFoundException", "NoSuchEntity", "NotFoundException")
+
+
+def delete_quietly(label: str, delete_fn) -> None:
+    """Runs one delete call, treating an already-deleted resource as success."""
+    print(f"Deleting {label}...")
+    try:
+        delete_fn()
+    except ClientError as e:
+        if e.response["Error"]["Code"] in ALREADY_GONE:
+            print("   Already gone, skipping.")
+            return
+        raise
 
 
 def cleanup_gateway_resources() -> None:
@@ -605,43 +626,44 @@ def cleanup_gateway_resources() -> None:
     iam = boto3.client("iam", region_name=config["region"])
 
     if "target_id" in config:
-        print("Deleting Gateway Target...")
-        agentcore.delete_gateway_target(
+        delete_quietly("Gateway Target", lambda: agentcore.delete_gateway_target(
             gatewayIdentifier=config["gateway_id"], targetId=config["target_id"]
-        )
+        ))
         time.sleep(5)
 
     if "gateway_id" in config:
-        print("Deleting Gateway...")
-        agentcore.delete_gateway(gatewayIdentifier=config["gateway_id"])
+        delete_quietly("Gateway", lambda: agentcore.delete_gateway(
+            gatewayIdentifier=config["gateway_id"]
+        ))
 
     print("Deleting Cognito resources (deleting the User Pool also removes the App Client/Resource Server)...")
-    cognito.delete_user_pool_domain(Domain=config["domain"], UserPoolId=config["user_pool_id"])
-    cognito.delete_user_pool(UserPoolId=config["user_pool_id"])
+    delete_quietly("Cognito domain", lambda: cognito.delete_user_pool_domain(
+        Domain=config["domain"], UserPoolId=config["user_pool_id"]
+    ))
+    delete_quietly("Cognito User Pool", lambda: cognito.delete_user_pool(
+        UserPoolId=config["user_pool_id"]
+    ))
 
-    print("Deleting IAM role...")
     role_name = config["role_arn"].split("/")[-1]
-    try:
-        iam.delete_role_policy(RoleName=role_name, PolicyName="agentcore-workshop-gateway-policy")
-    except iam.exceptions.NoSuchEntityException:
-        pass
-    iam.delete_role(RoleName=role_name)
+    delete_quietly("IAM role policy", lambda: iam.delete_role_policy(
+        RoleName=role_name, PolicyName="agentcore-workshop-gateway-policy"
+    ))
+    delete_quietly("IAM role", lambda: iam.delete_role(RoleName=role_name))
+
+    # The config now points at deleted resources, so drop it.
+    os.remove(CONFIG_FILE)
 
 
 def cleanup_outbound_auth_demo() -> None:
     client = boto3.client("bedrock-agentcore-control", region_name=OUTBOUND_AUTH_REGION)
 
-    print("Deleting Outbound Auth demo credential provider...")
-    try:
-        client.delete_api_key_credential_provider(name=OUTBOUND_AUTH_PROVIDER_NAME)
-    except client.exceptions.ResourceNotFoundException:
-        pass
+    delete_quietly("Outbound Auth demo credential provider",
+                   lambda: client.delete_api_key_credential_provider(
+                       name=OUTBOUND_AUTH_PROVIDER_NAME))
 
-    print("Deleting Outbound Auth demo workload identity...")
-    try:
-        client.delete_workload_identity(name=OUTBOUND_AUTH_WORKLOAD_IDENTITY_NAME)
-    except client.exceptions.ResourceNotFoundException:
-        pass
+    delete_quietly("Outbound Auth demo workload identity",
+                   lambda: client.delete_workload_identity(
+                       name=OUTBOUND_AUTH_WORKLOAD_IDENTITY_NAME))
 
     if os.path.exists(".agentcore.json"):
         os.remove(".agentcore.json")
@@ -663,7 +685,7 @@ uv run cleanup.py
 cd -
 ```
 
-Before deleting, double check that `gateway_config.json` points at the resources you created in this lab. If you skipped step 3, `gateway_config.json` may not exist -- that's fine, the Outbound Auth cleanup silently skips resources that aren't there.
+Before deleting, double check that `gateway_config.json` points at the resources you created in this lab. If you skipped step 3, the optional section, there is nothing for the Outbound Auth cleanup to delete -- that's fine, it silently skips resources that aren't there. Once cleanup finishes it also removes `gateway_config.json`, and deletes of already-deleted resources are skipped, so the script is safe to run twice.
 
 ## Troubleshooting
 

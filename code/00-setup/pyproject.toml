@@ -32,7 +32,7 @@ dependencies = [
     "plotly==6.3.0",
     "reportlab==4.4.3",
     "markdown==3.9",
-    "fpdf2==2.8.4",
+    "fpdf2==2.8.8",
     "matplotlib-inline==0.1.7",
     "strands-agents-tools==0.2.11",
     "bedrock-agentcore[strands-agents]==1.2.1",
